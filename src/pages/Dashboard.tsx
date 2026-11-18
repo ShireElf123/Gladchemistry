@@ -40,7 +40,9 @@ const BRAND_ICON: Record<BrandId, React.ElementType> = {
   'bubbles-detergents': Droplets,
 };
 
-const zar = (n: number) => `R${n.toFixed(2)}`;
+// Group thousands for readability while keeping the storefront's dot decimals.
+const zar = (n: number) =>
+  `R${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 export const Dashboard: React.FC = () => {
   const stats = useMemo(() => {
