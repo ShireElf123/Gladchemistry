@@ -91,7 +91,8 @@ export const CartDrawer: React.FC = () => {
                       />
                       <div className="flex-1 min-w-0">
                         <span
-                          className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border mb-1 ${brandInfo.badgeClass}`}
+                          className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full mb-1"
+                          style={{ background: brandInfo.stageTone, color: brandInfo.inkColor }}
                         >
                           {brandInfo.name}
                         </span>

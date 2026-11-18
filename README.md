@@ -13,10 +13,8 @@ Live: <https://gladchemistry.vercel.app>
 
 ## Pages
 
-- `/` — Home: brand switcher, hero, brand showcase, benchmarks, featured bestsellers
+- `/` — Home: hero with brand switcher, ticker, featured products, the 3 houses, proof strip
 - `/shop` — Full catalogue with brand filter (`/shop?brand=gladchemistry`)
-- `/dashboard` — Catalogue analytics: KPI tiles, brand-mix donut, average-price bars,
-  featured-coverage gauge and a premium price ladder (all computed from the live data)
 - `/brands` — Side-by-side comparison of the three brands
 - `/about` — Brand story and formulation standards
 - `/contact` — Enquiry form and contact details
@@ -50,28 +48,36 @@ npm run dev      # http://localhost:5173
 ```
 src/
 ├── components/
-│   ├── charts/       # DonutChart, BarChart, GaugeChart — lightweight SVG, no chart lib
-│   ├── StatTile.tsx  # KPI tile with delta pill
 │   └── ...           # Navbar, Footer, CartDrawer, ProductCard, ProductModal
 ├── context/      # CartContext — cart state and totals
 ├── data/         # brands.ts and products.ts — the whole catalogue lives here
-└── pages/        # Home, Shop, Dashboard, Brands, About, Contact
+└── pages/        # Home, Shop, Brands, About, Contact
 public/images/    # Product, hero and logo imagery
 ```
 
 ### Design system
 
-`src/index.css` holds the shared visual language: an ambient mesh backdrop
-(`.app-backdrop`), layered soft-UI surfaces (`.ui-card`, `.ui-tile`), delta pills
-(`.ui-pill`) and the hatched bar fill (`.hatch`). Charts are hand-built SVG with
-Framer Motion transitions, so there is no charting dependency.
+Calibrated against the **Fizzly Soda** storefront: flat saturated colour, oversized
+confident display type, product art on tinted stages, chunky pill buttons and ticker
+strips — not glassy admin panels.
 
-The dashboard is **data-driven and honest** — every figure is derived from
-`src/data/products.ts` at render time. There is no sample, random or placeholder
-analytics. If the catalogue changes, the dashboard changes with it.
+`src/index.css` holds the shared tokens and primitives:
 
-Products and brands are data-driven: add an entry to `src/data/products.ts` and it
-flows through the shop grid, brand filters, and featured sections automatically.
+| Token / class | Role |
+| --- | --- |
+| `--ink`, `--cream`, `--lime` | Core palette (ink text, warm paper, lime accent) |
+| `.display-xl` / `.display-lg` | Fluid oversized headings (`clamp`) |
+| `.u-mark` | Underlined emphasis word inside a heading |
+| `.stage` | Tinted product pad with a soft white circle behind the pack |
+| `.btn` + `btn-ink` / `btn-fern` / `btn-lime` / `btn-ghost` | Chunky pill buttons |
+| `.chip` | Filter pills with an active ink state |
+| `.flag` | Hard uppercase badge (BESTSELLER, NEW) |
+| `.marquee` | Scrolling ticker strip |
+| `.panel` | Flat white surface, one hairline, no blur |
+
+Each brand carries its own `stageTone` and `inkColor` in `src/data/brands.ts`, so
+product art is always tinted to the house it belongs to.
+
 
 ## Deployment
 

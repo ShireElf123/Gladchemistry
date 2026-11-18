@@ -1,140 +1,346 @@
 @import "tailwindcss";
 
+/* ==================================================================
+   Gladchemistry design system
+   Calibrated against the Fizzly Soda storefront (fizzly-soda-nine):
+   flat saturated colour, big confident display type, product art on
+   tinted "stages" with a circle behind the pack, chunky pill buttons,
+   ticker strips. No glassy admin panels, no dashboard chrome.
+   ================================================================== */
+
+:root {
+  --ink: #10231c;
+  --ink-soft: #2f4a3f;
+  --cream: #fbf7f0;
+  --paper: #fffdf9;
+  --emerald: #16a34a;
+  --fern: #0e7c4a;
+  --lime: #d7f5b0;
+  --amber: #c2760b;
+  --sky: #0284c7;
+  --violet: #6d28d9;
+  --coral: #e2483d;
+
+  --tone-glad: #ddf3e4;
+  --tone-felis: #fbeedb;
+  --tone-bubbles: #dceffb;
+}
+
 @layer base {
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    color: var(--ink);
+    background: var(--cream);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, h5, h6, .font-display {
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--amber);
+    outline-offset: 3px;
   }
 }
 
-@keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-14px) rotate(1.5deg);
-  }
+/* ---------------------------------------------------------------- type */
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--fern);
 }
 
-@keyframes floatReverse {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(12px) rotate(-1.5deg);
-  }
+.eyebrow-invert {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--lime);
 }
 
-.animate-float-slow {
-  animation: floatSlow 6s ease-in-out infinite;
+/* Oversized section headings, as on the soda store */
+.display-xl {
+  font-size: clamp(40px, 6.4vw, 82px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
 }
 
-.animate-float-reverse {
-  animation: floatReverse 7s ease-in-out infinite;
+.display-lg {
+  font-size: clamp(32px, 4.2vw, 54px);
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
-/* ------------------------------------------------------------------
-   Design system — layered soft UI, inspired by the reference dashboards
-   ------------------------------------------------------------------ */
-
-/* Ambient mesh backdrop. Fixed so every page shares one continuous field,
-   with a fine grid overlay for depth. */
-.app-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-color: #f7f9fc;
-  background-image:
-    radial-gradient(ellipse 70% 55% at 12% -8%, rgba(22, 163, 74, 0.16), transparent 60%),
-    radial-gradient(ellipse 60% 50% at 92% 4%, rgba(217, 119, 6, 0.13), transparent 60%),
-    radial-gradient(ellipse 65% 55% at 85% 92%, rgba(2, 132, 199, 0.15), transparent 62%),
-    radial-gradient(ellipse 55% 45% at 6% 88%, rgba(124, 58, 237, 0.1), transparent 62%);
+.display-md {
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
 }
 
-.app-backdrop::after {
+/* Underlined emphasis word inside a heading, like "flavour" on the soda site */
+.u-mark {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+.u-mark::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.028) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 75%);
+  left: -0.06em;
+  right: -0.06em;
+  bottom: 0.02em;
+  height: 0.1em;
+  border-radius: 99px;
+  background: currentColor;
+  opacity: 0.28;
 }
 
-/* Soft UI Card — the base surface */
-.ui-card {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow:
-    0 20px 40px -15px rgba(15, 23, 42, 0.06),
-    0 4px 12px -2px rgba(15, 23, 42, 0.03);
+/* ------------------------------------------------------------ surfaces */
+
+/* Plain white panel. Deliberately flat: one hairline, no glass, no blur. */
+.panel {
+  background: var(--paper);
+  border: 1px solid rgba(16, 35, 28, 0.09);
+  border-radius: 22px;
 }
 
-/* Elevated surface for tiles sitting on top of a card */
-.ui-tile {
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(226, 232, 240, 0.85);
-  border-radius: 1.5rem;
-  box-shadow:
-    0 12px 28px -12px rgba(15, 23, 42, 0.1),
-    0 2px 6px -2px rgba(15, 23, 42, 0.04);
-  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+/* Solid ink block used for full-bleed callouts */
+.ink-block {
+  background: var(--ink);
+  color: #fff;
+  border-radius: 28px;
 }
 
-.ui-tile-hover:hover {
-  transform: translateY(-3px);
-  border-color: rgba(203, 213, 225, 0.9);
-  box-shadow:
-    0 24px 44px -16px rgba(15, 23, 42, 0.16),
-    0 4px 10px -3px rgba(15, 23, 42, 0.05);
+/* ------------------------------------------------ product art "stage" */
+
+/* Tinted pad with a soft white circle behind the pack, exactly the trick
+   that makes the soda cans read as real product photography. */
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 22px;
+  background: var(--stage-tone, var(--tone-glad));
 }
 
-/* Header strip inside the KPI tiles: a soft tinted wash that reads as a
-   separate layer without adding another border */
-.ui-tile-wash {
-  background-image: linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(255, 255, 255, 0));
+.stage::before {
+  content: '';
+  position: absolute;
+  width: 68%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.62);
 }
 
-/* Small pill badge, as used for deltas in the references */
-.ui-pill {
+.stage > img {
+  position: relative;
+  height: 84%;
+  width: auto;
+  max-width: 78%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 12px rgba(16, 35, 28, 0.24));
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .stage > img {
+  transform: translateY(-8px) scale(1.03);
+}
+
+/* ------------------------------------------------------------- buttons */
+
+.btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  border-radius: 9999px;
-  padding: 0.2rem 0.6rem;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 26px;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: #fff;
+}
+.btn-ink:hover {
+  background: var(--ink-soft);
+}
+
+.btn-fern {
+  background: var(--fern);
+  color: #fff;
+}
+.btn-fern:hover {
+  background: var(--emerald);
+}
+
+.btn-lime {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 2px solid var(--ink);
+}
+
+.btn-paper {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid rgba(16, 35, 28, 0.14);
+}
+
+.btn-sm {
+  min-height: 42px;
+  padding: 9px 18px;
+  font-size: 12.5px;
+}
+
+/* --------------------------------------------------------------- pills */
+
+/* Filter / category chips, matching the soda site's pill row */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 10px 17px;
+  min-height: 42px;
+  font-size: 13px;
+  font-weight: 800;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid rgba(16, 35, 28, 0.16);
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease, border-color 0.16s ease;
   white-space: nowrap;
 }
 
-/* Diagonal hatch used behind unfilled chart bars in the references */
-.hatch {
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgba(148, 163, 184, 0.26) 0px,
-    rgba(148, 163, 184, 0.26) 1px,
-    transparent 1px,
-    transparent 4px
-  );
+.chip:hover {
+  border-color: rgba(16, 35, 28, 0.4);
+}
+
+.chip[data-active='true'] {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+/* Small hard label, e.g. BESTSELLER, on top of a product stage */
+.flag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: #fff;
+}
+
+.flag-lime {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.flag-coral {
+  background: var(--coral);
+  color: #fff;
+}
+
+/* -------------------------------------------------------------- ticker */
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 26s linear infinite;
+}
+
+.marquee-slow {
+  animation-duration: 40s;
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+/* ------------------------------------------------------------- motion */
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1.2deg); }
+}
+
+.animate-float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rise {
+  animation: riseIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-float-slow,
-  .animate-float-reverse {
+  .marquee,
+  .animate-float-slow {
     animation: none;
   }
-
-  .ui-tile-hover:hover {
+  .btn:hover,
+  .stage > img {
     transform: none;
   }
+  .rise {
+    animation: none;
+  }
+}
+
+/* Hide scrollbar on horizontal chip rows */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

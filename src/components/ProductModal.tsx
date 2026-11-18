@@ -54,7 +54,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
               className="w-full h-full object-cover"
             />
             <span
-              className={`absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded-full border backdrop-blur-md ${brand.badgeClass}`}
+              className="absolute top-4 left-4 text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full"
+              style={{ background: 'var(--ink)', color: '#fff' }}
             >
               {brand.name}
             </span>
