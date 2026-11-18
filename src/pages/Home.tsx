@@ -1,305 +1,421 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Star } from 'lucide-react';
 import { BRANDS, BRAND_LIST } from '../data/brands';
 import type { BrandId } from '../data/brands';
 import { PRODUCTS } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
+import { Hero } from '../components/Hero';
 
-const TICKER = [
+/* ------------------------------------------------------------------ */
+/*  Home — section-for-section port of the Fizzly Soda homepage        */
+/*  hero → ticker → flavour grid → brand story → how → promo → closer  */
+/* ------------------------------------------------------------------ */
+
+const MARQUEE_TEXT = [
   'Organic botanicals',
   'Fine fragrance',
   'Serious cleaning',
   'Made in South Africa',
-  '3 houses, one standard',
+  'Three houses, one standard',
 ];
 
-const Ticker: React.FC<{ items: string[]; invert?: boolean }> = ({ items, invert }) => {
-  const row = [...items, ...items, ...items, ...items];
-  return (
-    <div
-      className={`overflow-hidden border-y ${invert ? 'border-white/15' : 'border-black/10'}`}
-      style={{ background: invert ? 'var(--ink)' : 'var(--lime)' }}
-    >
-      <div className="marquee py-3">
-        {row.map((item, i) => (
-          <span
-            key={`${item}-${i}`}
-            className="flex items-center gap-5 px-5 text-[12px] font-black uppercase tracking-[0.18em] whitespace-nowrap"
-            style={{ color: invert ? '#fff' : 'var(--ink)' }}
-          >
-            {item}
-            <Star className="h-3 w-3 shrink-0" style={{ color: invert ? 'var(--lime)' : 'var(--ink)' }} />
-          </span>
-        ))}
-      </div>
+/** Rotated ticker band, exactly the soda `mq` treatment. */
+const Marquee: React.FC<{ text: string[]; tone?: string }> = ({ text, tone = 'var(--lime)' }) => (
+  <div
+    aria-hidden
+    className="overflow-hidden whitespace-nowrap relative"
+    style={{
+      background: tone,
+      color: 'var(--ink)',
+      transform: 'rotate(-1.6deg)',
+      margin: '-14px -10px 0',
+      padding: '14px 0',
+      zIndex: 5,
+    }}
+  >
+    <div className="marquee" style={{ display: 'inline-block', animation: 'mq 24s linear infinite' }}>
+      {Array.from({ length: 8 }).map((_, i) => (
+        <span
+          key={i}
+          className="font-display font-extrabold text-[26px] sm:text-[30px] px-5"
+          style={{ display: 'inline-block' }}
+        >
+          {text[i % text.length]} ★
+        </span>
+      ))}
     </div>
-  );
+  </div>
+);
+
+/** Scroll-reveal helper — staggers children in as the section enters view. */
+const useReveal = () => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ctx: gsap.Context | undefined;
+    let killed = false;
+
+    (async () => {
+      const { default: gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      if (killed || !ref.current) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      ctx = gsap.context(() => {
+        const items = ref.current!.querySelectorAll('.reveal');
+        items.forEach((el) => {
+          gsap.from(el, {
+            y: 46,
+            opacity: 0,
+            duration: 0.65,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          });
+        });
+      }, ref);
+    })();
+
+    return () => {
+      killed = true;
+      ctx?.revert();
+    };
+  }, []);
+
+  return ref;
 };
 
 export const Home: React.FC = () => {
-  const [activeBrand, setActiveBrand] = useState<BrandId>('gladchemistry');
-  const brand = BRANDS[activeBrand];
-  const featured = PRODUCTS.filter((p) => p.featured).slice(0, 6);
-  const cheapest = Math.min(...PRODUCTS.map((p) => p.price));
+  const [activeBrand, setActiveBrand] = useState<BrandId | 'all'>('all');
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  const visibleProducts =
+    activeBrand === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.brand === activeBrand);
+
+  /* Re-stagger the grid whenever the filter changes, like the soda chips */
+  useEffect(() => {
+    let killed = false;
+    (async () => {
+      const { default: gsap } = await import('gsap');
+      if (killed || !gridRef.current) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      gsap.from(gridRef.current.querySelectorAll('.grid-anim'), {
+        y: 40,
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.5,
+        stagger: 0.06,
+        ease: 'back.out(1.8)',
+      });
+    })();
+    return () => {
+      killed = true;
+    };
+  }, [activeBrand]);
+
+  const featured = PRODUCTS.filter((p) => p.featured);
+  const storyRef = useReveal();
+  const howRef = useReveal();
 
   return (
     <div>
-      {/* ================================================== HERO */}
-      <section className="relative overflow-hidden" style={{ background: 'var(--lime)' }}>
-        {/* Soft arc behind the hero art, echoing the soda splash backdrop */}
+      {/* ============================================== 1. HERO */}
+      <Hero />
+
+      {/* ============================================== 2. TICKER */}
+      <Marquee text={MARQUEE_TEXT} />
+
+      {/* ============================================== 3. PRODUCT GRID */}
+      <section className="px-[5vw] pt-[110px] pb-[80px]">
+        <div className="mx-auto max-w-[1240px]">
+          <span
+            className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em]"
+            style={{ background: 'rgba(16,35,28,.07)', color: 'var(--ink)' }}
+          >
+            The signature range
+          </span>
+
+          <h2 className="mt-4 display-xl" style={{ color: 'var(--ink)' }}>
+            Pick your <em className="u-mark not-italic" style={{ color: 'var(--fern)' }}>range</em>
+          </h2>
+          <p className="mt-4 max-w-[520px] text-[16px] leading-relaxed text-slate-500">
+            {PRODUCTS.length} products across three houses, one very easy decision.
+            Filter by house to narrow it down.
+          </p>
+
+          {/* Filter chips */}
+          <div className="mt-8 mb-8 flex flex-wrap gap-2">
+            <button
+              onClick={() => setActiveBrand('all')}
+              className="chip"
+              data-active={activeBrand === 'all'}
+            >
+              All
+            </button>
+            {BRAND_LIST.map((b) => (
+              <button
+                key={b.id}
+                onClick={() => setActiveBrand(b.id)}
+                className="chip"
+                data-active={activeBrand === b.id}
+              >
+                {b.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Grid */}
+          <div
+            ref={gridRef}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12"
+          >
+            {visibleProducts.map((product, i) => (
+              <div key={product.id} className="grid-anim">
+                <ProductCard product={product} index={i} />
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link to="/shop" className="btn btn-ink">
+              Shop all {PRODUCTS.length} products →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================== 4. BRAND STORY */}
+      <section
+        ref={storyRef}
+        className="relative overflow-hidden grid lg:grid-cols-2 items-center gap-6 px-[6vw] py-[90px]"
+        style={{ background: '#0d3b2a', minHeight: '86svh' }}
+      >
+        {/* Backdrop image */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-24 top-1/2 -translate-y-1/2 h-[560px] w-[560px] rounded-full opacity-40"
-          style={{ background: '#b7e65e' }}
+          className="absolute inset-0 bg-cover bg-center pointer-events-none"
+          style={{
+            backgroundImage: `url(${BRANDS[activeBrand === 'all' ? 'felis-be-glad' : activeBrand].heroImage})`,
+            opacity: 0.28,
+          }}
         />
 
-        <div className="relative mx-auto max-w-[1240px] px-5 pt-12 pb-14 sm:pt-16 sm:pb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            {/* Copy */}
-            <div className="lg:col-span-6">
-              <span className="eyebrow" style={{ color: 'var(--ink)' }}>
-                House of 3 brands · South Africa
-              </span>
+        <div className="relative z-10 max-w-[560px] reveal">
+          <span className="inline-block rounded-full px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.1em] bg-white/10 text-white">
+            Felis be Glad
+          </span>
+          <h2 className="display-lg mt-3 text-white">
+            A little <em className="u-mark not-italic" style={{ color: 'var(--sun)' }}>luxury</em>,
+            every day.
+          </h2>
+          <p className="mt-4 text-[16px] leading-relaxed text-white/80">
+            Inspired-by fine fragrance, hand-poured reed diffusers and car perfumes built for
+            lasting sillage — 5 products, 12+ weeks of scent.
+          </p>
 
-              <h1 className="display-xl mt-4" style={{ color: 'var(--ink)' }}>
-                Everyday care,
-                <br />
-                <span className="u-mark">properly</span> made.
-              </h1>
-
-              <p
-                className="mt-5 text-[17px] leading-relaxed max-w-[46ch]"
-                style={{ color: 'var(--ink-soft)' }}
-              >
-                Organic personal care, fine fragrance and detergents that actually work —
-                formulated in South Africa, sold from R{cheapest}.
-              </p>
-
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Link to="/shop" className="btn btn-ink">
-                  Shop the range
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link to="/brands" className="btn btn-ghost">
-                  Meet the 3 houses
-                </Link>
-              </div>
-
-              {/* Brand switcher — pills, soda-style */}
-              <div className="mt-9">
-                <p className="text-[11px] font-black uppercase tracking-[0.16em] mb-2.5" style={{ color: 'var(--ink-soft)' }}>
-                  Pick your house
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {BRAND_LIST.map((b) => {
-                    const active = b.id === activeBrand;
-                    return (
-                      <button
-                        key={b.id}
-                        onClick={() => setActiveBrand(b.id)}
-                        aria-pressed={active}
-                        className="chip"
-                        data-active={active}
-                        style={active ? { background: 'var(--ink)', color: '#fff' } : { background: '#fff' }}
-                      >
-                        <span
-                          className="h-2.5 w-2.5 rounded-full shrink-0"
-                          style={{ background: b.primaryColor }}
-                        />
-                        {b.name}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            {/* Art */}
-            <div className="lg:col-span-6">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeBrand}
-                  initial={{ opacity: 0, scale: 0.94, y: 10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.96, y: -8 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative"
+          <div className="mt-5 flex flex-wrap gap-2">
+            {['Inspired by designer scents', 'Long-lasting diffusers', 'Signature car perfumes'].map(
+              (t) => (
+                <span
+                  key={t}
+                  className="rounded-full px-4 py-1.5 text-[13px] font-bold text-white"
+                  style={{ border: '2px solid rgba(255,255,255,.28)' }}
                 >
-                  <div className="relative mx-auto max-w-[520px]">
-                    <div
-                      className="animate-float-slow relative overflow-hidden rounded-[28px] shadow-[0_30px_60px_-24px_rgba(16,35,28,0.45)]"
-                      style={{ background: brand.stageTone }}
-                    >
-                      <img
-                        src={brand.heroImage}
-                        alt={brand.name}
-                        className="w-full aspect-[4/3] object-cover"
-                      />
-                    </div>
+                  {t}
+                </span>
+              ),
+            )}
+          </div>
 
-                    {/* Floating price/quality chip */}
-                    <div
-                      className="absolute -bottom-4 -left-3 sm:-left-6 rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3"
-                      style={{ background: 'var(--ink)', color: '#fff' }}
-                    >
-                      <div
-                        className="h-9 w-9 rounded-full grid place-items-center shrink-0"
-                        style={{ background: 'var(--lime)', color: 'var(--ink)' }}
-                      >
-                        <ArrowUpRight className="h-4 w-4" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] font-bold uppercase tracking-[0.14em] opacity-70">
-                          {brand.tagline}
-                        </p>
-                        <p className="text-sm font-extrabold leading-tight">{brand.tag}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
+          <div className="mt-7 flex flex-wrap gap-2.5">
+            <Link to="/shop?brand=felis-be-glad" className="btn btn-lime">
+              Shop Felis be Glad
+            </Link>
+            <Link
+              to="/brands"
+              className="btn"
+              style={{
+                background: 'transparent',
+                border: '2px solid rgba(255,255,255,.45)',
+                color: '#fff',
+              }}
+            >
+              All three houses
+            </Link>
+          </div>
+        </div>
+
+        {/* Tilted product cluster */}
+        <div className="relative z-10 grid place-items-center reveal">
+          <div className="relative w-[min(90%,420px)]" style={{ aspectRatio: '1 / 1' }}>
+            <div
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[78%] aspect-square rounded-full"
+              style={{ background: 'rgba(255,255,255,.14)' }}
+            />
+            <img
+              src="/images/reed-diffuser.jpg"
+              alt="Signature Amber Reed Diffuser"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[58%] rounded-[28px] object-cover shadow-2xl -rotate-6"
+              style={{ aspectRatio: '3 / 4' }}
+            />
+            <img
+              src="/images/felis-fragrances.jpg"
+              alt="Felis be Glad fragrance"
+              className="absolute right-[2%] bottom-[4%] w-[42%] rounded-[22px] object-cover shadow-2xl rotate-6"
+              style={{ aspectRatio: '3 / 4' }}
+            />
           </div>
         </div>
       </section>
 
-      <Ticker items={TICKER} />
-
-      {/* ================================================== FEATURED */}
-      <section className="mx-auto max-w-[1240px] px-5 py-14 sm:py-20">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div>
-            <span className="eyebrow">Customer favourites</span>
-            <h2 className="display-lg mt-2" style={{ color: 'var(--ink)' }}>
-              The stuff people <span className="u-mark">reorder</span>
-            </h2>
-          </div>
-          <Link
-            to="/shop"
-            className="inline-flex items-center gap-1.5 text-sm font-black underline underline-offset-4 shrink-0"
-            style={{ color: 'var(--ink)' }}
+      {/* ============================================== 5. HOW / PROOF */}
+      <section
+        ref={howRef}
+        className="relative overflow-hidden px-[5vw] pt-[80px] pb-[140px]"
+        style={{ background: 'var(--cream)', color: 'var(--ink)' }}
+      >
+        <div className="mx-auto max-w-[1240px]">
+          <span
+            className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em] reveal"
+            style={{ background: 'rgba(16,35,28,.07)' }}
           >
-            All {PRODUCTS.length} products
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
+            Tested, not guessed
+          </span>
+          <h2 className="mt-4 display-lg reveal">
+            From bench to <em className="u-mark not-italic" style={{ color: 'var(--violet)' }}>bathroom</em>
+          </h2>
+          <p className="mt-3 max-w-[520px] text-[16px] leading-relaxed text-slate-500 reveal">
+            Every batch in all three houses is checked for purity, longevity and surface safety
+            before it ships.
+          </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-          {featured.map((product, index) => (
-            <ProductCard key={product.id} product={product} index={index} tall />
-          ))}
-        </div>
-      </section>
-
-      {/* ================================================== BRANDS */}
-      <section className="mx-auto max-w-[1240px] px-5 pb-16 sm:pb-24">
-        <div className="ink-block px-6 py-10 sm:px-12 sm:py-14">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-9">
-            <div>
-              <span className="eyebrow-invert">Three houses</span>
-              <h2 className="display-lg mt-2 text-white">
-                One standard,
-                <br />
-                <span className="u-mark">three</span> personalities.
-              </h2>
-            </div>
-            <p className="text-[15px] leading-relaxed max-w-[40ch] text-white/70">
-              Each house has its own formulation bench, its own scent library and its own
-              job to do. What they share is the testing.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {BRAND_LIST.map((b, i) => {
-              const count = PRODUCTS.filter((p) => p.brand === b.id).length;
-              return (
-                <motion.div
-                  key={b.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="rounded-[22px] p-4 flex flex-col"
-                  style={{ background: 'rgba(255,255,255,0.06)' }}
+          <div className="mt-[44px] grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { n: '01', t: 'Formulated', d: 'Balanced for efficacy, safety and long shelf life.', c: 'var(--fern)' },
+              { n: '02', t: 'Batch tested', d: 'Purity, scent longevity and surface safety.', c: 'var(--amber)' },
+              { n: '03', t: 'Filled & sealed', d: 'Filled in South Africa, sealed for transport.', c: 'var(--sky)' },
+              { n: '04', t: 'Shipped', d: 'Nationwide dispatch, wholesale terms available.', c: 'var(--violet)' },
+            ].map((s) => (
+              <div key={s.n} className="panel p-6 reveal">
+                <span
+                  className="font-display font-extrabold text-[34px] leading-none"
+                  style={{ color: s.c }}
                 >
-                  <div
-                    className="relative rounded-[16px] overflow-hidden"
-                    style={{ background: b.stageTone, height: 190 }}
-                  >
-                    <div
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[58%] aspect-square rounded-full"
-                      style={{ background: 'rgba(255,255,255,0.6)' }}
-                    />
-                    <img
-                      src={b.heroImage}
-                      alt={b.name}
-                      className="relative w-full h-full object-cover"
-                    />
-                  </div>
-
-                  <div className="pt-4 flex-1 flex flex-col">
-                    <p className="text-[10px] font-black uppercase tracking-[0.16em]" style={{ color: b.primaryColor }}>
-                      {b.category}
-                    </p>
-                    <h3 className="font-display font-extrabold text-xl text-white mt-1">{b.name}</h3>
-                    <p className="text-[13px] leading-relaxed text-white/60 mt-1.5 flex-1">
-                      {b.tagline} — {count} products in the range.
-                    </p>
-                    <Link
-                      to={`/shop?brand=${b.id}`}
-                      className="btn btn-sm btn-lime mt-4 self-start"
-                    >
-                      Shop {b.name.split(' ')[0]}
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
-                </motion.div>
-              );
-            })}
+                  {s.n}
+                </span>
+                <h3 className="font-display font-extrabold text-[19px] mt-3">{s.t}</h3>
+                <p className="text-[13px] leading-relaxed text-slate-500 mt-1.5">{s.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ================================================== PROOF STRIP */}
-      <section className="mx-auto max-w-[1240px] px-5 pb-16 sm:pb-24">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          {[
-            { k: '100%', v: 'Organic botanical extracts' },
-            { k: '24+', v: 'Fine fragrance scents' },
-            { k: '99.9%', v: 'Germ elimination' },
-            { k: 'Nationwide', v: 'South African delivery' },
-          ].map((s) => (
-            <div key={s.v} className="panel px-5 py-6">
-              <p className="font-display font-extrabold text-[30px] leading-none" style={{ color: 'var(--ink)' }}>
-                {s.k}
-              </p>
-              <p className="text-[12px] font-semibold text-slate-500 mt-2 leading-snug">{s.v}</p>
-            </div>
+      {/* ============================================== 6. PROMO */}
+      <section
+        className="relative overflow-hidden grid lg:grid-cols-[1.1fr_.9fr] items-center gap-8 px-[5vw] py-[90px]"
+        style={{ background: 'var(--ink)' }}
+      >
+        <div className="relative z-10 text-white">
+          <span
+            className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em]"
+            style={{ background: 'rgba(255,255,255,.14)' }}
+          >
+            Wholesale &amp; bulk
+          </span>
+          <h2
+            className="font-display font-extrabold mt-4"
+            style={{ fontSize: 'clamp(40px,7vw,96px)', lineHeight: 0.95, letterSpacing: '-0.035em' }}
+          >
+            Order by the{' '}
+            <em className="u-mark not-italic" style={{ color: 'var(--lime)' }}>
+              case
+            </em>
+          </h2>
+          <p className="mt-4 max-w-[44ch] text-[16px] leading-relaxed text-white/70">
+            Retailers, salons and cleaning crews — get tiered pricing across all three houses on
+            one invoice.
+          </p>
+
+          <div className="mt-6 flex gap-8">
+            {[
+              ['3', 'Houses'],
+              ['16', 'Products'],
+              ['500+', 'Units / week'],
+            ].map(([k, v]) => (
+              <div key={v}>
+                <b className="font-display font-extrabold text-[32px] leading-none block">{k}</b>
+                <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/50">
+                  {v}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-7 flex flex-wrap gap-2.5">
+            <Link to="/contact" className="btn btn-lime">
+              Request pricing
+            </Link>
+            <Link
+              to="/shop"
+              className="btn"
+              style={{
+                background: 'transparent',
+                border: '2px solid rgba(255,255,255,.4)',
+                color: '#fff',
+              }}
+            >
+              Browse catalogue
+            </Link>
+          </div>
+        </div>
+
+        {/* Product cluster */}
+        <div className="relative h-[340px] grid place-items-center">
+          <div
+            className="absolute w-[86%] aspect-square rounded-full"
+            style={{ background: 'rgba(255,255,255,.06)' }}
+          />
+          {featured.slice(0, 2).map((p, i) => (
+            <img
+              key={p.id}
+              src={p.image}
+              alt={p.name}
+              className="absolute rounded-[24px] object-cover shadow-2xl"
+              style={{
+                height: '76%',
+                aspectRatio: '3 / 4',
+                left: i === 0 ? '14%' : 'auto',
+                right: i === 1 ? '14%' : 'auto',
+                transform: `rotate(${i === 0 ? -7 : 7}deg)`,
+                zIndex: 2 - i,
+              }}
+            />
           ))}
         </div>
       </section>
 
-      <Ticker items={['Free delivery over R500', 'Wholesale welcome', 'Bulk pricing', 'Order today']} invert />
-
-      {/* ================================================== CLOSER */}
-      <section className="mx-auto max-w-[1240px] px-5 py-16 sm:py-24 text-center">
-        <span className="eyebrow">Ready when you are</span>
-        <h2 className="display-lg mt-3" style={{ color: 'var(--ink)' }}>
-          Get your <span className="u-mark">care</span> sorted.
+      {/* ============================================== 7. CLOSER */}
+      <section className="px-[5vw] py-[100px] text-center" style={{ background: 'var(--cream)' }}>
+        <span
+          className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em]"
+          style={{ background: 'rgba(16,35,28,.07)', color: 'var(--ink)' }}
+        >
+          Ready when you are
+        </span>
+        <h2 className="display-lg mt-4" style={{ color: 'var(--ink)' }}>
+          Get your <em className="u-mark not-italic" style={{ color: 'var(--fern)' }}>care</em> sorted.
         </h2>
-        <p className="mt-4 text-[16px] text-slate-500 max-w-[44ch] mx-auto leading-relaxed">
-          {PRODUCTS.length} products across personal care, fragrance and cleaning. One cart,
-          one delivery.
+        <p className="mt-4 mx-auto max-w-[44ch] text-[16px] leading-relaxed text-slate-500">
+          {PRODUCTS.length} products, one cart, one delivery — across personal care, fragrance
+          and cleaning.
         </p>
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-7 flex flex-wrap justify-center gap-2.5">
           <Link to="/shop" className="btn btn-ink">
             Shop everything
-            <ArrowRight className="h-4 w-4" />
           </Link>
-          <Link to="/contact" className="btn btn-ghost">
-            Wholesale enquiry
+          <Link to="/brands" className="btn btn-ghost">
+            Compare brands
           </Link>
         </div>
       </section>
