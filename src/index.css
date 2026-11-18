@@ -37,10 +37,104 @@
   animation: floatReverse 7s ease-in-out infinite;
 }
 
-/* Soft UI Card inspired by the reference UI */
+/* ------------------------------------------------------------------
+   Design system — layered soft UI, inspired by the reference dashboards
+   ------------------------------------------------------------------ */
+
+/* Ambient mesh backdrop. Fixed so every page shares one continuous field,
+   with a fine grid overlay for depth. */
+.app-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #f7f9fc;
+  background-image:
+    radial-gradient(ellipse 70% 55% at 12% -8%, rgba(22, 163, 74, 0.16), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 92% 4%, rgba(217, 119, 6, 0.13), transparent 60%),
+    radial-gradient(ellipse 65% 55% at 85% 92%, rgba(2, 132, 199, 0.15), transparent 62%),
+    radial-gradient(ellipse 55% 45% at 6% 88%, rgba(124, 58, 237, 0.1), transparent 62%);
+}
+
+.app-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.028) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 75%);
+}
+
+/* Soft UI Card — the base surface */
 .ui-card {
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+  box-shadow:
+    0 20px 40px -15px rgba(15, 23, 42, 0.06),
+    0 4px 12px -2px rgba(15, 23, 42, 0.03);
+}
+
+/* Elevated surface for tiles sitting on top of a card */
+.ui-tile {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 12px 28px -12px rgba(15, 23, 42, 0.1),
+    0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.ui-tile-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(203, 213, 225, 0.9);
+  box-shadow:
+    0 24px 44px -16px rgba(15, 23, 42, 0.16),
+    0 4px 10px -3px rgba(15, 23, 42, 0.05);
+}
+
+/* Header strip inside the KPI tiles: a soft tinted wash that reads as a
+   separate layer without adding another border */
+.ui-tile-wash {
+  background-image: linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(255, 255, 255, 0));
+}
+
+/* Small pill badge, as used for deltas in the references */
+.ui-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 9999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* Diagonal hatch used behind unfilled chart bars in the references */
+.hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(148, 163, 184, 0.26) 0px,
+    rgba(148, 163, 184, 0.26) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-float-reverse {
+    animation: none;
+  }
+
+  .ui-tile-hover:hover {
+    transform: none;
+  }
 }

@@ -15,6 +15,8 @@ Live: <https://gladchemistry.vercel.app>
 
 - `/` — Home: brand switcher, hero, brand showcase, benchmarks, featured bestsellers
 - `/shop` — Full catalogue with brand filter (`/shop?brand=gladchemistry`)
+- `/dashboard` — Catalogue analytics: KPI tiles, brand-mix donut, average-price bars,
+  featured-coverage gauge and a premium price ladder (all computed from the live data)
 - `/brands` — Side-by-side comparison of the three brands
 - `/about` — Brand story and formulation standards
 - `/contact` — Enquiry form and contact details
@@ -47,12 +49,26 @@ npm run dev      # http://localhost:5173
 
 ```
 src/
-├── components/   # Navbar, Footer, CartDrawer, ProductCard, ProductModal, ...
+├── components/
+│   ├── charts/       # DonutChart, BarChart, GaugeChart — lightweight SVG, no chart lib
+│   ├── StatTile.tsx  # KPI tile with delta pill
+│   └── ...           # Navbar, Footer, CartDrawer, ProductCard, ProductModal
 ├── context/      # CartContext — cart state and totals
 ├── data/         # brands.ts and products.ts — the whole catalogue lives here
-└── pages/        # Home, Shop, Brands, About, Contact
+└── pages/        # Home, Shop, Dashboard, Brands, About, Contact
 public/images/    # Product, hero and logo imagery
 ```
+
+### Design system
+
+`src/index.css` holds the shared visual language: an ambient mesh backdrop
+(`.app-backdrop`), layered soft-UI surfaces (`.ui-card`, `.ui-tile`), delta pills
+(`.ui-pill`) and the hatched bar fill (`.hatch`). Charts are hand-built SVG with
+Framer Motion transitions, so there is no charting dependency.
+
+The dashboard is **data-driven and honest** — every figure is derived from
+`src/data/products.ts` at render time. There is no sample, random or placeholder
+analytics. If the catalogue changes, the dashboard changes with it.
 
 Products and brands are data-driven: add an entry to `src/data/products.ts` and it
 flows through the shop grid, brand filters, and featured sections automatically.
