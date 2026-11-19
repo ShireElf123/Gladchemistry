@@ -33,7 +33,7 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     stageTone: '#DDF3E4',
     inkColor: '#0E7C4A',
     buttonClass: 'btn btn-fern',
-    heroImage: '/images/hero-organic.3efe9545.png',
+    heroImage: '/images/hero-organic.webp',
     tag: 'Organic botanicals',
     highlights: [
       '100% Organic Botanical Extracts',
@@ -53,7 +53,7 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     stageTone: '#FBEEDB',
     inkColor: '#9A5B08',
     buttonClass: 'btn btn-ink',
-    heroImage: '/images/hero-fragrance.e7ca7ca6.png',
+    heroImage: '/images/hero-fragrance.webp',
     tag: 'Fine fragrance',
     highlights: [
       'Inspired-By Designer Scents',
@@ -73,7 +73,7 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     stageTone: '#DCEFFB',
     inkColor: '#0C5B7A',
     buttonClass: 'btn btn-ink',
-    heroImage: '/images/hero-bubbles.19232d0b.png',
+    heroImage: '/images/hero-bubbles.webp',
     tag: 'Serious cleaning',
     highlights: [
       'Heavy-Duty Home & Kitchen Care',

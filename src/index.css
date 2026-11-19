@@ -581,8 +581,8 @@
 /* Drift: the artwork moves slightly slower than the card, so the grid has
    depth without anything actually sliding around. */
 @keyframes drift {
-  from { transform: translateY(-9px) scale(1.035); }
-  to   { transform: translateY(9px) scale(1.035); }
+  from { transform: translateY(-9px) scale(var(--zoom, 1)); }
+  to   { transform: translateY(9px)  scale(var(--zoom, 1)); }
 }
 
 .tile .parallax {
@@ -624,9 +624,12 @@
 /* Image hover: a restrained push, never a bounce. */
 .stage-art > img {
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  /* --zoom is the per-product composition scale, measured from the frame.
+     Hover multiplies it rather than replacing it. */
+  transform: scale(var(--zoom, 1));
 }
 .tile:hover .stage-art > img {
-  transform: scale(1.035);
+  transform: scale(calc(var(--zoom, 1) * 1.035));
 }
 
 /* ------------------------------------------------ typographic plate */
@@ -747,7 +750,7 @@
     animation: none !important;
   }
   .tile:hover .stage-art > img {
-    transform: none;
+    transform: scale(var(--zoom, 1));
   }
 }
 

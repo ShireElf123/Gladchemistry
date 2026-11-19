@@ -5,6 +5,7 @@ import { BRANDS } from '../data/brands';
 import { ProductPlate } from './ProductPlate';
 import { ProductModal } from './ProductModal';
 import { waLink, productEnquiry } from '../data/shop';
+import { photoZoom } from '../data/photo-zoom';
 
 interface ProductCardProps {
   product: Product;
@@ -29,6 +30,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
   const [modalOpen, setModalOpen] = useState(false);
   const brand = BRANDS[product.brand];
   const weak = product.photoGrade === 'weak';
+  const zoom = photoZoom(product.id);
 
   return (
     <>
@@ -46,6 +48,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
               <ProductPlate product={product} />
             </div>
           ) : (
+            /* The scale is a measured composition factor, not decoration.
+               Passed as a custom property so the drift animation and the zoom
+               compose in one transform instead of overwriting each other. */
             <img
               className="parallax"
               src={product.image}
@@ -54,6 +59,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
               decoding="async"
               width={1200}
               height={1500}
+              style={{ ['--zoom' as string]: zoom } as React.CSSProperties}
             />
           )}
 
