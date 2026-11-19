@@ -13,7 +13,6 @@ interface ProductModalProps {
 export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
   const { addToCart } = useCart();
   const [qty, setQty] = useState(1);
-  const [selectedVariant, setSelectedVariant] = useState(0);
 
   if (!product) return null;
   const brand = BRANDS[product.brand];
@@ -90,29 +89,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
                       >
                         {n}
                       </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {product.variants && (
-                <div className="pt-1">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">
-                    Select Size / Option
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {product.variants.map((v, i) => (
-                      <button
-                        key={v}
-                        onClick={() => setSelectedVariant(i)}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                          selectedVariant === i
-                            ? 'bg-slate-900 text-white border-slate-900'
-                            : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
-                        }`}
-                      >
-                        {v}
-                      </button>
                     ))}
                   </div>
                 </div>
