@@ -86,7 +86,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 100,
     size: '100g',
-    image: '/images/frames/gc-raw-shea-butter.06e6d68c.jpg',
+    image: '/images/frames/gc-raw-shea-butter.2f6a27f4.jpg',
     imageRole: 'photo',
     preMessage: 'Unrefined · Imported from Ghana',
     notes: ['Moisturises skin & scalp', 'Reduces eczema signs', 'Improves hair growth', 'Relieves dry skin'],
@@ -126,7 +126,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair Care',
     price: 55,
     size: '100ml',
-    image: '/images/frames/gc-hair-oil.a7136415.jpg',
+    image: '/images/frames/gc-hair-oil.66618eb7.jpg',
     imageRole: 'photo',
     preMessage: 'Organic blend · For beard growth and scalp health',
     description:
@@ -178,7 +178,7 @@ export const PRODUCTS: Product[] = [
     category: 'Bath & Body',
     price: 110,
     size: '1.5L + 100g',
-    image: '/images/frames/gc-foam-bath-15l.07ffa02e.jpg',
+    image: '/images/frames/gc-foam-bath-15l.ade87366.jpg',
     imageRole: 'photo',
     preMessage: 'Combo · Any foam bath, any bar',
     description:
@@ -230,7 +230,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 2600,
     size: '10 + 12 Pack',
-    image: '/images/frames/gc-personal-care-startup.1e8cfb26.jpg',
+    image: '/images/frames/gc-personal-care-startup.830045e9.jpg',
     imageRole: 'photo',
     
     badge: 'Wholesale',
@@ -330,7 +330,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 1250,
     size: '20 Piece Collection',
-    image: '/images/frames/felis-fragrances-startup.2531cfc2.jpg',
+    image: '/images/frames/felis-fragrances-startup.531391a6.jpg',
     imageRole: 'photo',
     badge: 'Wholesale',
     preMessage: 'For resellers · 20-piece set',
@@ -360,7 +360,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 82,
     size: '2L',
-    image: '/images/frames/bubbles-dishwashing-2l.19dc382e.jpg',
+    image: '/images/frames/bubbles-dishwashing-2l.3b023db7.jpg',
     imageRole: 'photo',
     preMessage: 'High foam · Bulk size',
     description:
@@ -399,7 +399,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 65,
     size: '1kg Tub',
-    image: '/images/frames/bubbles-citrus-gel.fe85286c.jpg',
+    image: '/images/frames/bubbles-citrus-gel.4d60e8fd.jpg',
     imageRole: 'photo',
     preMessage: 'Zesty citrus · 500g from R52',
     description:
@@ -464,7 +464,7 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 136,
     size: '5L',
-    image: '/images/frames/bubbles-floor-polish-lg.12597c49.jpg',
+    image: '/images/frames/bubbles-floor-polish-lg.139730dc.jpg',
     imageRole: 'photo',
     preMessage: 'Instant shine · Polymer',
     description:
