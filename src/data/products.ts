@@ -175,9 +175,7 @@ export const PRODUCTS: Product[] = [
     category: 'Bath & Body',
     price: 110,
     size: '1.5L + 100g',
-    image: '/images/products/gladchemistry-foam-bath-1500ml.jpg',
-    photo: true,
-    fit: 'contain',
+    image: '/images/products/gladchemistry-foam-bath.png',
     preMessage: 'Combo · Any foam bath, any bar',
     description:
       'Any of the 1.5L foam baths paired with a 100g soap bar. Pick your fragrance when you order.',
@@ -395,9 +393,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 65,
     size: '1kg Tub',
-    image: '/images/products/bubbles-citrus-gel.jpg',
-    photo: true,
-    fit: 'contain',
+    image: '/images/products/bubbles-citrus-gel.png',
     preMessage: 'Zesty citrus · 500g from R52',
     description:
       'A zesty citrus cleaning gel for kitchens, bathrooms and high-traffic surfaces. Also available in 500g.',
