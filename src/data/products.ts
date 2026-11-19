@@ -185,7 +185,7 @@ export const PRODUCTS: Product[] = [
     size: '750ml',
     description:
       'Clinging thick bleach formula that eliminates 99.9% of germs, removes tough stains, and whitens surfaces.',
-    image: '/images/bubbles-trio.jpg',
+    image: '/images/products/bubbles-thick-bleach.png',
   },
   {
     id: 'bd-dishwashing',
@@ -199,7 +199,7 @@ export const PRODUCTS: Product[] = [
     size: '750ml',
     description:
       'Ultra-concentrated grease-cutting dishwashing liquid with fresh lemon fragrance.',
-    image: '/images/bubbles-trio.jpg',
+    image: '/images/products/bubbles-dishwashing-liquid.png',
     featured: true,
   },
   {
@@ -214,7 +214,7 @@ export const PRODUCTS: Product[] = [
     size: '1kg Tub',
     description:
       'Heavy-duty pine disinfectant gel that cleans, deodorizes, and leaves floors sparkling.',
-    image: '/images/bubbles-trio.jpg',
+    image: '/images/products/bubbles-pine-gel.png',
   },
   {
     id: 'bd-citrus-gel',
@@ -242,7 +242,7 @@ export const PRODUCTS: Product[] = [
     size: '750ml',
     description:
       'Versatile lemon-fresh surface cleaner that cuts through stubborn dirt and grime.',
-    image: '/images/bubbles-trio.jpg',
+    image: '/images/products/bubbles-all-purpose-cleaner.png',
   },
   {
     id: 'bd-black-dip',
