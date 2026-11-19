@@ -264,6 +264,8 @@ export const PRODUCTS: Product[] = [
     image: '/images/products/felis-inspired-scandal-ladies.jpg',
     featured: true,
     badge: 'Top Pick',
+    photo: true,
+    fit: 'contain',
     preMessage: 'Honey · Gardenia · Blood orange',
     description:
       'A captivating honey, gardenia and blood orange accord in a sculpted teal glass flacon.',
@@ -277,6 +279,8 @@ export const PRODUCTS: Product[] = [
     size: '100ml Eau de Parfum',
     image: '/images/products/felis-inspired-hugo-men.jpg',
     featured: true,
+    photo: true,
+    fit: 'contain',
     preMessage: 'Green apple · Sage · Cedarwood',
     description:
       'Crisp green apple, aromatic sage and cedarwood, built for all-day confidence.',
@@ -289,6 +293,8 @@ export const PRODUCTS: Product[] = [
     price: 195,
     size: '30ml Eau de Parfum',
     image: '/images/products/felis-inspired-diesel-men.jpg',
+    photo: true,
+    fit: 'contain',
     preMessage: 'Grapefruit · Lavender · Amber',
     description:
       'A bold spicy-woody fragrance with grapefruit and lavender over warm amber.',
@@ -441,7 +447,9 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 75,
     size: '1L',
-    image: '/images/products/bubbles-black-dip.png',
+    image: '/images/products/bubbles-black-dip-real.jpg',
+    photo: true,
+    fit: 'contain',
     preMessage: 'Drains · yards · pet areas',
     description:
       'An industrial-strength disinfectant fluid for drains, outdoor areas and deep sanitation. Not for use on skin.',
@@ -521,8 +529,9 @@ export const PRODUCTS: Product[] = [
     category: 'Car Care',
     price: 50,
     size: '1L',
-    image: '/images/products/bubbles-car-wash.png',
+    image: '/images/products/bubbles-car-tyre-real.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Tyre · leather · plastic',
     description:
       'For leather polishing, plastic polishing and tyre dressing in one bottle.',
