@@ -43,7 +43,7 @@ claim otherwise anywhere.
 - **COMPOSITION FAILURE**: right packaging, wrong framing — scale, centring, clipping, plate boundary, seam.
 - **SOURCE REQUIRED**: no accurate original exists in the repo. Left intact rather than fabricated.
 
-**Totals: 32 PASS · 2 BRANDING FAILURE corrected · 5 COMPOSITION FAILURE corrected · 1 PASS with reservation (SOURCE-limited)**
+**Totals: 32 PASS · 2 BRANDING FAILURE corrected · 6 COMPOSITION FAILURE corrected · 1 PASS with reservation (SOURCE-limited)**
 
 ---
 
@@ -84,7 +84,7 @@ claim otherwise anywhere.
 | 31 | Liquid Polymer Floor Polish 5L | Bubbles | `bubbles-floor-polish-5l.jpg` | `bubbles-floor-polish-lg.…jpg` | PASS — Correct | Real BUBBLES / Liquid Polymer Floor Polish / 5L | Clean | Centred, level | Seamless | None | Unchanged |
 | 32 | Liquid Polymer Floor Polish 1L | Bubbles | *(1L sibling of the 5L photo)* | `bubbles-floor-polish-1l.…jpg` | PASS — Correct | Real label, correct "1L" | Clean | Slightly right, acceptable | Seamless | None | Unchanged |
 | 33 | Powder Soap 5kg | Bubbles | `bubbles-powder-soap-5kg.jpg` | **`bubbles-powder-soap.5b4579b7.jpg`** | **COMPOSITION FAILURE → corrected** | Real printed label — BUBBLES, Powder Soap, 5kg | Clean | Was cropped at the neck and lost scale | Was a rectangular plate with hard vertical boundaries | **Re-rendered from the original**, full bag incl. tied neck, scoop retained, 4:5 | **PASS** |
-| 34 | Tile Cleaner 5L | Bubbles | `bubbles-tile-cleaner-5l.jpg` | `bubbles-tile-cleaner-5l.221b5b20.jpg` | PASS with reservation | Real BUBBLES / Tile Cleaner / 5L | Clean | Small in frame at 44 % fill; base near lower edge | Seam repaired | Margin seam extension only | **PASS** |
+| 34 | Tile Cleaner 5L | Bubbles | `bubbles-tile-cleaner-5l.jpg` | **`bubbles-tile-cleaner-5l.5e7c5aa7.jpg`** | **COMPOSITION FAILURE → corrected** | Real BUBBLES / Tile Cleaner / 5L, navy type intact | Clean | Was 44 % fill, small and low in frame; base near the lower edge | Was a cool neutral-grey sweep against the warm house paper, plus a soft vertical edge at the left | **Reframed from the true original at 70 % fill, whole jerrycan with breathing room; per-image paper grade to the house tone, applied to paper pixels only — the label, the pink liquid and the navy type are untouched** | **PASS** |
 | 35 | Car Wash & Wax Shampoo | Bubbles | *(car-care range photo)* | `bubbles-car-wash-wax.…jpg` | PASS — Correct | Real CAR / WASH & WAX label | Clean | Centred, level | Seamless | None | Unchanged |
 | 36 | Car Tyre, Leather & Dash Cleaner | Bubbles | `bubbles-car-tyre-real.jpg` | `bubbles-car-interior.…jpg` | PASS — Correct | Real CAR TYRE, LEATHER & DASH CLEANER label | Clean | Centred, level, 5L jug | Seamless | None — earlier off-centre measurement was the jug's moulded handle, not a fault | Unchanged |
 | 37 | Detergents Business Start Up | Bubbles | `bubbles-detergents-startup.jpg` | `bubbles-detergents-startup.…jpg` | PASS — Correct | Real BUBBLES bottles throughout | Clean | Crate composition, deliberate, edges tight but intact | Seamless | None | Unchanged |
@@ -96,7 +96,7 @@ claim otherwise anywhere.
 
 ## 4. Images modified
 
-Eight frames changed. Each entry gives the previous path and the new path; the
+Nine frames changed. Each entry gives the previous path and the new path; the
 hash suffix is the MD5 prefix of the bytes actually shipped, so a filename that
 passes `verify-frames.mjs` is a filename whose content hash matches.
 
@@ -108,7 +108,7 @@ passes `verify-frames.mjs` is a filename whose content hash matches.
 | Bubbles Thick Bleach | `bubbles-thick-bleach.f09b5611.jpg` | `bubbles-thick-bleach.1cbbb548.jpg` | Base clipped by the frame; hard plate boundary and vertical band down the left | Re-rendered from the verified-alpha original; whole bottle, level base, seamless sweep |
 | Powder Soap 5kg | `bubbles-powder-soap.aeaadec1.jpg` | `bubbles-powder-soap.5b4579b7.jpg` | Tied neck cropped; rectangular plate with hard vertical boundaries | Re-rendered from the original; full bag and scoop; 4:5 |
 | Bubbles Black Dip | `bubbles-black-dip.ef897d48.jpg` | `bubbles-black-dip.32bd5a21.jpg` | Visible rectangular photograph boundary; excessive margins; skewed base | Re-rendered preserving the real bottle and label; upright, level, breathing room |
-| Tile Cleaner 5L | `bubbles-tile-cleaner-5l.28c1d73e.jpg` | `bubbles-tile-cleaner-5l.221b5b20.jpg` | Plate seam in the right margin | Margin seam extension — zero in-plate pixels changed |
+| Tile Cleaner 5L | `bubbles-tile-cleaner-5l.28c1d73e.jpg` | `bubbles-tile-cleaner-5l.5e7c5aa7.jpg` | Under-scaled at 44 % fill with a cool grey sweep that fought the warm house paper | Reframed from the true original at 70 % fill; per-image paper grade to the house tone on paper pixels only |
 
 Two further frames were repaired **in place by margin extension only**
 (`bubbles-all-purpose-cleaner`, `bubbles-citrus-gel`): a pasted-paper seam in
@@ -124,8 +124,8 @@ or background replacement was applied to them.
 for edit. In particular the earlier attempt to re-crop ten goods, deobloks,
 hair-oil-family frames for "scale" was **reverted in full** — the tighter crops
 clipped caps and jars, which is a worse defect than generous margin. The baseline
-for this pass is commit `d931e15`; after reverting, 32 frames are byte-identical
-to that commit and 8 differ as listed above.
+for this pass is commit `d931e15`; after reverting, 31 frames are byte-identical
+to that commit and 9 differ as listed above.
 
 ---
 
@@ -135,10 +135,11 @@ to that commit and 8 differ as listed above.
   carries a plain white panel with no printed label artwork. There is nothing
   accurate to restore, and painting a label onto it would be invention. **Left
   intact.** A real photograph of the labelled 5L Bubble Bath is needed.
-- **Tile Cleaner 5L** — correct and readable, but at 44 % fill it sits smaller in
-  the grid than its siblings. Re-rendering was attempted; the image-generation
-  budget for this pass ran out before it completed. Its seam defect is fixed and
-  it is otherwise sound.
+- ~~**Tile Cleaner 5L**~~ — **closed.** This item was left open when the image
+  budget ran out mid-pass. On review the original photograph was already a clean
+  studio shot with a proper sweep, so no generation was needed: it has been
+  reframed from the true original and warmed to the house paper tone. Nothing is
+  outstanding for it now.
 
 No product was classified SOURCE REQUIRED for a missing original — an accurate
 original exists in `public/images/products/` for every corrected item.

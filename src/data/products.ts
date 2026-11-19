@@ -504,7 +504,7 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 155,
     size: '5L',
-    image: '/images/frames/bubbles-tile-cleaner-5l.221b5b20.jpg',
+    image: '/images/frames/bubbles-tile-cleaner-5l.5e7c5aa7.jpg',
     imageRole: 'photo',
     preMessage: 'For all tile types',
     description:
