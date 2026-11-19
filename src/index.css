@@ -154,6 +154,21 @@
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Full-bleed photographic treatment: the shot fills the stage, no circle. */
+.stage-photo { background: #f2f0ea; }
+.stage-photo::before { display: none; }
+.stage-photo > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  filter: none;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stage-photo:hover > img { transform: scale(1.04); }
+
 .group:hover .stage > img {
   transform: translateY(-8px) scale(1.03);
 }

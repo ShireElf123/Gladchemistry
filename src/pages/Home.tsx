@@ -89,8 +89,12 @@ export const Home: React.FC = () => {
   const [activeBrand, setActiveBrand] = useState<BrandId | 'all'>('all');
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const visibleProducts =
+  /* Home shows the picked few; the full catalogue lives on /shop. */
+  const HOME_LIMIT = 8;
+  const byBrand =
     activeBrand === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.brand === activeBrand);
+  const visibleProducts = activeBrand === 'all' ? byBrand.slice(0, HOME_LIMIT) : byBrand;
+  const hiddenCount = byBrand.length - visibleProducts.length;
 
   /* Re-stagger the grid whenever the filter changes, like the soda chips */
   useEffect(() => {
@@ -176,10 +180,15 @@ export const Home: React.FC = () => {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-12 flex flex-col items-center gap-2">
             <Link to="/shop" className="btn btn-ink">
               Shop all {PRODUCTS.length} products →
             </Link>
+            {hiddenCount > 0 && (
+              <span className="text-[12px] font-bold text-slate-400">
+                +{hiddenCount} more in the catalogue
+              </span>
+            )}
           </div>
         </div>
       </section>
@@ -340,7 +349,7 @@ export const Home: React.FC = () => {
           <div className="mt-6 flex gap-8">
             {[
               ['3', 'Houses'],
-              ['16', 'Products'],
+              [String(PRODUCTS.length), 'Products'],
               ['500+', 'Units / week'],
             ].map(([k, v]) => (
               <div key={v}>

@@ -27,10 +27,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
         transition={{ duration: 0.4, delay: index * 0.05 }}
         className="group flex flex-col min-w-0"
       >
-        {/* Product stage — tinted pad + circle + pack art */}
+        {/* Product stage. Two treatments, matching the source material:
+            photographic scenes run full-bleed, transparent cut-outs float on
+            the tinted pad with the circle behind them. */}
         <div
           onClick={() => setModalOpen(true)}
-          className="stage cursor-pointer"
+          className={product.photo ? 'stage stage-photo cursor-pointer' : 'stage cursor-pointer'}
           style={{
             ['--stage-tone' as string]: brand.stageTone,
             height: tall ? 340 : 290,
