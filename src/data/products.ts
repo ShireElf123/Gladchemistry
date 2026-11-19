@@ -206,7 +206,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 2600,
     size: '10 + 12 Pack',
-    image: '/images/frames/gc-bicarb.jpg',
+    image: '/images/frames/gc-personal-care-startup.jpg',
     
     badge: 'Wholesale',
     preMessage: 'For resellers · 10 of each, 12 lines',
