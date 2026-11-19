@@ -8,12 +8,16 @@ export interface BrandInfo {
   description: string;
   primaryColor: string;
   secondaryColor: string;
-  bgTint: string;
-  borderTint: string;
-  badgeClass: string;
+  /** Flat saturated tone used behind product art (the soda "stage"). */
+  stageTone: string;
+  /** Deep ink used for text/heading emphasis in this house. */
+  inkColor: string;
+  /** Button class for this house's primary action. */
   buttonClass: string;
   heroImage: string;
   highlights: string[];
+  /** Short punchy line for tickers. */
+  tag: string;
 }
 
 export const BRANDS: Record<BrandId, BrandInfo> = {
@@ -25,12 +29,12 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     description:
       'Pure, botanical-rich personal care formulated with organic extracts, mineral-rich bath fizzies, gentle foam baths, and skin-loving hygiene essentials.',
     primaryColor: '#16A34A',
-    secondaryColor: '#2D3E2D',
-    bgTint: 'bg-emerald-50/80',
-    borderTint: 'border-emerald-200',
-    badgeClass: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-    buttonClass: 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/25',
-    heroImage: '/images/hero-organic.png',
+    secondaryColor: '#0E7C4A',
+    stageTone: '#DDF3E4',
+    inkColor: '#0E7C4A',
+    buttonClass: 'btn btn-fern',
+    heroImage: '/images/hero-organic.webp',
+    tag: 'Organic botanicals',
     highlights: [
       '100% Organic Botanical Extracts',
       'Mineral Bath Fizzies & Foam Bath',
@@ -44,13 +48,13 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     category: 'Fragrance, Home & Auto',
     description:
       'Inspired-by fine fragrances crafted for lasting sillage, paired with artisanal reed diffusers and luxury car perfumes that transform every space.',
-    primaryColor: '#D97706',
-    secondaryColor: '#1C1917',
-    bgTint: 'bg-amber-50/80',
-    borderTint: 'border-amber-200',
-    badgeClass: 'bg-amber-100 text-amber-900 border-amber-200',
-    buttonClass: 'bg-amber-600 hover:bg-amber-700 text-white shadow-amber-600/25',
-    heroImage: '/images/hero-fragrance.png',
+    primaryColor: '#C2760B',
+    secondaryColor: '#3F2A12',
+    stageTone: '#FBEEDB',
+    inkColor: '#9A5B08',
+    buttonClass: 'btn btn-ink',
+    heroImage: '/images/hero-fragrance.webp',
+    tag: 'Fine fragrance',
     highlights: [
       'Inspired-By Designer Scents',
       'Long-Lasting Reed Diffusers',
@@ -65,12 +69,12 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     description:
       'Industrial-strength yet home-safe cleaning power. From thick bleach and pine gel to high-gloss car wash & wax, engineered for spotless results.',
     primaryColor: '#0284C7',
-    secondaryColor: '#84CC16',
-    bgTint: 'bg-sky-50/80',
-    borderTint: 'border-sky-200',
-    badgeClass: 'bg-sky-100 text-sky-900 border-sky-200',
-    buttonClass: 'bg-sky-600 hover:bg-sky-700 text-white shadow-sky-600/25',
-    heroImage: '/images/bubbles-range-1.jpg',
+    secondaryColor: '#0C5B7A',
+    stageTone: '#DCEFFB',
+    inkColor: '#0C5B7A',
+    buttonClass: 'btn btn-ink',
+    heroImage: '/images/hero-bubbles.webp',
+    tag: 'Serious cleaning',
     highlights: [
       'Heavy-Duty Home & Kitchen Care',
       'High-Foam Car Wash & Wax',

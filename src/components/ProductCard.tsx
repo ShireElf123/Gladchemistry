@@ -1,127 +1,122 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Plus, Eye, Heart, Sparkles } from 'lucide-react';
+import { ArrowUpRight, MessageCircle } from 'lucide-react';
 import type { Product } from '../data/products';
 import { BRANDS } from '../data/brands';
-import { useCart } from '../context/CartContext';
+import { ProductPlate } from './ProductPlate';
 import { ProductModal } from './ProductModal';
+import { waLink, productEnquiry } from '../data/shop';
+import { photoZoom } from '../data/photo-zoom';
+import { rand } from '../lib/format';
 
 interface ProductCardProps {
   product: Product;
+  /** Position in the grid — drives the stagger, nothing else. */
   index?: number;
+  /** Larger stage for feature rows. */
+  tall?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0 }) => {
-  const { addToCart } = useCart();
-  const [liked, setLiked] = useState(false);
+/**
+ * The catalogue tile.
+ *
+ * A real photograph is shown as a photograph. A product whose source is too
+ * soft is typeset by `ProductPlate` instead of being upscaled. Either way the
+ * name, size and price are set the same, so the grid never reads as broken.
+ *
+ * Animation is scroll-driven and lives in index.css (`.tile`): the card lifts
+ * and fades as it enters, and the artwork drifts a few pixels slower than the
+ * card around it. Motion is disabled wholesale under prefers-reduced-motion.
+ */
+export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, tall = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const brand = BRANDS[product.brand];
+  const weak = product.photoGrade === 'weak';
+  const zoom = photoZoom(product.id);
 
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.45, delay: index * 0.05 }}
-        whileHover={{ y: -8, scale: 1.01 }}
-        className="group ui-card rounded-3xl p-4 flex flex-col justify-between transition-shadow duration-300 hover:shadow-2xl"
+      <article
+        className="tile group flex flex-col min-w-0"
+        style={{ animationDelay: `${Math.min(index, 12) * 55}ms` }}
       >
-        <div>
-          <div
-            onClick={() => setModalOpen(true)}
-            className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 mb-3.5 cursor-pointer"
-          >
+        <div
+          onClick={() => setModalOpen(true)}
+          className={`stage relative cursor-pointer ${weak ? 'stage-plate' : `stage-art stage-art-${product.imageRole}`}`}
+          style={{ aspectRatio: tall ? '4 / 4.7' : '4 / 5' }}
+        >
+          {weak ? (
+            <div className="parallax">
+              <ProductPlate product={product} />
+            </div>
+          ) : (
+            /* The scale is a measured composition factor, not decoration.
+               Passed as a custom property so the drift animation and the zoom
+               compose in one transform instead of overwriting each other. */
             <img
+              className="parallax"
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+              decoding="async"
+              width={1200}
+              height={1500}
+              style={{ ['--zoom' as string]: zoom } as React.CSSProperties}
             />
-            <div className="absolute top-3 left-3 flex items-center gap-1.5">
-              <span
-                className={`text-[11px] font-bold px-2.5 py-1 rounded-full border backdrop-blur-md ${brand.badgeClass}`}
-              >
-                {brand.name}
-              </span>
-            </div>
+          )}
 
-            <div className="absolute top-3 right-3 flex items-center gap-1.5">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLiked(!liked);
-                }}
-                className={`p-2 rounded-full backdrop-blur-md transition-all cursor-pointer ${
-                  liked
-                    ? 'bg-rose-500 text-white shadow-md'
-                    : 'bg-white/85 text-slate-600 hover:bg-white'
-                }`}
-                aria-label="Save to wishlist"
-              >
-                <Heart className={`h-3.5 w-3.5 ${liked ? 'fill-current' : ''}`} />
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setModalOpen(true);
-                }}
-                className="p-2 rounded-full bg-white/85 text-slate-700 hover:bg-white backdrop-blur-md transition-all cursor-pointer"
-                aria-label="Quick view"
-              >
-                <Eye className="h-3.5 w-3.5" />
-              </button>
-            </div>
+          {/* House flag, hard-edged */}
+          <span
+            className="absolute top-3 left-3 z-10 flag"
+            style={{ background: brand.stageTone, color: brand.inkColor }}
+          >
+            {brand.name.split(' ')[0]}
+          </span>
 
-            {product.badge && (
-              <span className="absolute bottom-3 left-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-900/85 text-white backdrop-blur-md">
-                {product.badge}
-              </span>
-            )}
-          </div>
+          {product.badge && (
+            <span className="absolute top-3 right-3 z-10 flag" style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
+              {product.badge}
+            </span>
+          )}
 
-          <div className="px-1">
-            {/* Pre-Message */}
-            <div className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50/90 px-2.5 py-0.5 rounded-full mb-2">
-              <Sparkles className="h-3 w-3 shrink-0" />
-              <span className="truncate">{product.preMessage}</span>
-            </div>
+          {/* Quick view — appears on hover, always reachable on touch */}
+          <span className="tile-view" aria-hidden>
+            <ArrowUpRight className="h-4 w-4" />
+          </span>
+        </div>
 
-            <div className="flex items-center justify-between gap-2 mb-1">
-              <span className="text-xs font-medium text-slate-400">{product.category}</span>
-              <span className="text-xs font-semibold text-slate-500">{product.size}</span>
-            </div>
+        {/* Meta — the same whether or not there is a photograph */}
+        <div className="mt-4 flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="eyebrow mb-1" style={{ color: 'var(--ink-soft)', opacity: 0.55 }}>
+              {product.category} · {product.size}
+            </p>
             <h3
               onClick={() => setModalOpen(true)}
-              className="font-display font-bold text-slate-900 text-lg leading-snug mb-1.5 cursor-pointer hover:text-emerald-700 transition-colors"
+              className="font-display font-extrabold text-[18px] leading-tight cursor-pointer transition-colors"
+              style={{ color: 'var(--ink)' }}
             >
               {product.name}
             </h3>
-            <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed mb-4">
-              {product.description}
-            </p>
           </div>
+          <span className="font-display font-extrabold text-[18px] whitespace-nowrap shrink-0 tabular-nums">
+            {rand(product.price)}
+          </span>
         </div>
 
-        <div className="px-1 pt-2.5 border-t border-slate-100 flex items-center justify-between">
-          <div>
-            <span className="text-[11px] text-slate-400 block">Price</span>
-            <span className="font-display font-extrabold text-lg text-slate-900">
-              R{product.price.toFixed(2)}
-            </span>
-          </div>
-          <button
-            onClick={() => addToCart(product)}
-            className={`inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold shadow-md transition-all active:scale-95 cursor-pointer ${brand.buttonClass}`}
-          >
-            <Plus className="h-4 w-4" />
-            Add to Cart
-          </button>
-        </div>
-      </motion.div>
+        {/* One action, and it is a conversation — not a cart */}
+        <a
+          href={waLink(productEnquiry(product.name, product.size, product.price))}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="enquire mt-3"
+        >
+          <MessageCircle className="h-3.5 w-3.5" />
+          Enquire
+        </a>
+      </article>
 
-      {modalOpen && (
-        <ProductModal product={product} onClose={() => setModalOpen(false)} />
-      )}
+      {modalOpen && <ProductModal product={product} onClose={() => setModalOpen(false)} />}
     </>
   );
 };

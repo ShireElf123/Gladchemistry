@@ -27,7 +27,7 @@ export const About: React.FC = () => {
           <div className="lg:col-span-5">
             <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
               <img
-                src="/images/hero-organic.png"
+                src="/images/hero-organic.webp"
                 alt="Gladchemistry Formulation"
                 className="w-full aspect-[4/3] object-cover"
               />

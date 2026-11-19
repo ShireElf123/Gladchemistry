@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Plus, Minus, ShoppingBag, Sparkles } from 'lucide-react';
+import { X, MessageCircle, Phone, Sparkles } from 'lucide-react';
 import type { Product } from '../data/products';
 import { BRANDS } from '../data/brands';
-import { useCart } from '../context/CartContext';
+import { ProductPlate } from './ProductPlate';
+import { waLink, productEnquiry, telLink, SHOP } from '../data/shop';
+import { rand } from '../lib/format';
 
 interface ProductModalProps {
   product: Product | null;
@@ -11,17 +13,11 @@ interface ProductModalProps {
 }
 
 export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) => {
-  const { addToCart } = useCart();
-  const [qty, setQty] = useState(1);
-  const [selectedVariant, setSelectedVariant] = useState(0);
+  const [sent, setSent] = useState(false);
 
   if (!product) return null;
   const brand = BRANDS[product.brand];
-
-  const handleAdd = () => {
-    addToCart(product, qty);
-    onClose();
-  };
+  const weak = product.photoGrade === 'weak';
 
   return (
     <AnimatePresence>
@@ -47,14 +43,24 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
             <X className="h-5 w-5" />
           </button>
 
-          <div className="bg-slate-100 relative min-h-[280px]">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
+          {/* Same role logic as the card: a photograph is shown whole, never
+              cropped to a square that slices the product. */}
+          <div className="relative min-h-[300px] md:min-h-[440px] bg-[#f0eee7] grid place-items-center p-6">
+            {weak ? (
+              <div className="absolute inset-3 rounded-2xl overflow-hidden">
+                <ProductPlate product={product} />
+              </div>
+            ) : (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full"
+                style={{ objectFit: 'contain', maxHeight: 460 }}
+              />
+            )}
             <span
-              className={`absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded-full border backdrop-blur-md ${brand.badgeClass}`}
+              className="absolute top-4 left-4 text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full"
+              style={{ background: 'var(--ink)', color: '#fff' }}
             >
               {brand.name}
             </span>
@@ -90,64 +96,44 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
                   </div>
                 </div>
               )}
-
-              {product.variants && (
-                <div className="pt-1">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">
-                    Select Size / Option
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {product.variants.map((v, i) => (
-                      <button
-                        key={v}
-                        onClick={() => setSelectedVariant(i)}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                          selectedVariant === i
-                            ? 'bg-slate-900 text-white border-slate-900'
-                            : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
-                        }`}
-                      >
-                        {v}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
 
-            <div className="pt-4 border-t border-slate-100 space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-xs text-slate-400 block">Price</span>
-                  <span className="font-display font-extrabold text-2xl text-slate-900">
-                    R{(product.price * qty).toFixed(2)}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2 bg-slate-100 rounded-xl p-1">
-                  <button
-                    onClick={() => setQty(Math.max(1, qty - 1))}
-                    className="p-2 rounded-lg hover:bg-white text-slate-700 cursor-pointer"
-                  >
-                    <Minus className="h-4 w-4" />
-                  </button>
-                  <span className="font-bold text-sm px-2">{qty}</span>
-                  <button
-                    onClick={() => setQty(qty + 1)}
-                    className="p-2 rounded-lg hover:bg-white text-slate-700 cursor-pointer"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </button>
-                </div>
+            <div className="pt-4 border-t border-slate-100 space-y-3">
+              <div className="flex items-baseline justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  {product.size}
+                </span>
+                <span className="font-display font-extrabold text-2xl text-slate-900 tabular-nums">
+                  {rand(product.price)}
+                </span>
               </div>
 
-              <button
-                onClick={handleAdd}
-                className={`w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.99] cursor-pointer ${brand.buttonClass}`}
+              {/* No checkout: the order is a conversation with the shop. */}
+              <a
+                href={waLink(productEnquiry(product.name, product.size, product.price))}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setSent(true)}
+                className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-[0.99]"
+                style={{ background: 'var(--ink)', color: 'var(--paper)' }}
               >
-                <ShoppingBag className="h-4 w-4" />
-                Add to Cart
-              </button>
+                <MessageCircle className="h-4 w-4" />
+                Enquire on WhatsApp
+              </a>
+
+              <a
+                href={telLink}
+                className="w-full py-2.5 rounded-xl font-bold text-[13px] flex items-center justify-center gap-2 border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                Call the shop · {SHOP.phoneDisplay}
+              </a>
+
+              <p className="text-[11px] leading-relaxed text-slate-400 text-center">
+                {sent
+                  ? 'Your enquiry is open in WhatsApp — send it to confirm the order.'
+                  : 'Collection from Shop 19, Palm Springs Mall, Springs. Wholesale welcome.'}
+              </p>
             </div>
           </div>
         </motion.div>

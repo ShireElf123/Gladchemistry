@@ -35,7 +35,8 @@ export const Brands: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className={`rounded-[2.25rem] p-6 sm:p-10 border ${brand.bgTint} ${brand.borderTint} grid grid-cols-1 lg:grid-cols-12 gap-8 items-center`}
+                className="rounded-[28px] p-6 sm:p-10 border border-black/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+                style={{ background: brand.stageTone }}
               >
                 <div className={`lg:col-span-6 space-y-5 ${!isEven ? 'lg:order-2' : ''}`}>
                   <BrandLogo brand={brand.id} size="lg" />

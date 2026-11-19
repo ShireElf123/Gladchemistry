@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Working files: scratch crops, model output, user-supplied reference screenshots
+.work/
+reference-photos/
+
+# Generated jsdom harness (rebuilt by `npm test`)
+tests/build/
