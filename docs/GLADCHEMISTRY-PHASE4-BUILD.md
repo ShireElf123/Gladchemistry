@@ -304,13 +304,46 @@ GET  /api/nope    → 404
 7 rapid POSTs     → 5×503 then 2×429        (throttle works)
 ```
 
+### Live production verification (`dpl_6ZwBNucoCMGXkJbDxaRYcKNQqE8g`, READY, PROMOTED)
+
+Deployed to `gladchemistry.vercel.app`. The build log confirms **two serverless functions
+compiled**, and the deployment's own route table shows `/api/*` handled before the
+`/((?!api/).*) → /index.html` rewrite — so the endpoints are not swallowed.
+
+Fetched from the live URL:
+
+| Request | Live response |
+|---|---|
+| `GET /api/order` | `{"ok":true,"onlineOrdering":false}` |
+| `GET /api/contact` | `{"ok":true,"onlineMessaging":false}` |
+| `GET /` | Renders; "Free delivery over R500" banner, 40 products, all Phase 3 frames |
+| `GET /shop` | Renders; all 40 products with their hashed frames |
+| `GET /contact` | Renders the **new** form: real shop address, 073 719 0821, and **"Online messaging is not switched on yet"** with the email-app / WhatsApp / phone routes |
+
+`onlineOrdering: false` is the **correct** answer: no mail transport is configured on this
+deployment yet (§2). The site is therefore live and honest, not live and lying.
+
+The production bundle Vercel built (`index-CZV1iBI0.js`) was inspected directly:
+
+```
+present:  "Order sent to the shop"      "Quoted on confirmation"
+          "Online ordering is not live yet"  "Email this order to the shop"
+          "Message delivered"           "Online messaging is not switched on"
+          "gladchemistry.cart.v1"       "api/order"
+absent:   "Order Confirmed!"   "Message Received!"   "Select Size / Option"
+```
+
 ### What I did *not* claim
 
 - **No browser screenshot.** There is no browser in this environment. The UI evidence is
   jsdom interaction tests plus rendered markup, which is what the code actually produces.
-- **No live deployment verification.** Sandbox egress is currently broken (see §12), so nothing
-  about `gladchemistry.vercel.app` was fetched. Do not read this report as "verified on
-  production".
+- **No POST was sent to production**, so the live 201 path is unproven end to end — it cannot
+  be, until `RESEND_API_KEY` is set. Everything up to and including `503 not_configured` is
+  proven live; the accepted-order path is proven against the real handlers with a stubbed
+  provider (§11).
+- **`curl` from this sandbox still cannot reach the host** (`SSL_ERROR_SYSCALL`), and
+  `example.com` fails the same way, so that is this sandbox's TLS egress, not the site. The
+  fetches above went through a different route and returned real content.
 
 ---
 
@@ -330,10 +363,13 @@ new endpoints:
 so the real submission path can be exercised locally without `vercel dev`. It changes nothing
 in production.
 
-**⚠️ Egress was down at the time of writing.** `fetch_page` failed on `https://example.com` as
-well as on the deployment, and `curl` returned `SSL_ERROR_SYSCALL` — the sandbox is offline, not
-the site. The deployment in §12 is therefore structurally verified only (the built bundle
-contains the new code); it is **not** confirmed against the live URL.
+**Deployment ID:** `dpl_6ZwBNucoCMGXkJbDxaRYcKNQqE8g` — READY, PROMOTED, alias
+`gladchemistry.vercel.app` assigned. See §11 for what was confirmed against the live URL.
+
+**Still to do before orders can actually arrive:** set `RESEND_API_KEY` and `ORDER_FROM_EMAIL`
+in Vercel and redeploy. The moment those exist, `GET /api/order` flips to
+`{"onlineOrdering":true}`, the drawer swaps its email handoff for the real form, and orders
+land in the shop inbox.
 
 ---
 
