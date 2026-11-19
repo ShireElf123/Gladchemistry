@@ -18,6 +18,8 @@ export interface Product {
   featured?: boolean;
   /** True when the photo is a full-bleed scene rather than a transparent cut-out. */
   photo?: boolean;
+  /** For full-bleed shots: 'contain' letterboxes the product instead of cropping. */
+  fit?: 'contain';
 }
 
 type P = Omit<Product, 'preMessage' | 'notes'> & { preMessage?: string; notes?: string[] };
@@ -45,6 +47,7 @@ export const PRODUCTS: Product[] = [
     size: '125g Tub',
     image: '/images/products/gladchemistry-skin-moist-125g.jpg',
     photo: true,
+    fit: 'contain',
     badge: 'Bestseller',
     featured: true,
     preMessage: 'The original formula · For dry, itchy and flaky skin',
@@ -61,6 +64,7 @@ export const PRODUCTS: Product[] = [
     size: 'Large Tub',
     image: '/images/products/gladchemistry-skin-moist-family.jpg',
     photo: true,
+    fit: 'contain',
     featured: true,
     preMessage: 'Family size · Same formula, bigger tub',
     description:
@@ -89,6 +93,7 @@ export const PRODUCTS: Product[] = [
     size: '125g Tub',
     image: '/images/products/gladchemistry-sheacoco-hair-care.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Shea + coconut · For receding hairlines',
     description:
       'A shea and coconut hair cream aimed at receding hairlines and slow growth. Massage into the scalp and leave in.',
@@ -102,6 +107,7 @@ export const PRODUCTS: Product[] = [
     size: '125g Tub',
     image: '/images/products/gladchemistry-hair-food.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Petroleum jelly base · Softens and seals',
     description:
       'A classic hair food with a petroleum jelly base and a light scent, for sealing in moisture and softening dry hair and scalp.',
@@ -115,6 +121,7 @@ export const PRODUCTS: Product[] = [
     size: '100ml',
     image: '/images/products/gladchemistry-hair-oil.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Organic blend · For beard growth and scalp health',
     description:
       'An organic hair oil for beard growth, scalp moisturising and flake control. Light enough to use daily.',
@@ -126,8 +133,9 @@ export const PRODUCTS: Product[] = [
     category: 'Hair & Skin Oils',
     price: 33,
     size: '50ml',
-    image: '/images/products/gladchemistry-castor-oil-500ml.jpg',
+    image: '/images/products/gladchemistry-castor-oil-50ml.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Cold pressed · Hexane free',
     description:
       'Pure cold-pressed, hexane-free castor oil in a handy 50ml. Thick and rich — a little goes a long way on hair, brows and lashes.',
@@ -141,6 +149,7 @@ export const PRODUCTS: Product[] = [
     size: '500ml',
     image: '/images/products/gladchemistry-castor-oil-500ml.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Cold pressed · Hexane free',
     description:
       'The bulk bottle of the same cold-pressed, hexane-free castor oil. Better value if you use it regularly.',
@@ -154,6 +163,7 @@ export const PRODUCTS: Product[] = [
     size: 'Tub + 100g Bar',
     image: '/images/products/gladchemistry-skin-moist-125g.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Combo · Acne and dark spots',
     description:
       'The Skin Moist tub paired with a charcoal soap bar, put together for acne-prone skin and dark spots.',
@@ -167,6 +177,7 @@ export const PRODUCTS: Product[] = [
     size: '1.5L + 100g',
     image: '/images/products/gladchemistry-skin-moist-family.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Combo · Any foam bath, any bar',
     description:
       'Any of the 1.5L foam baths paired with a 100g soap bar. Pick your fragrance when you order.',
@@ -180,6 +191,7 @@ export const PRODUCTS: Product[] = [
     size: '5L + 125g',
     image: '/images/products/gladchemistry-skin-moist-family.jpg',
     photo: true,
+    fit: 'contain',
     preMessage: 'Combo · The full bath routine',
     description:
       'A 5L bubble bath with a 125g Skin Moist — the whole bath routine in one order.',
@@ -204,11 +216,13 @@ export const PRODUCTS: Product[] = [
     category: 'Personal Care',
     price: 55,
     size: '500g',
-    image: '/images/products/bubbles-all-purpose-cleaner.png',
+    image: '/images/products/gladchemistry-bicarbonate-soda.jpg',
     preMessage: 'Pharmaceutical grade · Multipurpose',
     description:
       'Pharmaceutical-grade bicarbonate of soda for exfoliation, bath soaks and general eco-friendly cleaning.',
-  }),
+    photo: true,
+    fit: 'contain',
+    }),
   p({
     id: 'gc-personal-care-startup',
     name: 'Personal Care Start Up',
@@ -218,6 +232,7 @@ export const PRODUCTS: Product[] = [
     size: '10 + 12 Pack',
     image: '/images/products/gladchemistry-skin-moist-family.jpg',
     photo: true,
+    fit: 'contain',
     badge: 'Wholesale',
     preMessage: 'For resellers · 10 of each, 12 lines',
     description:
@@ -339,7 +354,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 82,
     size: '2L',
-    image: '/images/products/bubbles-dishwashing-liquid.png',
+    image: '/images/products/bubbles-dishwashing-2l.png',
     preMessage: 'High foam · Bulk size',
     description:
       'The same thick, strong dishwashing liquid in a 2L tub for kitchens that go through it fast.',
@@ -411,7 +426,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 97,
     size: '750ml',
-    image: '/images/products/bubbles-all-purpose-cleaner.png',
+    image: '/images/products/bubbles-multipurpose-750ml.png',
     preMessage: 'Heavy duty formulation',
     description:
       'A stronger multipurpose cleaning liquid for floors, tiles and general household use. Also available in 5L.',
@@ -435,11 +450,13 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 136,
     size: '5L',
-    image: '/images/products/bubbles-all-purpose-cleaner.png',
+    image: '/images/products/bubbles-floor-polish-5l.jpg',
     preMessage: 'Instant shine · Polymer',
     description:
       'A polymer floor shine polish for instant gloss on hard floors. The larger 5L size.',
-  }),
+    photo: true,
+    fit: 'contain',
+    }),
   p({
     id: 'bubbles-floor-polish-1l',
     name: 'Liquid Polymer Floor Polish 1L',
@@ -459,11 +476,13 @@ export const PRODUCTS: Product[] = [
     category: 'Laundry',
     price: 140,
     size: '5kg · 20kg R380',
-    image: '/images/products/bubbles-all-purpose-cleaner.png',
+    image: '/images/products/bubbles-powder-soap-5kg.jpg',
     preMessage: 'Bulk laundry soap · Two sizes',
     description:
       'Bulk washing powder soap, 5kg for R140 or 20kg for R380.',
-  }),
+    photo: true,
+    fit: 'contain',
+    }),
   p({
     id: 'bubbles-tile-cleaner-5l',
     name: 'Tile Cleaner 5L',
@@ -471,11 +490,13 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 155,
     size: '5L',
-    image: '/images/products/bubbles-all-purpose-cleaner.png',
+    image: '/images/products/bubbles-tile-cleaner-5l.jpg',
     preMessage: 'For all tile types',
     description:
       'A tile cleaner for glazed and ceramic tiles, bulk sized for larger floors.',
-  }),
+    photo: true,
+    fit: 'contain',
+    }),
   p({
     id: 'bubbles-car-wash-wax',
     name: 'Car Wash & Wax Shampoo',

@@ -32,7 +32,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
             the tinted pad with the circle behind them. */}
         <div
           onClick={() => setModalOpen(true)}
-          className={product.photo ? 'stage stage-photo cursor-pointer' : 'stage cursor-pointer'}
+          className={
+            product.photo
+              ? `stage stage-photo${product.fit === 'contain' ? ' stage-contain' : ''} cursor-pointer`
+              : 'stage cursor-pointer'
+          }
           style={{
             ['--stage-tone' as string]: brand.stageTone,
             height: tall ? 340 : 290,

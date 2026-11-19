@@ -40,7 +40,11 @@ export const Hero: React.FC = () => {
   const visibleRef = useRef(true);
 
   const brand = BRANDS[brandId];
-  const heroProduct = PRODUCTS.find((p) => p.brand === brandId) ?? PRODUCTS[0];
+  const brandProducts = PRODUCTS.filter((p) => p.brand === brandId);
+  /* Prefer a transparent cut-out for the floating hero pack; a full-bleed
+     photo would read as a cropped rectangle behind the headline. */
+  const heroProduct =
+    brandProducts.find((p) => !p.photo) ?? brandProducts[0] ?? PRODUCTS[0];
   const accent = ACCENTS[brandId];
 
   const reduceMotion = () =>
@@ -271,6 +275,13 @@ export const Hero: React.FC = () => {
     });
   }, []);
 
+  /* Small floating packs flanking the hero. Cut-outs only, so they read as
+     floating product rather than cropped photo tiles. */
+  const ORBIT = [
+    ...PRODUCTS.filter((p) => !p.photo && p.brand !== brandId),
+    ...PRODUCTS.filter((p) => !p.photo && p.brand === brandId),
+  ];
+
   const FRUIT_POS = [
     { left: '8%', top: '10%', size: 92 },
     { left: '78%', top: '6%', size: 104 },
@@ -378,15 +389,18 @@ export const Hero: React.FC = () => {
           className="absolute left-1/2 top-[-17%] w-[126%] -translate-x-1/2 z-[1] pointer-events-none"
           style={{
             opacity: 0,
-            maskImage: 'linear-gradient(180deg,#000 52%,#0000 88%)',
-            WebkitMaskImage: 'linear-gradient(180deg,#000 52%,#0000 88%)',
+            /* Fade out well before the headline so the type stays crisp */
+            maskImage:
+              'radial-gradient(60% 62% at 50% 46%, #000 0%, rgba(0,0,0,.55) 52%, #0000 100%)',
+            WebkitMaskImage:
+              'radial-gradient(60% 62% at 50% 46%, #000 0%, rgba(0,0,0,.55) 52%, #0000 100%)',
           }}
         >
           <img
             src={brand.heroImage}
             alt=""
-            className="w-full h-auto opacity-60"
-            style={{ filter: 'blur(2px) saturate(1.2)' }}
+            className="w-full h-auto opacity-25"
+            style={{ filter: 'blur(6px) saturate(1.05)' }}
           />
         </div>
 
@@ -408,17 +422,12 @@ export const Hero: React.FC = () => {
               filter: i % 3 === 2 ? 'blur(3px)' : 'none',
             }}
           >
-            <div
-              className="w-full h-full rounded-[26%] overflow-hidden"
-              style={{
-                background: brand.stageTone,
-                boxShadow: '0 12px 24px -8px rgba(0,0,0,.55)',
-              }}
-            >
+            <div className="w-full h-full grid place-items-center p-1.5">
               <img
-                src={PRODUCTS[(i * 3) % PRODUCTS.length].image}
+                src={ORBIT[i % ORBIT.length]?.image ?? heroProduct.image}
                 alt=""
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
+                style={{ filter: 'drop-shadow(0 10px 16px rgba(0,0,0,.45))' }}
               />
             </div>
           </div>
@@ -429,22 +438,39 @@ export const Hero: React.FC = () => {
           ref={canRef}
           className="hero-can-wrap absolute inset-0 grid place-items-center z-[4]"
         >
-          <div
-            className="hero-can animate-float-slow overflow-hidden"
-            style={{
-              width: 'min(52%, 260px)',
-              aspectRatio: '3 / 4',
-              borderRadius: 28,
-              background: brand.stageTone,
-              boxShadow: '0 30px 60px -18px rgba(0,0,0,.7), 0 0 0 6px rgba(255,255,255,.14)',
-            }}
-          >
-            <img
-              src={heroProduct.image}
-              alt={heroProduct.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {heroProduct.photo ? (
+            /* Full-bleed shot: a deliberate framed card, not a bare crop */
+            <div
+              className="hero-can animate-float-slow overflow-hidden"
+              style={{
+                width: 'min(58%, 300px)',
+                aspectRatio: '4 / 5',
+                borderRadius: 26,
+                background: '#f4f2ec',
+                boxShadow:
+                  '0 40px 80px -24px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.5)',
+              }}
+            >
+              <img
+                src={heroProduct.image}
+                alt={heroProduct.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : (
+            /* Transparent cut-out: floats directly on the glow, like the soda can */
+            <div
+              className="hero-can animate-float-slow"
+              style={{ width: 'min(64%, 320px)' }}
+            >
+              <img
+                src={heroProduct.image}
+                alt={heroProduct.name}
+                className="w-full h-auto"
+                style={{ filter: 'drop-shadow(0 34px 44px rgba(0,0,0,.62))' }}
+              />
+            </div>
+          )}
         </div>
 
         {/* Sparkles */}

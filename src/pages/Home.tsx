@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BRANDS, BRAND_LIST } from '../data/brands';
+import { BRAND_LIST } from '../data/brands';
 import type { BrandId } from '../data/brands';
 import { PRODUCTS } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
@@ -204,8 +204,8 @@ export const Home: React.FC = () => {
           aria-hidden
           className="absolute inset-0 bg-cover bg-center pointer-events-none"
           style={{
-            backgroundImage: `url(${BRANDS[activeBrand === 'all' ? 'felis-be-glad' : activeBrand].heroImage})`,
-            opacity: 0.28,
+            backgroundImage: 'url(/images/editorial-scent.jpg)',
+            opacity: 0.42,
           }}
         />
 
@@ -262,17 +262,93 @@ export const Home: React.FC = () => {
               style={{ background: 'rgba(255,255,255,.14)' }}
             />
             <img
-              src="/images/reed-diffuser.jpg"
+              src="/images/products/felis-reed-diffuser.jpg"
               alt="Signature Amber Reed Diffuser"
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[58%] rounded-[28px] object-cover shadow-2xl -rotate-6"
               style={{ aspectRatio: '3 / 4' }}
             />
             <img
-              src="/images/felis-fragrances.jpg"
+              src="/images/products/felis-inspired-scandal-ladies.jpg"
               alt="Felis be Glad fragrance"
               className="absolute right-[2%] bottom-[4%] w-[42%] rounded-[22px] object-cover shadow-2xl rotate-6"
               style={{ aspectRatio: '3 / 4' }}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* ====================================== 4b. THREE HOUSES / EDITORIAL */}
+      <section className="px-[5vw] py-[80px]" style={{ background: 'var(--cream)' }}>
+        <div className="mx-auto max-w-[1240px]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7">
+            <div>
+              <span className="eyebrow">Three houses</span>
+              <h2 className="display-lg mt-2" style={{ color: 'var(--ink)' }}>
+                One standard, three <span className="u-mark">shelves</span>
+              </h2>
+            </div>
+            <Link to="/brands" className="text-[13px] font-black shrink-0" style={{ color: 'var(--ink)' }}>
+              Compare the houses →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                img: '/images/editorial-care.jpg',
+                tag: 'Gladchemistry',
+                line: 'Skin, hair and bath, formulated by a chemist.',
+                to: '/shop?brand=gladchemistry',
+                tone: '#DDF3E4',
+              },
+              {
+                img: '/images/editorial-scent.jpg',
+                tag: 'Felis be Glad',
+                line: 'Fine fragrance, reed diffusers and car perfumes.',
+                to: '/shop?brand=felis-be-glad',
+                tone: '#E8E2F5',
+              },
+              {
+                img: '/images/editorial-clean.jpg',
+                tag: 'Bubbles Detergents',
+                line: 'Home and car cleaning that actually shifts grime.',
+                to: '/shop?brand=bubbles-detergents',
+                tone: '#D9EFE0',
+              },
+            ].map((h) => (
+              <Link
+                key={h.tag}
+                to={h.to}
+                className="group relative block overflow-hidden rounded-[24px] reveal"
+                style={{ background: h.tone, aspectRatio: '4 / 5' }}
+              >
+                <img
+                  src={h.img}
+                  alt={h.tag}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, rgba(6,20,15,0) 40%, rgba(6,20,15,.82) 100%)',
+                  }}
+                />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em]" style={{ color: 'var(--lime)' }}>
+                    {h.tag}
+                  </p>
+                  <p className="mt-1.5 font-display font-extrabold text-[17px] leading-snug text-white">
+                    {h.line}
+                  </p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-black text-white/85">
+                    Shop the house
+                    <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
