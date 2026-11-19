@@ -580,7 +580,7 @@ export const PRODUCTS: Product[] = [
     category: 'Combos',
     price: 83,
     size: '750ml + 1kg',
-    image: '/images/products/bubbles-pine-gel-dishwashing.png',
+    image: '/images/products/bubbles-pine-gel-dishwashing.jpg',
     preMessage: 'Two everyday essentials',
     description:
       'A 750ml dishwashing liquid with a 1kg pine gel, the two things most kitchens run out of first.',
