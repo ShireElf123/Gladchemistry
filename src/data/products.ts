@@ -166,7 +166,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 125,
     size: 'Tub + 100g Bar',
-    image: '/images/frames/gc-skin-moist-charcoal.f4149f95.jpg',
+    image: '/images/frames/gc-skin-moist-charcoal.22ad6024.jpg',
     imageRole: 'photo',
     preMessage: 'Combo · Acne and dark spots',
     description:
@@ -218,7 +218,7 @@ export const PRODUCTS: Product[] = [
     category: 'Personal Care',
     price: 55,
     size: '500g',
-    image: '/images/frames/gc-bicarb.ff53f6d9.jpg',
+    image: '/images/frames/gc-bicarb.0408bf2c.jpg',
     imageRole: 'photo',
     preMessage: 'Pharmaceutical grade · Multipurpose',
     description:
@@ -231,7 +231,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 2600,
     size: '10 + 12 Pack',
-    image: '/images/frames/gc-personal-care-startup.bc4b3236.jpg',
+    image: '/images/frames/gc-personal-care-startup.1e8cfb26.jpg',
     imageRole: 'photo',
     
     badge: 'Wholesale',
@@ -374,7 +374,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 42,
     size: '750ml',
-    image: '/images/frames/bubbles-thick-bleach.f09b5611.jpg',
+    image: '/images/frames/bubbles-thick-bleach.1cbbb548.jpg',
     imageRole: 'photo',
     preMessage: 'Clings to the surface',
     description:
@@ -400,7 +400,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 65,
     size: '1kg Tub',
-    image: '/images/frames/bubbles-citrus-gel.766240be.jpg',
+    image: '/images/frames/bubbles-citrus-gel.fe85286c.jpg',
     imageRole: 'photo',
     preMessage: 'Zesty citrus · 500g from R52',
     description:
@@ -426,7 +426,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 44,
     size: '750ml',
-    image: '/images/frames/bubbles-all-purpose-cleaner.86be7b1e.jpg',
+    image: '/images/frames/bubbles-all-purpose-cleaner.6a9271ea.jpg',
     imageRole: 'photo',
     preMessage: 'Fresh lemon · Cuts grease',
     description:
@@ -452,7 +452,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 75,
     size: '1L',
-    image: '/images/frames/bubbles-black-dip.ef897d48.jpg',
+    image: '/images/frames/bubbles-black-dip.32bd5a21.jpg',
     imageRole: 'photo',
     preMessage: 'Drains · yards · pet areas',
     description:
@@ -491,7 +491,7 @@ export const PRODUCTS: Product[] = [
     category: 'Laundry',
     price: 140,
     size: '5kg · 20kg R380',
-    image: '/images/frames/bubbles-powder-soap.aeaadec1.jpg',
+    image: '/images/frames/bubbles-powder-soap.5b4579b7.jpg',
     imageRole: 'photo',
     preMessage: 'Bulk laundry soap · Two sizes',
     description:
@@ -504,7 +504,7 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 155,
     size: '5L',
-    image: '/images/frames/bubbles-tile-cleaner-5l.28c1d73e.jpg',
+    image: '/images/frames/bubbles-tile-cleaner-5l.221b5b20.jpg',
     imageRole: 'photo',
     preMessage: 'For all tile types',
     description:
