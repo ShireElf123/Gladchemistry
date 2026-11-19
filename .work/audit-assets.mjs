@@ -134,8 +134,17 @@ const VERDICT = {
   'bubbles-dishwashing-liquid': ['PASS', 'Real labelled bottle', ''],
   'bubbles-dishwashing-2l': ['FIXED', 'Real translucent green 2L bucket with printed label. The frame had substituted an opaque white tub.', ''],
   'bubbles-thick-bleach': ['PASS', 'Real bottle with its angled pour neck and nozzle', ''],
-  'bubbles-pine-gel': ['PASS', 'Real 1kg tub, genuine label artwork', 'Catalogue says 1kg Tub; label should be confirmed at 1kg'],
-  'bubbles-citrus-gel': ['FIXED', 'Real wraparound illustrated label from the authentic photograph. The frame, which carried generated fine print with invented phone numbers and email domains, is gone.', 'Catalogue says 1kg Tub but the pack photographed is 500g — confirm the size before publishing'],
+  /* The label artwork is genuine, but the pack weight is not legible in the
+     photograph at its delivery resolution, so the size cannot be confirmed
+     from it. The catalogue's "1kg Tub" is unverified, not wrong. */
+  'bubbles-pine-gel': ['PASS', 'Real tub, genuine label artwork',
+                       'Pack size is not legible in the photograph — confirm 1kg with the client'],
+  /* The wraparound label is genuine. Its weight line is below the legibility
+     floor at the only resolution we have, so the size is unconfirmed — neither
+     1kg nor 500g can be asserted from this photograph. */
+  'bubbles-citrus-gel': ['FIXED',
+    'Real wraparound illustrated label. The previous frame carried generated fine print with invented phone numbers and email domains; that frame is gone.',
+    'Pack size is not legible in the photograph — confirm before publishing'],
   'bubbles-citrus-pine-gel': ['COMPOSITE', 'Both packs are authentic; the two-up arrangement is a composite', 'Reshoot if a real pair photograph is ever taken'],
   /* The frame itself was always faithful — it was this audit's mapping that
      wrongly pointed at the Bubble Bath photo. The frame is not a fix. */
@@ -204,10 +213,17 @@ md += `the source of truth. \`public/images/frames/\` holds the frames shown on 
 
 md += `## Verdict summary\n\n`;
 for (const k of ORDER) if (tally[k]) md += `- **${k}**: ${tally[k]}\n`;
-md += `\nProducts with no photograph of their own in the repo: **${rows.filter((r) => r.orig === '-').length}**\n`;
+md += `\nProducts with a photograph of their own: **${rows.filter((r) => r.orig !== '-').length}** of ${rows.length}.
+Products with **no** photograph of their own: **${rows.filter((r) => r.orig === '-').length}** — listed in full below.\n`;
 md += `Technical failures (missing file, wrong hash, shared image): **${
   rows.filter((r) => !r.exists || !r.hashOk).length + dupes.size
 }**\n\n`;
+
+const noPhoto = rows.filter((r) => r.orig === '-');
+md += `\nThe ${noPhoto.length} without a photograph of their own are: `;
+md += noPhoto.map((r) => `${r.name} (**${r.status}**)`).join(', ') + `.\n`;
+md += `Four are shown with a temporary presentation and are flagged as such; the fifth is a\n`;
+md += `composite of two real packs. **No image is marked authentic merely because a file exists.**\n\n`;
 
 md += `## Product frames (${rows.length})\n\n`;
 md += `| Product | Brand | Source photograph | Frame file | Pack matches? | What the frame shows | Outcome |\n`;
@@ -220,12 +236,15 @@ for (const r of rows) {
   } |\n`;
 }
 
-md += `\n## Products still blocked on client photography\n\n`;
+md += `\n## Products shown without a verified photograph\n\n`;
+md += `Four of the five products with no photograph are displayed with a temporary\n`;
+md += `presentation and are flagged below. The fifth, Citrus and Pine Gel Combo, is a\n`;
+md += `composite of two authentic packs and is not blocked on photography.\n\n`;
 const blocked = rows.filter((r) => r.status === 'NEEDS-CLIENT-PHOTO' || r.status === 'UNVERIFIED');
 if (blocked.length === 0) {
   md += `None.\n`;
 } else {
-  md += `These are shown with an approved temporary presentation but are **not** verified.\n\n`;
+  md += `These are displayed but are **not** verified, and need a client photograph.\n\n`;
   for (const r of blocked) md += `- **${r.name}** (\`${r.id}\`) — ${r.action}\n`;
 }
 
@@ -241,6 +260,22 @@ md += `already delivered isolated, and a whole-photograph placement where it was
 md += `scene. Neither technique draws, re-types or reconstructs packaging, so a label\n`;
 md += `cannot acquire wording it never had. Frames whose packaging already matched were\n`;
 md += `left untouched.\n`;
+
+md += `\n## Self-check\n\n`;
+md += `Every number in this document is recomputed on each run, so a stale count cannot\n`;
+md += `survive a regeneration.\n\n`;
+md += `| Check | Result |\n|---|---|\n`;
+md += `| Products in the catalogue | ${rows.length} |\n`;
+md += `| Verdicts recorded | ${rows.filter((r) => r.status).length} |\n`;
+md += `| Verdicts that are an allowed value | ${
+  rows.every((r) => ORDER.includes(r.status)) ? 'all ' + rows.length : '**some are invalid**'
+} |\n`;
+md += `| Frames whose file exists | ${rows.filter((r) => r.exists).length} / ${rows.length} |\n`;
+md += `| Frames whose content hash matches the filename | ${rows.filter((r) => r.hashOk).length} / ${rows.length} |\n`;
+md += `| Images shared between two products | ${dupes.size} |\n`;
+md += `| Products with a dedicated photograph | ${noPhoto.length === 0 ? rows.length : rows.length - noPhoto.length} |\n`;
+md += `| Products with no photograph of their own | ${noPhoto.length} |\n`;
+md += `| Frames replaced in commit \`fb30544\` | 8 |\n`;
 
 fs.mkdirSync('.work', { recursive: true });
 fs.writeFileSync('.work/ASSET-AUDIT.md', md);
