@@ -435,7 +435,7 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 66,
     size: '1L',
-    image: '/images/frames/bubbles-floor-polish-lg.jpg',
+    image: '/images/frames/bubbles-floor-polish-1l.jpg',
     preMessage: 'Instant shine · Polymer',
     description:
       'The same polymer floor polish in a 1L for smaller spaces.',
@@ -459,7 +459,7 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 155,
     size: '5L',
-    image: '/images/frames/bubbles-powder-soap.jpg',
+    image: '/images/frames/bubbles-tile-cleaner-5l.jpg',
     preMessage: 'For all tile types',
     description:
       'A tile cleaner for glazed and ceramic tiles, bulk sized for larger floors.',
@@ -471,7 +471,7 @@ export const PRODUCTS: Product[] = [
     category: 'Car Care',
     price: 155,
     size: '5L Jerry Can',
-    image: '/images/frames/bubbles-powder-soap.jpg',
+    image: '/images/frames/bubbles-car-wash-wax.jpg',
     featured: true,
     preMessage: 'High foam · Streak free',
     description:
