@@ -558,7 +558,7 @@ export const PRODUCTS: Product[] = [
     category: 'Combos',
     price: 95,
     size: '3 × 750ml',
-    image: '/images/frames/bubbles-combo-95.c4c79b08.jpg',
+    image: '/images/frames/bubbles-combo-95.be6b9ef9.jpg',
     imageRole: 'photo',
     preMessage: 'Dish liquid · thick bleach · multipurpose',
     description:
@@ -571,11 +571,11 @@ export const PRODUCTS: Product[] = [
     category: 'Combos',
     price: 137,
     size: '4 Piece',
-    image: '/images/frames/bubbles-combo-137.eae24e10.jpg',
+    image: '/images/frames/bubbles-combo-137.b7522bd4.jpg',
     imageRole: 'photo',
-    preMessage: 'Dish liquid · pine gel · bleach',
+    preMessage: 'Dish liquid · pine gel · bleach · all-purpose',
     description:
-      '750ml dishwashing liquid, 1kg pine gel and the rest of the cleaning set, bundled at R137.',
+      '750ml dishwashing liquid, 750ml thick bleach, a 750ml pine gel and a 750ml all-purpose cleaner, bundled at R137.',
   }),
   p({
     id: 'bubbles-pine-gel-dishwashing',
@@ -583,12 +583,12 @@ export const PRODUCTS: Product[] = [
     brand: 'bubbles-detergents',
     category: 'Combos',
     price: 83,
-    size: '750ml + 1kg',
+    size: '750ml + 750ml',
     image: '/images/frames/bubbles-pine-gel-dishwashing.c5e481b7.jpg',
     imageRole: 'photo',
     preMessage: 'Two everyday essentials',
     description:
-      'A 750ml dishwashing liquid with a 1kg pine gel, the two things most kitchens run out of first.',
+      'A 750ml dishwashing liquid with a 750ml pine gel, the two things most kitchens run out of first.',
   }),
 ];
 
