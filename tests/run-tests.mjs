@@ -22,6 +22,18 @@ const run = (args, label) => {
 
 // The UI suite needs the components bundled for jsdom. esbuild mirrors how the
 // app is actually built and keeps react external so there is one React instance.
+const ESBUILD_COMMON = [
+  '--bundle',
+  '--platform=node',
+  '--format=esm',
+  '--jsx=automatic',
+  '--log-level=error',
+  '--external:react',
+  '--external:react-dom',
+  '--external:react-dom/client',
+  '--external:react-router-dom',
+];
+
 const okUi = run(
   [
     join(root, 'node_modules/.bin/esbuild'),
@@ -39,13 +51,23 @@ const okUi = run(
   ],
   'building the jsdom harness'
 );
-if (!okUi) {
+
+// A second bundle mounts the whole app for the route smoke test.
+const okSmoke = run(
+  [
+    join(root, 'node_modules/.bin/esbuild'),
+    'tests/smoke.tsx',
+    '--outfile=tests/build/smoke.js',
+    ...ESBUILD_COMMON,
+  ],
+  'building the app smoke harness'
+);
+if (!okUi || !okSmoke) {
   console.log('\nHarness build failed');
   process.exit(1);
 }
 
 const suites = [
-  ['cart.test.mjs', 'PRICING, PERSISTENCE & VALIDATION'],
   ['client.test.mjs', 'CLIENT SUBMISSION (no fake success)'],
   ['api.test.mjs', 'SERVERLESS ENDPOINTS (real orders only)'],
   ['ui-run.mjs', 'UI INTERACTIONS (jsdom)'],

@@ -550,3 +550,214 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee { animation: none !important; }
 }
+
+/* ==================================================================
+   Catalogue layer — added when the site moved from storefront to
+   catalogue-with-enquiry.
+
+   Three things live here:
+     1. .tile / .parallax — scroll-driven motion, done with CSS so a
+        filter change never needs a JS re-run, and so it costs nothing
+        on a phone.
+     2. .plate — the typeset tile for a product with no publishable
+        photograph. This exists so a soft source never gets upscaled.
+     3. .enquire — the single call to action. There is no cart.
+   ================================================================== */
+
+/* ---------------------------------------------------- scroll motion */
+
+/* Entry: the tile lifts into place once, as it comes into view. */
+@keyframes tile-in {
+  from { opacity: 0; transform: translateY(26px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+.tile {
+  animation: tile-in 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 62%;
+}
+
+/* Drift: the artwork moves slightly slower than the card, so the grid has
+   depth without anything actually sliding around. */
+@keyframes drift {
+  from { transform: translateY(-9px) scale(1.035); }
+  to   { transform: translateY(9px) scale(1.035); }
+}
+
+.tile .parallax {
+  animation: drift 1s linear both;
+  animation-timeline: view();
+  animation-range: cover 0% cover 100%;
+  will-change: transform;
+}
+
+.tile .stage {
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+/* The quick-view mark: a small corner affordance that appears on hover. */
+.tile-view {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  height: 34px;
+  width: 34px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 6px 18px -8px rgba(16, 35, 28, 0.5);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tile:hover .tile-view,
+.tile:focus-within .tile-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* Image hover: a restrained push, never a bounce. */
+.stage-art > img {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tile:hover .stage-art > img {
+  transform: scale(1.035);
+}
+
+/* ------------------------------------------------ typographic plate */
+
+.stage-plate {
+  background: var(--plate-tone, #eeede8);
+  color: var(--plate-ink, var(--ink));
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+}
+
+.plate {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px 20px 20px;
+  overflow: hidden;
+}
+
+.plate-arc {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  color: var(--plate-ink);
+  opacity: 0.16;
+  z-index: 0;
+  transform-origin: 50% 55%;
+}
+
+.plate-body {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.plate-house {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin: 0 0 6px;
+}
+
+.plate-name {
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(15px, 7cqw, 22px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.plate-rule {
+  height: 2px;
+  width: 26px;
+  margin: 10px 0 8px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.plate-size {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.72;
+  margin: 0;
+}
+
+.plate-strength {
+  position: relative;
+  z-index: 1;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin: 0;
+  align-self: flex-end;
+}
+
+/* -------------------------------------------------------- enquire */
+
+.enquire {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1.5px solid rgba(16, 35, 28, 0.18);
+  background: transparent;
+  transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+}
+.enquire:hover {
+  background: var(--lime);
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+/* ------------------------------------------- reduced motion, again */
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .tile .parallax {
+    animation: none !important;
+  }
+  .tile:hover .stage-art > img {
+    transform: none;
+  }
+}
+
+/* Browsers without scroll-driven animation support: show everything
+   immediately rather than leaving tiles at opacity 0. */
+@supports not (animation-timeline: view()) {
+  .tile,
+  .tile .parallax {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -230,7 +230,7 @@ export const Hero: React.FC = () => {
 
             <div className="hero-rise mt-7 flex flex-wrap items-center gap-2.5">
               <Link to={`/shop?brand=${brand.id}`} className="btn btn-ink">
-                Shop {brand.name}
+                View the range
               </Link>
               <Link to="/brands" className="btn btn-ghost">
                 Meet the houses

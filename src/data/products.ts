@@ -31,6 +31,16 @@ export interface Product {
   imageRole: ImageRole;
   /** Optional override for how a photo/scene fills its frame. */
   fit?: 'contain' | 'cover';
+  /**
+   * Honest quality grade for the artwork.
+   *
+   * `weak` means the source photograph is too small or too soft to hold up at
+   * gallery scale — the thumbnail still reads, but enlarging it would be
+   * dressing up a bad image. Weak artwork gets a typographic treatment instead
+   * of a blown-up picture. Never remove this flag to make a page look fuller:
+   * hiding a soft photo is honest, upscaling it is not.
+   */
+  photoGrade?: 'strong' | 'weak';
 }
 
 type P = Omit<Product, 'preMessage' | 'notes'> & { preMessage?: string; notes?: string[] };
@@ -404,7 +414,8 @@ export const PRODUCTS: Product[] = [
     preMessage: 'Zesty citrus · 500g from R52',
     description:
       'A zesty citrus cleaning gel for kitchens, bathrooms and high-traffic surfaces. Also available in 500g.',
-  }),
+    photoGrade: 'weak',
+}),
   p({
     id: 'bubbles-citrus-pine-gel',
     name: 'Citrus and Pine Gel Combo',

@@ -73,8 +73,8 @@ export const Shop: React.FC = () => {
             className="mt-4 text-[16px] leading-relaxed max-w-[52ch]"
             style={{ color: 'var(--ink-soft)' }}
           >
-            {PRODUCTS.length} products across personal care, fragrance and home cleaning.
-            Filter by house, then narrow it down.
+            {PRODUCTS.length} products across personal care, fragrance and home
+            cleaning. Prices are listed per item; order by WhatsApp or at the counter.
           </p>
         </div>
       </section>
@@ -141,6 +141,12 @@ export const Shop: React.FC = () => {
 
           <p className="text-[12px] font-bold text-slate-400">
             Showing {filteredProducts.length} of {PRODUCTS.length}
+            {filteredProducts.some((p) => p.photoGrade === 'weak') && (
+              <span className="font-semibold text-slate-400">
+                {' '}· a few lines are typeset where the photograph is not yet
+                good enough to publish
+              </span>
+            )}
           </p>
         </div>
       </section>

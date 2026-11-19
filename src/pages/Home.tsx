@@ -181,7 +181,7 @@ export const Home: React.FC = () => {
 
           <div className="mt-12 flex flex-col items-center gap-2">
             <Link to="/shop" className="btn btn-ink">
-              Shop all {PRODUCTS.length} products →
+              Browse the full catalogue of {PRODUCTS.length} →
             </Link>
             {hiddenCount > 0 && (
               <span className="text-[12px] font-bold text-slate-400">
@@ -335,7 +335,7 @@ export const Home: React.FC = () => {
                     {h.line}
                   </p>
                   <span className="mt-3 inline-flex items-center gap-1 text-[12px] font-black text-white/85">
-                    Shop the house
+                    Explore the house
                     <span className="transition-transform group-hover:translate-x-1">→</span>
                   </span>
                 </div>
@@ -481,7 +481,7 @@ export const Home: React.FC = () => {
         </p>
         <div className="mt-7 flex flex-wrap justify-center gap-2.5">
           <Link to="/shop" className="btn btn-ink">
-            Shop everything
+            View the catalogue
           </Link>
           <Link to="/brands" className="btn btn-ghost">
             Compare brands

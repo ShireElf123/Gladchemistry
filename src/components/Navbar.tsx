@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { ShoppingBag, Menu, X } from 'lucide-react';
-import { useCart } from '../context/CartContext';
+import { MessageCircle, Menu, X } from 'lucide-react';
+import { waLink } from '../data/shop';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
-  { to: '/shop', label: 'Shop' },
+  { to: '/shop', label: 'Catalogue' },
   { to: '/brands', label: 'Brands' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ];
 
 export const Navbar: React.FC = () => {
-  const { totalItems, openCart } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -22,7 +21,7 @@ export const Navbar: React.FC = () => {
         className="text-center px-3 py-2 text-[11px] font-black uppercase tracking-[0.14em]"
         style={{ background: 'var(--lime)', color: 'var(--ink)' }}
       >
-        Free delivery over R500 · Wholesale welcome
+        Shop 19, Palm Springs Mall · Springs · Wholesale welcome
       </div>
 
       <header className="sticky top-0 z-40" style={{ background: 'var(--ink)' }}>
@@ -62,22 +61,16 @@ export const Navbar: React.FC = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-2 ml-auto md:ml-0">
-            <button
-              onClick={openCart}
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-black transition-transform active:scale-95 cursor-pointer"
+            <a
+              href={waLink("Hello Gladchemistry — I'd like to ask about a product.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-black transition-transform active:scale-95"
               style={{ background: 'var(--lime)', color: 'var(--ink)' }}
             >
-              <ShoppingBag className="h-4 w-4" />
-              <span className="hidden sm:inline">Cart</span>
-              {totalItems > 0 && (
-                <span
-                  className="grid place-items-center h-5 min-w-5 px-1.5 rounded-full text-[11px] font-black"
-                  style={{ background: 'var(--coral)', color: '#fff' }}
-                >
-                  {totalItems}
-                </span>
-              )}
-            </button>
+              <MessageCircle className="h-4 w-4" />
+              <span className="hidden sm:inline">WhatsApp</span>
+            </a>
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}

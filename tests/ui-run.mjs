@@ -4,6 +4,7 @@
  * browser session that this environment cannot run.
  */
 import { JSDOM } from 'jsdom';
+import { Smoke, goTo } from './build/smoke.js';
 
 const dom = new JSDOM('<!doctype html><html><body></body></html>', {
   url: 'https://gladchemistry.test/shop',
@@ -137,153 +138,48 @@ globalThis.fetch = async (url, init) => {
   throw new Error('unexpected POST — this test did not expect a submission');
 };
 
-const openCartWith = (items) => {
-  dom.window.localStorage.setItem(
-    'gladchemistry.cart.v1',
-    JSON.stringify({ version: 1, savedAt: new Date().toISOString(), items })
-  );
-};
-
-const storage = () => JSON.parse(dom.window.localStorage.getItem('gladchemistry.cart.v1') || 'null');
-
 /* ------------------------------------------------------------------ A */
 
-console.log('=== A. EMPTY CART ===');
+console.log('=== A. THE CATALOGUE IS NOT A CHECKOUT ===');
 dom.window.localStorage.clear();
-let app = await mount({ open: true });
-check('drawer renders', bodyText().length > 0);
-check('empty state shown', /Your cart is empty/.test(bodyText()));
+let app = await mount({ page: 'card' });
+check('card renders', bodyText().length > 0);
 check('no "Order Confirmed!" copy exists', !/Order Confirmed/i.test(bodyText()));
-check('no checkout button with an empty cart', !/Continue to order details/.test(bodyText()));
+check('no cart vocabulary on the card', !/Add to cart/i.test(bodyText()));
+check('no checkout vocabulary on the card', !/Continue to order details/i.test(bodyText()));
+check('an enquiry route is offered', /Enquire/.test(bodyText()));
 await app.destroy();
 
 /* ------------------------------------------------------------------ B */
 
-console.log('=== B. A SAVED CART SURVIVES A RELOAD ===');
-dom.window.localStorage.clear();
-openCartWith([
-  { id: 'bubbles-pine-gel', quantity: 2 },
-  { id: 'gc-hair-oil', quantity: 1 },
-]);
-app = await mount({ open: true });
-check('both lines restored', /Bubbles Pine Gel/.test(bodyText()) && /Hair Oil/.test(bodyText()));
-check(
-  'subtotal re-priced from the live catalogue (65x2 + 55 = 185)',
-  /R185\.00/.test(bodyText()),
-  bodyText().match(/R[\d.,]+/g)?.join(' ')
-);
+console.log('=== B. A PRODUCT WITH A GOOD PHOTOGRAPH SHOWS IT ===');
+app = await mount({ page: 'card', productId: 'bubbles-pine-gel' });
+const img = dom.window.document.querySelector('.stage img');
+check('the photograph is rendered', Boolean(img), img?.getAttribute('src'));
+check('it carries alt text naming the product', /Pine Gel/i.test(img?.getAttribute('alt') ?? ''));
+await app.destroy();
 
 /* ------------------------------------------------------------------ C */
 
-console.log('=== C. QUANTITY CONTROLS ===');
-await click(dom.window.document.querySelector('button[aria-label="More Bubbles Pine Gel"]'));
-check('increment updates the line and subtotal (250)', /R250\.00/.test(bodyText()), bodyText().match(/R[\d.,]+/g)?.join(' '));
-await click(dom.window.document.querySelector('button[aria-label="Fewer Bubbles Pine Gel"]'));
-await click(dom.window.document.querySelector('button[aria-label="Fewer Bubbles Pine Gel"]'));
-check('decrement back to 1 (120)', /R120\.00/.test(bodyText()), bodyText().match(/R[\d.,]+/g)?.join(' '));
+console.log('=== C. A WEAK PHOTOGRAPH IS TYPESET, NEVER UPSCALED ===');
+app = await mount({ page: 'card', productId: 'bubbles-citrus-gel' });
+check('no image element at all', !dom.window.document.querySelector('.stage img'));
+check('the name is still listed', /Citrus Gel/i.test(bodyText()));
+check('the price is still listed', /R65/.test(bodyText()));
+check('the size is still listed', /1kg Tub/i.test(bodyText()));
+check('a typographic plate is used', Boolean(dom.window.document.querySelector('.plate')));
+await app.destroy();
 
 /* ------------------------------------------------------------------ D */
 
-console.log('=== D. REMOVE + PERSISTENCE ===');
-await click(dom.window.document.querySelector('button[aria-label="Remove Hair Oil"]'));
-check('removed line disappears', !/Hair Oil/.test(bodyText()));
-check('storage reflects the removal', (storage()?.items ?? []).length === 1, JSON.stringify(storage()));
-
-/* ------------------------------------------------------------------ E */
-
-console.log('=== E. THUMBNAIL IS CONTAIN-FIT, NEVER CROPPED ===');
-const thumb = dom.window.document.querySelector('img[alt="Bubbles Pine Gel"]');
-check('cart thumbnail exists', Boolean(thumb));
-check('thumbnail uses object-contain', /object-contain/.test(thumb?.className ?? ''), thumb?.className);
-check('thumbnail has no object-cover', !/object-cover/.test(thumb?.className ?? ''));
-
-await click(dom.window.document.querySelector('button[aria-label="Remove Bubbles Pine Gel"]'));
-check('emptying the cart clears storage', (storage()?.items ?? []).length === 0);
-await app.destroy();
-
-/* ------------------------------------------------------------------ F */
-
-console.log('=== F. CHECKOUT FORM VALIDATES BEFORE TOUCHING THE NETWORK ===');
-openCartWith([{ id: 'gc-hair-oil', quantity: 1 }]);
-app = await mount({ open: true });
-await click(findByText(/Continue to order details/));
-check('details step opens', /How would you like it\?/.test(bodyText()));
-check('both fulfilment options offered', /Delivery/.test(bodyText()) && /Collect in Springs/.test(bodyText()));
-
-let calls = 0;
-globalThis.fetch = async () => {
-  calls++;
-  return { ok: true, status: 201, text: async () => '{"ok":true,"reference":"GC-TEST"}' };
-};
-await submit(dom.window.document.querySelector('form#checkout-form'));
-check('empty submit sent nothing', calls === 0, `${calls} calls`);
-check('name required', /Please enter your full name/.test(bodyText()));
-check('phone required', /contact number is required/i.test(bodyText()));
-check('address required for delivery', /street address and suburb/i.test(bodyText()));
-check('no confirmation appeared', !/Order sent to the shop/.test(bodyText()));
-
-/* ------------------------------------------------------------------ G */
-
-console.log('=== G. COLLECTION DROPS THE ADDRESS REQUIREMENT ===');
-await click(findByText(/Collect in Springs/));
-check('address field disappears', !dom.window.document.querySelector('#gc-address'));
-check('shop address is stated', /Palm Springs Shopping Mall, Shop 19, Springs, 1559/.test(bodyText()));
-await click(findByText(/^Delivery$/));
-
-/* ------------------------------------------------------------------ H */
-
-console.log('=== H. A GENUINE ACCEPTANCE IS THE ONLY WAY TO A CONFIRMATION ===');
-await type(dom.window.document.querySelector('#gc-name'), 'Thabo Nkosi');
-await type(dom.window.document.querySelector('#gc-phone'), '082 123 4567');
-await type(dom.window.document.querySelector('#gc-address'), '12 Vilakazi Street, Orlando West, Soweto, 1804');
-await type(dom.window.document.querySelector('#gc-notes'), 'Gate code 1234');
-await flush(2);
-check('errors cleared as the user types', !/Please enter your full name/.test(bodyText()));
-await submit(dom.window.document.querySelector('form#checkout-form'));
-check('exactly one request', calls === 1, `${calls}`);
-check('confirmation shown after acceptance', /Order sent to the shop/.test(bodyText()));
-check('reference shown', /GC-TEST/.test(bodyText()));
-check('cart cleared only after acceptance', (storage()?.items ?? []).length === 0, JSON.stringify(storage()));
-await app.destroy();
-
-/* ------------------------------------------------------------------ I */
-
-console.log('=== I. A REJECTED ORDER SHOWS AN ERROR AND KEEPS THE CART ===');
-openCartWith([{ id: 'gc-hair-oil', quantity: 1 }]);
-app = await mount({ open: true });
-await click(findByText(/Continue to order details/));
-await type(dom.window.document.querySelector('#gc-name'), 'Thabo Nkosi');
-await type(dom.window.document.querySelector('#gc-phone'), '082 123 4567');
-await type(dom.window.document.querySelector('#gc-address'), '12 Vilakazi Street, Soweto, 1804');
-
-globalThis.fetch = async () => ({
-  ok: false,
-  status: 503,
-  text: async () =>
-    '{"ok":false,"error":"not_configured","message":"Online ordering is not switched on for this deployment yet."}',
-});
-await submit(dom.window.document.querySelector('form#checkout-form'));
-check('no confirmation', !/Order sent to the shop/.test(bodyText()));
-check('honest headline', /Online ordering is not live yet/.test(bodyText()));
-check('cart kept', (storage()?.items ?? []).length === 1, JSON.stringify(storage()));
-check('email fallback offered', /Email this order/.test(bodyText()));
-check('whatsapp fallback offered', /WhatsApp/.test(bodyText()));
-check('phone fallback offered', /073 719 0821/.test(bodyText()));
-
-/* ------------------------------------------------------------------ J */
-
-console.log('=== J. A TRANSIENT FAILURE IS DISTINGUISHED FROM NOT-CONFIGURED ===');
-globalThis.fetch = async () => ({
-  ok: false,
-  status: 502,
-  text: async () =>
-    '{"ok":false,"error":"send_failed","message":"We could not hand your order to the shop just now."}',
-});
-await submit(dom.window.document.querySelector('form#checkout-form'));
-check('retry message shown', /That did not go through/.test(bodyText()));
-check('not mislabelled as unconfigured', !/Online ordering is not live yet/.test(bodyText()));
-check('still no confirmation', !/Order sent to the shop/.test(bodyText()));
-check('cart still kept', (storage()?.items ?? []).length === 1);
+console.log('=== D. THE NAVBAR OFFERS A CONVERSATION, NOT A BASKET ===');
+app = await mount({ page: 'navbar' });
+const wa = dom.window.document.querySelector('a[href*="wa.me"]');
+check('a WhatsApp link exists', Boolean(wa), wa?.getAttribute('href'));
+check('it targets the shop number', /27737190821/.test(wa?.getAttribute('href') ?? ''));
+check('no cart button', !/Cart/i.test(bodyText()));
+check('the real shop address is announced', /Palm Springs/i.test(bodyText()));
+check('no unverified delivery promise', !/Free delivery/i.test(bodyText()));
 await app.destroy();
 
 /* ------------------------------------------------------------------ K */
@@ -365,56 +261,51 @@ await app.destroy();
 
 /* ------------------------------------------------------------------ N */
 
-console.log('=== N. THE SHOP DOES NOT OFFER A CHECKOUT IT CANNOT DELIVER ===');
-openCartWith([{ id: 'gc-hair-oil', quantity: 1 }]);
+console.log('=== N. ORDERING IS A CONVERSATION, AND IT DOES NOT PRETEND OTHERWISE ===');
 
-// Deployment with no mail transport: the cart still works, the form is not
-// offered as if it were live, and the real handoff is put in front of the user.
-globalThis.fetch = async (url, init) => {
-  if (init?.method === 'GET') {
-    return { ok: true, status: 200, text: async () => '{"ok":true,"onlineOrdering":false}' };
-  }
-  throw new Error('no POST should be attempted in the offline state');
-};
-app = await mount({ open: true });
-check('offline state is announced', /Online ordering is not live yet/.test(bodyText()));
-check('the reason is not hidden', /not live yet/i.test(bodyText()));
-check('email handoff available', Boolean(findByText(/^Continue to order details$/)));
-check('no false promise of a live checkout', !/Online ordering is live/.test(bodyText()));
-
-// Reaching the details step in the offline state must offer a real route, not a
-// submit button we already know will fail.
-await click(findByText(/^Continue to order details$/));
-await type(dom.window.document.querySelector('#gc-name'), 'Thabo Nkosi');
-await type(dom.window.document.querySelector('#gc-phone'), '082 123 4567');
-await type(dom.window.document.querySelector('#gc-address'), '12 Vilakazi Street, Soweto, 1804');
-await flush(2);
-check('no submit button that cannot work', !/Send order to the shop/.test(bodyText()));
-check('finished order is handed to a real channel', Boolean(findByText(/Email this order to the shop/)));
-const mailHref = [...dom.window.document.querySelectorAll('a')].find(a => a.href.startsWith('mailto:info@gladchemistry.com'));
-check('mailto carries the shop inbox', Boolean(mailHref));
-check('mailto carries the typed order', /Thabo%20Nkosi|Thabo Nkosi/.test(decodeURIComponent(mailHref?.href ?? '')));
-await app.destroy();
-
-// Static host with no functions at all: the shell comes back instead of JSON.
-globalThis.fetch = async () => ({
-  ok: true,
-  status: 200,
-  text: async () => '<!doctype html><html><body>app shell</body></html>',
-});
-app = await mount({ open: true });
-check('unavailable state detected from a non-JSON response', /No online ordering on this deployment/.test(bodyText()));
-check('three genuine handoff routes offered', /Email/.test(bodyText()) && /WhatsApp/.test(bodyText()) && /Call/.test(bodyText()));
-check('shop phone present', /073 719 0821/.test(bodyText()));
-await app.destroy();
-
-// Probe itself throws (offline device).
+// There is no checkout to be offline. Every route offered must be a channel the
+// shop genuinely answers on: WhatsApp, a phone call, or email.
 globalThis.fetch = async () => {
-  throw new TypeError('Failed to fetch');
+  throw new Error('the catalogue must not POST an order anywhere');
 };
-app = await mount({ open: true });
-check('a failed probe degrades to unavailable, not to a fake live', /No online ordering on this deployment/.test(bodyText()));
+app = await mount({ page: 'card', productId: 'gc-hair-oil' });
+const enquire = dom.window.document.querySelector('a.enquire');
+check('the card offers an enquiry link', Boolean(enquire));
+const href = enquire?.getAttribute('href') ?? '';
+check('it goes to WhatsApp', href.startsWith('https://wa.me/27737190821'), href);
+check('the message names the product', /Hair%20Oil/.test(href));
+check('the message states the price', /R55/.test(href), href);
+check(
+  'nothing on the card claims online ordering is live',
+  !/Online ordering is live/.test(bodyText()) && !/Add to cart/.test(bodyText())
+);
 await app.destroy();
+
+// The contact route must remain a real, working fallback for anyone who prefers
+// not to use WhatsApp.
+app = await mount({ page: 'contact' });
+check('the shop phone number is published', /073 719 0821/.test(bodyText()));
+await app.destroy();
+
+// The whole app must render on every route. A blank page is the one failure that
+// unit tests never catch, so it is checked here against the real router.
+console.log('\n=== Z. EVERY ROUTE RENDERS ===');
+for (const path of ['/', '/shop', '/brands', '/about', '/contact', '/nope']) {
+  goTo(path);
+  const host = dom.window.document.createElement('div');
+  dom.window.document.body.innerHTML = '';
+  dom.window.document.body.appendChild(host);
+  const { createRoot } = await import('react-dom/client');
+  const React = (await import('react')).default;
+  const { act } = await import('react');
+  const root = createRoot(host);
+  await act(async () => { root.render(React.createElement(Smoke)); });
+  await flush(3);
+  const text = host.textContent ?? '';
+  const nodes = host.querySelectorAll('*').length;
+  check(`${path} renders content`, text.trim().length > 200 && nodes > 20, `${text.length} chars, ${nodes} nodes`);
+  await act(async () => { root.unmount(); });
+}
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail === 0 ? 0 : 1);
