@@ -8,7 +8,7 @@ import { Hero } from '../components/Hero';
 
 /* ------------------------------------------------------------------ */
 /*  Home — section-for-section port of the Fizzly Soda homepage        */
-/*  hero → ticker → flavour grid → brand story → how → promo → closer  */
+/*  hero → ticker → flavour grid → brand story → how it is made → closer  */
 /* ------------------------------------------------------------------ */
 
 const MARQUEE_TEXT = [
@@ -362,8 +362,8 @@ export const Home: React.FC = () => {
             From bench to <em className="u-mark not-italic" style={{ color: 'var(--violet)' }}>bathroom</em>
           </h2>
           <p className="mt-3 max-w-[520px] text-[16px] leading-relaxed text-slate-500 reveal">
-            Every batch in all three houses is checked for purity, longevity and surface safety
-            before it ships.
+            Every batch in all three houses is checked for purity, longevity and surface
+            safety before it reaches the shelf.
           </p>
 
           <div className="mt-[44px] grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -371,7 +371,7 @@ export const Home: React.FC = () => {
               { n: '01', t: 'Formulated', d: 'Balanced for efficacy, safety and long shelf life.', c: 'var(--fern)' },
               { n: '02', t: 'Batch tested', d: 'Purity, scent longevity and surface safety.', c: 'var(--amber)' },
               { n: '03', t: 'Filled & sealed', d: 'Filled in South Africa, sealed for transport.', c: 'var(--sky)' },
-              { n: '04', t: 'Shipped', d: 'Nationwide dispatch, wholesale terms available.', c: 'var(--violet)' },
+              { n: '04', t: 'Ready to collect', d: 'Waiting for you at Shop 19, Palm Springs Mall.', c: 'var(--violet)' },
             ].map((s) => (
               <div key={s.n} className="panel p-6 reveal">
                 <span
@@ -388,82 +388,6 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ============================================== 6. PROMO */}
-      <section
-        className="relative overflow-hidden grid lg:grid-cols-[1.1fr_.9fr] items-center gap-8 px-[5vw] py-[90px]"
-        style={{ background: 'var(--ink)' }}
-      >
-        <div className="relative z-10 text-white">
-          <span
-            className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em]"
-            style={{ background: 'rgba(255,255,255,.14)' }}
-          >
-            Wholesale &amp; bulk
-          </span>
-          <h2
-            className="font-display font-extrabold mt-4"
-            style={{ fontSize: 'clamp(40px,7vw,96px)', lineHeight: 0.95, letterSpacing: '-0.035em' }}
-          >
-            Order by the{' '}
-            <em className="u-mark not-italic" style={{ color: 'var(--lime)' }}>
-              case
-            </em>
-          </h2>
-          <p className="mt-4 max-w-[44ch] text-[16px] leading-relaxed text-white/70">
-            Retailers, salons and cleaning crews — get tiered pricing across all three houses on
-            one invoice.
-          </p>
-
-          <div className="mt-6 flex gap-8">
-            {[
-              ['3', 'Houses'],
-              [String(PRODUCTS.length), 'Products'],
-              ['500+', 'Units / week'],
-            ].map(([k, v]) => (
-              <div key={v}>
-                <b className="font-display font-extrabold text-[32px] leading-none block">{k}</b>
-                <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/50">
-                  {v}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-7 flex flex-wrap gap-2.5">
-            <Link to="/contact" className="btn btn-lime">
-              Request pricing
-            </Link>
-            <Link
-              to="/shop"
-              className="btn"
-              style={{
-                background: 'transparent',
-                border: '2px solid rgba(255,255,255,.4)',
-                color: '#fff',
-              }}
-            >
-              Browse catalogue
-            </Link>
-          </div>
-        </div>
-
-        {/* One photograph for this section, shot for this position. */}
-        <div className="relative reveal">
-          <img
-            src="/images/editorial-wholesale.2b4e850b.jpg"
-            alt="Bubbles Detergents packs crated for wholesale order"
-            loading="lazy"
-            className="w-full h-auto block"
-            style={{
-              borderRadius: 20,
-              aspectRatio: '4 / 3',
-              objectFit: 'cover',
-              objectPosition: 'center 55%',
-            }}
-          />
-        </div>
-      </section>
-
       {/* ============================================== 7. CLOSER */}
       <section className="px-[5vw] py-[100px] text-center" style={{ background: 'var(--cream)' }}>
         <span
@@ -476,8 +400,8 @@ export const Home: React.FC = () => {
           Get your <em className="u-mark not-italic" style={{ color: 'var(--fern)' }}>care</em> sorted.
         </h2>
         <p className="mt-4 mx-auto max-w-[44ch] text-[16px] leading-relaxed text-slate-500">
-          {PRODUCTS.length} products, one cart, one delivery — across personal care, fragrance
-          and cleaning.
+          {PRODUCTS.length} products across personal care, fragrance and cleaning.
+          Enquire on any of them, or come and see the range in Springs.
         </p>
         <div className="mt-7 flex flex-wrap justify-center gap-2.5">
           <Link to="/shop" className="btn btn-ink">
