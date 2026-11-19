@@ -6,6 +6,7 @@ import { ProductPlate } from './ProductPlate';
 import { ProductModal } from './ProductModal';
 import { waLink, productEnquiry } from '../data/shop';
 import { photoZoom } from '../data/photo-zoom';
+import { rand } from '../lib/format';
 
 interface ProductCardProps {
   product: Product;
@@ -98,7 +99,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
             </h3>
           </div>
           <span className="font-display font-extrabold text-[18px] whitespace-nowrap shrink-0 tabular-nums">
-            R{product.price.toFixed(0)}
+            {rand(product.price)}
           </span>
         </div>
 

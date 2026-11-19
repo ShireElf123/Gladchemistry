@@ -5,6 +5,7 @@ import type { Product } from '../data/products';
 import { BRANDS } from '../data/brands';
 import { ProductPlate } from './ProductPlate';
 import { waLink, productEnquiry, telLink, SHOP } from '../data/shop';
+import { rand } from '../lib/format';
 
 interface ProductModalProps {
   product: Product | null;
@@ -103,7 +104,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
                   {product.size}
                 </span>
                 <span className="font-display font-extrabold text-2xl text-slate-900 tabular-nums">
-                  R{product.price.toFixed(0)}
+                  {rand(product.price)}
                 </span>
               </div>
 
