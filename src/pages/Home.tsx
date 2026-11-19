@@ -204,7 +204,7 @@ export const Home: React.FC = () => {
           aria-hidden
           className="absolute inset-0 bg-cover bg-center pointer-events-none"
           style={{
-            backgroundImage: 'url(/images/editorial-scent.jpg)',
+            backgroundImage: 'url(/images/editorial-scent.58c04330.jpg)',
             opacity: 0.42,
           }}
         />
@@ -295,21 +295,21 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
-                img: '/images/editorial-care.jpg',
+                img: '/images/editorial-care.08b6221f.jpg',
                 tag: 'Gladchemistry',
                 line: 'Skin, hair and bath, formulated by a chemist.',
                 to: '/shop?brand=gladchemistry',
                 tone: '#DDF3E4',
               },
               {
-                img: '/images/editorial-scent.jpg',
+                img: '/images/editorial-scent.58c04330.jpg',
                 tag: 'Felis be Glad',
                 line: 'Fine fragrance, reed diffusers and car perfumes.',
                 to: '/shop?brand=felis-be-glad',
                 tone: '#E8E2F5',
               },
               {
-                img: '/images/editorial-clean.jpg',
+                img: '/images/editorial-clean.f63e9614.jpg',
                 tag: 'Bubbles Detergents',
                 line: 'Home and car cleaning that actually shifts grime.',
                 to: '/shop?brand=bubbles-detergents',

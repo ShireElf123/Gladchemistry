@@ -45,7 +45,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 96,
     size: '125g Tub',
-    image: '/images/frames/gc-skin-moist-125g.jpg',
+    image: '/images/frames/gc-skin-moist-125g.51f5e425.jpg',
     badge: 'Bestseller',
     featured: true,
     preMessage: 'The original formula · For dry, itchy and flaky skin',
@@ -60,7 +60,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 150,
     size: 'Large Tub',
-    image: '/images/frames/gc-skin-moist-family.jpg',
+    image: '/images/frames/gc-skin-moist-family.332a2115.jpg',
     featured: true,
     preMessage: 'Family size · Same formula, bigger tub',
     description:
@@ -73,7 +73,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 100,
     size: '100g',
-    image: '/images/frames/gc-raw-shea-butter.jpg',
+    image: '/images/frames/gc-raw-shea-butter.09310026.jpg',
     preMessage: 'Unrefined · Imported from Ghana',
     notes: ['Moisturises skin & scalp', 'Reduces eczema signs', 'Improves hair growth', 'Relieves dry skin'],
     description:
@@ -86,7 +86,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair Care',
     price: 120,
     size: '125g Tub',
-    image: '/images/frames/gc-sheacoco-hair-care.jpg',
+    image: '/images/frames/gc-sheacoco-hair-care.5e7914bd.jpg',
     preMessage: 'Shea + coconut · For receding hairlines',
     description:
       'A shea and coconut hair cream aimed at receding hairlines and slow growth. Massage into the scalp and leave in.',
@@ -98,7 +98,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair Care',
     price: 45,
     size: '125g Tub',
-    image: '/images/frames/gc-hair-food.jpg',
+    image: '/images/frames/gc-hair-food.cf475720.jpg',
     preMessage: 'Petroleum jelly base · Softens and seals',
     description:
       'A classic hair food with a petroleum jelly base and a light scent, for sealing in moisture and softening dry hair and scalp.',
@@ -110,7 +110,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair Care',
     price: 55,
     size: '100ml',
-    image: '/images/frames/gc-hair-oil.jpg',
+    image: '/images/frames/gc-hair-oil.cb51b659.jpg',
     preMessage: 'Organic blend · For beard growth and scalp health',
     description:
       'An organic hair oil for beard growth, scalp moisturising and flake control. Light enough to use daily.',
@@ -122,7 +122,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair & Skin Oils',
     price: 33,
     size: '50ml',
-    image: '/images/frames/gc-castor-oil-50.jpg',
+    image: '/images/frames/gc-castor-oil-50.9be4f8d6.jpg',
     preMessage: 'Cold pressed · Hexane free',
     description:
       'Pure cold-pressed, hexane-free castor oil in a handy 50ml. Thick and rich — a little goes a long way on hair, brows and lashes.',
@@ -134,7 +134,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair & Skin Oils',
     price: 90,
     size: '500ml',
-    image: '/images/frames/gc-castor-oil-500.jpg',
+    image: '/images/frames/gc-castor-oil-500.6deee786.jpg',
     preMessage: 'Cold pressed · Hexane free',
     description:
       'The bulk bottle of the same cold-pressed, hexane-free castor oil. Better value if you use it regularly.',
@@ -146,7 +146,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 125,
     size: 'Tub + 100g Bar',
-    image: '/images/frames/gc-skin-moist-charcoal.jpg',
+    image: '/images/frames/gc-skin-moist-charcoal.81350592.jpg',
     preMessage: 'Combo · Acne and dark spots',
     description:
       'The Skin Moist tub paired with a charcoal soap bar, put together for acne-prone skin and dark spots.',
@@ -158,7 +158,7 @@ export const PRODUCTS: Product[] = [
     category: 'Bath & Body',
     price: 110,
     size: '1.5L + 100g',
-    image: '/images/frames/gc-foam-bath-15l.jpg',
+    image: '/images/frames/gc-foam-bath-15l.2dbb147f.jpg',
     preMessage: 'Combo · Any foam bath, any bar',
     description:
       'Any of the 1.5L foam baths paired with a 100g soap bar. Pick your fragrance when you order.',
@@ -170,7 +170,7 @@ export const PRODUCTS: Product[] = [
     category: 'Bath & Body',
     price: 220,
     size: '5L + 125g',
-    image: '/images/frames/gc-bubble-bath-combo.jpg',
+    image: '/images/frames/gc-bubble-bath-combo.e5e15286.jpg',
     preMessage: 'Combo · The full bath routine',
     description:
       'A 5L bubble bath with a 125g Skin Moist — the whole bath routine in one order.',
@@ -182,7 +182,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 55,
     size: '500g Tub',
-    image: '/images/frames/gc-deobloks.jpg',
+    image: '/images/frames/gc-deobloks.39e99fbe.jpg',
     preMessage: 'Refreshing deodoriser blocks',
     description:
       'Deodoriser blocks for toilets, drains and bins. Drop one in and it keeps the space fresh.',
@@ -194,7 +194,7 @@ export const PRODUCTS: Product[] = [
     category: 'Personal Care',
     price: 55,
     size: '500g',
-    image: '/images/frames/gc-bicarb.jpg',
+    image: '/images/frames/gc-bicarb.e366fe6c.jpg',
     preMessage: 'Pharmaceutical grade · Multipurpose',
     description:
       'Pharmaceutical-grade bicarbonate of soda for exfoliation, bath soaks and general eco-friendly cleaning.',
@@ -206,7 +206,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 2600,
     size: '10 + 12 Pack',
-    image: '/images/frames/gc-personal-care-startup.jpg',
+    image: '/images/frames/gc-personal-care-startup.bc4b3236.jpg',
     
     badge: 'Wholesale',
     preMessage: 'For resellers · 10 of each, 12 lines',
@@ -222,7 +222,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Diffusers',
     price: 240,
     size: '100ml + Black Reeds',
-    image: '/images/frames/felis-reed-diffuser.jpg',
+    image: '/images/frames/felis-reed-diffuser.3926ca86.jpg',
     badge: 'Luxury Home',
     featured: true,
     preMessage: '12+ weeks of scent',
@@ -236,7 +236,7 @@ export const PRODUCTS: Product[] = [
     category: 'Fine Fragrances',
     price: 195,
     size: '30ml Eau de Parfum',
-    image: '/images/frames/felis-scandal-ladies.jpg',
+    image: '/images/frames/felis-scandal-ladies.0def2256.jpg',
     featured: true,
     badge: 'Top Pick',
     preMessage: 'Honey · Gardenia · Blood orange',
@@ -250,7 +250,7 @@ export const PRODUCTS: Product[] = [
     category: 'Fine Fragrances',
     price: 260,
     size: '100ml Eau de Parfum',
-    image: '/images/frames/felis-hugo-men.jpg',
+    image: '/images/frames/felis-hugo-men.329df974.jpg',
     featured: true,
     preMessage: 'Green apple · Sage · Cedarwood',
     description:
@@ -263,7 +263,7 @@ export const PRODUCTS: Product[] = [
     category: 'Fine Fragrances',
     price: 195,
     size: '30ml Eau de Parfum',
-    image: '/images/frames/felis-diesel-men.jpg',
+    image: '/images/frames/felis-diesel-men.8305222b.jpg',
     preMessage: 'Grapefruit · Lavender · Amber',
     description:
       'A bold spicy-woody fragrance with grapefruit and lavender over warm amber.',
@@ -275,7 +275,7 @@ export const PRODUCTS: Product[] = [
     category: 'Car Perfumes',
     price: 85,
     size: '15ml',
-    image: '/images/frames/felis-ted-lapidus-car.jpg',
+    image: '/images/frames/felis-ted-lapidus-car.60b163dc.jpg',
     preMessage: 'Auto & travel',
     description:
       'A concentrated fragrance oil for the car or a roll-on for your bag. Long-lasting cabin freshness without the aerosol.',
@@ -287,7 +287,7 @@ export const PRODUCTS: Product[] = [
     category: 'Fine Fragrances',
     price: 80,
     size: '20ml Eau de Parfum',
-    image: '/images/frames/felis-fragrance-edp-20ml.jpg',
+    image: '/images/frames/felis-fragrance-edp-20ml.cae2321c.jpg',
     preMessage: 'Your choice of 20 generics',
     description:
       'Generics of your choice of fine fragrance, in a 20ml travel size. Pick the scent you want when you order.',
@@ -299,7 +299,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 1250,
     size: '20 Piece Collection',
-    image: '/images/frames/felis-fragrances-startup.jpg',
+    image: '/images/frames/felis-fragrances-startup.2531cfc2.jpg',
     badge: 'Wholesale',
     preMessage: 'For resellers · 20-piece set',
     description:
@@ -314,7 +314,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 36,
     size: '750ml',
-    image: '/images/frames/bubbles-dishwashing-liquid.jpg',
+    image: '/images/frames/bubbles-dishwashing-liquid.fefdc72a.jpg',
     featured: true,
     preMessage: 'High foam · Long lasting',
     description:
@@ -327,7 +327,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 82,
     size: '2L',
-    image: '/images/frames/bubbles-dishwashing-2l.jpg',
+    image: '/images/frames/bubbles-dishwashing-2l.061682e8.jpg',
     preMessage: 'High foam · Bulk size',
     description:
       'The same thick, strong dishwashing liquid in a 2L tub for kitchens that go through it fast.',
@@ -339,7 +339,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 42,
     size: '750ml',
-    image: '/images/frames/bubbles-thick-bleach.jpg',
+    image: '/images/frames/bubbles-thick-bleach.16ffb235.jpg',
     preMessage: 'Clings to the surface',
     description:
       'A clinging thick bleach formula that kills germs and stains, whitens surfaces and handles tough toilet and drain jobs.',
@@ -351,7 +351,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 65,
     size: '1kg Tub',
-    image: '/images/frames/bubbles-pine-gel.jpg',
+    image: '/images/frames/bubbles-pine-gel.e103d7d2.jpg',
     preMessage: 'Heavy duty · Pine fresh',
     description:
       'A heavy-duty pine disinfectant gel that cleans, deodorises and leaves floors shining.',
@@ -363,7 +363,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 65,
     size: '1kg Tub',
-    image: '/images/frames/bubbles-citrus-gel.jpg',
+    image: '/images/frames/bubbles-citrus-gel.6bd61b24.jpg',
     preMessage: 'Zesty citrus · 500g from R52',
     description:
       'A zesty citrus cleaning gel for kitchens, bathrooms and high-traffic surfaces. Also available in 500g.',
@@ -375,7 +375,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 52,
     size: '500g + 1kg',
-    image: '/images/frames/bubbles-citrus-pine-gel.jpg',
+    image: '/images/frames/bubbles-citrus-pine-gel.ebd05de0.jpg',
     preMessage: 'Both gels, one price',
     description:
       'The citrus gel in 500g together with the pine gel, for anyone who wants both on the shelf.',
@@ -387,7 +387,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 44,
     size: '750ml',
-    image: '/images/frames/bubbles-all-purpose-cleaner.jpg',
+    image: '/images/frames/bubbles-all-purpose-cleaner.99a63273.jpg',
     preMessage: 'Fresh lemon · Cuts grease',
     description:
       'A versatile lemon-fresh surface cleaner that cuts through grease and grime on most washable surfaces.',
@@ -399,7 +399,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 97,
     size: '750ml',
-    image: '/images/frames/bubbles-multipurpose-750.jpg',
+    image: '/images/frames/bubbles-multipurpose-750.0c749bf5.jpg',
     preMessage: 'Heavy duty formulation',
     description:
       'A stronger multipurpose cleaning liquid for floors, tiles and general household use. Also available in 5L.',
@@ -411,7 +411,7 @@ export const PRODUCTS: Product[] = [
     category: 'Home Care',
     price: 75,
     size: '1L',
-    image: '/images/frames/bubbles-black-dip.jpg',
+    image: '/images/frames/bubbles-black-dip.dbc5f4c8.jpg',
     preMessage: 'Drains · yards · pet areas',
     description:
       'An industrial-strength disinfectant fluid for drains, outdoor areas and deep sanitation. Not for use on skin.',
@@ -423,7 +423,7 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 136,
     size: '5L',
-    image: '/images/frames/bubbles-floor-polish-lg.jpg',
+    image: '/images/frames/bubbles-floor-polish-lg.1219d30d.jpg',
     preMessage: 'Instant shine · Polymer',
     description:
       'A polymer floor shine polish for instant gloss on hard floors. The larger 5L size.',
@@ -435,7 +435,7 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 66,
     size: '1L',
-    image: '/images/frames/bubbles-floor-polish-1l.jpg',
+    image: '/images/frames/bubbles-floor-polish-1l.f237952f.jpg',
     preMessage: 'Instant shine · Polymer',
     description:
       'The same polymer floor polish in a 1L for smaller spaces.',
@@ -447,7 +447,7 @@ export const PRODUCTS: Product[] = [
     category: 'Laundry',
     price: 140,
     size: '5kg · 20kg R380',
-    image: '/images/frames/bubbles-powder-soap.jpg',
+    image: '/images/frames/bubbles-powder-soap.ee139489.jpg',
     preMessage: 'Bulk laundry soap · Two sizes',
     description:
       'Bulk washing powder soap, 5kg for R140 or 20kg for R380.',
@@ -459,7 +459,7 @@ export const PRODUCTS: Product[] = [
     category: 'Floor Care',
     price: 155,
     size: '5L',
-    image: '/images/frames/bubbles-tile-cleaner-5l.jpg',
+    image: '/images/frames/bubbles-tile-cleaner-5l.d879ec27.jpg',
     preMessage: 'For all tile types',
     description:
       'A tile cleaner for glazed and ceramic tiles, bulk sized for larger floors.',
@@ -471,7 +471,7 @@ export const PRODUCTS: Product[] = [
     category: 'Car Care',
     price: 155,
     size: '5L Jerry Can',
-    image: '/images/frames/bubbles-car-wash-wax.jpg',
+    image: '/images/frames/bubbles-car-wash-wax.799991c8.jpg',
     featured: true,
     preMessage: 'High foam · Streak free',
     description:
@@ -484,7 +484,7 @@ export const PRODUCTS: Product[] = [
     category: 'Car Care',
     price: 50,
     size: '1L',
-    image: '/images/frames/bubbles-car-interior.jpg',
+    image: '/images/frames/bubbles-car-interior.52dbd574.jpg',
     preMessage: 'Tyre · leather · plastic',
     description:
       'For leather polishing, plastic polishing and tyre dressing in one bottle.',
@@ -496,7 +496,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 1850,
     size: '10 of Each · 750ml',
-    image: '/images/frames/bubbles-detergents-startup.jpg',
+    image: '/images/frames/bubbles-detergents-startup.ce1f4d3a.jpg',
     badge: 'Wholesale',
     preMessage: 'For resellers · 10 of each line',
     description:
@@ -509,7 +509,7 @@ export const PRODUCTS: Product[] = [
     category: 'Combos',
     price: 95,
     size: '3 × 750ml',
-    image: '/images/frames/bubbles-combo-95.jpg',
+    image: '/images/frames/bubbles-combo-95.c4c79b08.jpg',
     preMessage: 'Dish liquid · thick bleach · multipurpose',
     description:
       '750ml dish liquid, 750ml thick bleach and a multipurpose cleaner, bundled.',
@@ -521,7 +521,7 @@ export const PRODUCTS: Product[] = [
     category: 'Combos',
     price: 137,
     size: '4 Piece',
-    image: '/images/frames/bubbles-combo-137.jpg',
+    image: '/images/frames/bubbles-combo-137.eae24e10.jpg',
     preMessage: 'Dish liquid · pine gel · bleach',
     description:
       '750ml dishwashing liquid, 1kg pine gel and the rest of the cleaning set, bundled at R137.',
@@ -533,7 +533,7 @@ export const PRODUCTS: Product[] = [
     category: 'Combos',
     price: 83,
     size: '750ml + 1kg',
-    image: '/images/frames/bubbles-pine-gel-dishwashing.jpg',
+    image: '/images/frames/bubbles-pine-gel-dishwashing.c5e481b7.jpg',
     preMessage: 'Two everyday essentials',
     description:
       'A 750ml dishwashing liquid with a 1kg pine gel, the two things most kitchens run out of first.',
