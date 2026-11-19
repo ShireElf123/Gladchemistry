@@ -117,7 +117,6 @@ export const Home: React.FC = () => {
     };
   }, [activeBrand]);
 
-  const featured = PRODUCTS.filter((p) => p.featured);
   const storyRef = useReveal();
   const howRef = useReveal();
 
@@ -193,33 +192,30 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ============================================== 4. BRAND STORY */}
+      {/* ============================================== 4. BRAND STORY
+           One surface, one photograph, one column of type. The story owns
+           its own artwork — it must never reuse a product card or the
+           house's own editorial tile. */}
       <section
         ref={storyRef}
-        className="relative overflow-hidden grid lg:grid-cols-2 items-center gap-6 px-[6vw] py-[90px]"
-        style={{ background: '#0d3b2a', minHeight: '86svh' }}
+        className="relative overflow-hidden grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] items-center gap-10 px-[6vw] py-[90px]"
+        style={{ background: '#f4ece1', minHeight: '80svh' }}
       >
-        {/* Backdrop image */}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-cover bg-center pointer-events-none"
-          style={{
-            backgroundImage: 'url(/images/editorial-scent.58c04330.jpg)',
-            opacity: 0.42,
-          }}
-        />
-
         <div className="relative z-10 max-w-[560px] reveal">
-          <span className="inline-block rounded-full px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.1em] bg-white/10 text-white">
+          <span
+            className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em]"
+            style={{ background: '#3F2A12', color: 'var(--sun, #ffc933)' }}
+          >
             Felis be Glad
           </span>
-          <h2 className="display-lg mt-3 text-white">
-            A little <em className="u-mark not-italic" style={{ color: 'var(--sun)' }}>luxury</em>,
+          <h2 className="display-lg mt-4" style={{ color: '#3F2A12' }}>
+            A little <em className="u-mark not-italic" style={{ color: '#9A5B08' }}>luxury</em>,
             every day.
           </h2>
-          <p className="mt-4 text-[16px] leading-relaxed text-white/80">
+          <p className="mt-4 text-[16px] leading-relaxed" style={{ color: '#5a4227' }}>
             Inspired-by fine fragrance, hand-poured reed diffusers and car perfumes built for
-            lasting sillage — 5 products, 12+ weeks of scent.
+            lasting sillage — {PRODUCTS.filter((p) => p.brand === 'felis-be-glad').length} products,
+            12+ weeks of scent.
           </p>
 
           <div className="mt-5 flex flex-wrap gap-2">
@@ -227,8 +223,8 @@ export const Home: React.FC = () => {
               (t) => (
                 <span
                   key={t}
-                  className="rounded-full px-4 py-1.5 text-[13px] font-bold text-white"
-                  style={{ border: '2px solid rgba(255,255,255,.28)' }}
+                  className="rounded-full px-4 py-1.5 text-[13px] font-bold"
+                  style={{ border: '1.5px solid rgba(90,66,39,.32)', color: '#5a4227' }}
                 >
                   {t}
                 </span>
@@ -237,43 +233,35 @@ export const Home: React.FC = () => {
           </div>
 
           <div className="mt-7 flex flex-wrap gap-2.5">
-            <Link to="/shop?brand=felis-be-glad" className="btn btn-lime">
+            <Link to="/shop?brand=felis-be-glad" className="btn btn-ink">
               Shop Felis be Glad
             </Link>
-            <Link
-              to="/brands"
-              className="btn"
-              style={{
-                background: 'transparent',
-                border: '2px solid rgba(255,255,255,.45)',
-                color: '#fff',
-              }}
-            >
+            <Link to="/brands" className="btn btn-ghost">
               All three houses
             </Link>
           </div>
         </div>
 
-        {/* Tilted product cluster */}
-        <div className="relative z-10 grid place-items-center reveal">
-          <div className="relative w-[min(90%,420px)]" style={{ aspectRatio: '1 / 1' }}>
-            <div
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[78%] aspect-square rounded-full"
-              style={{ background: 'rgba(255,255,255,.14)' }}
-            />
-            <img
-              src="/images/products/felis-reed-diffuser.jpg"
-              alt="Signature Amber Reed Diffuser"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[58%] rounded-[28px] object-cover shadow-2xl -rotate-6"
-              style={{ aspectRatio: '3 / 4' }}
-            />
-            <img
-              src="/images/products/felis-inspired-scandal-ladies.jpg"
-              alt="Felis be Glad fragrance"
-              className="absolute right-[2%] bottom-[4%] w-[42%] rounded-[22px] object-cover shadow-2xl rotate-6"
-              style={{ aspectRatio: '3 / 4' }}
-            />
-          </div>
+        {/* The story's own photograph — shot for this position, not borrowed
+            from a product card. */}
+        <div className="relative reveal">
+          <div
+            aria-hidden
+            className="absolute inset-x-8 bottom-[-14px] h-9 rounded-[50%]"
+            style={{ background: 'rgba(63,42,18,.16)', filter: 'blur(22px)' }}
+          />
+          <img
+            src="/images/editorial-felis-story.d7dfbb47.jpg"
+            alt="Felis be Glad reed diffuser and inspired-by Hugo Men fragrance on a sunlit stone ledge"
+            loading="lazy"
+            className="relative w-full h-auto block"
+            style={{
+              borderRadius: 24,
+              aspectRatio: '4 / 5',
+              objectFit: 'cover',
+              boxShadow: '0 30px 60px -30px rgba(63,42,18,.5)',
+            }}
+          />
         </div>
       </section>
 
@@ -300,6 +288,7 @@ export const Home: React.FC = () => {
                 line: 'Skin, hair and bath, formulated by a chemist.',
                 to: '/shop?brand=gladchemistry',
                 tone: '#DDF3E4',
+                pos: 'center 40%',
               },
               {
                 img: '/images/editorial-scent.58c04330.jpg',
@@ -307,6 +296,7 @@ export const Home: React.FC = () => {
                 line: 'Fine fragrance, reed diffusers and car perfumes.',
                 to: '/shop?brand=felis-be-glad',
                 tone: '#E8E2F5',
+                pos: 'center 45%',
               },
               {
                 img: '/images/editorial-clean.f63e9614.jpg',
@@ -314,6 +304,7 @@ export const Home: React.FC = () => {
                 line: 'Home and car cleaning that actually shifts grime.',
                 to: '/shop?brand=bubbles-detergents',
                 tone: '#D9EFE0',
+                pos: 'center 55%',
               },
             ].map((h) => (
               <Link
@@ -326,7 +317,8 @@ export const Home: React.FC = () => {
                   src={h.img}
                   alt={h.tag}
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
+                  style={{ objectFit: 'cover', objectPosition: h.pos }}
                 />
                 <div
                   className="absolute inset-0"
@@ -455,28 +447,20 @@ export const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Product cluster */}
-        <div className="relative h-[340px] grid place-items-center">
-          <div
-            className="absolute w-[86%] aspect-square rounded-full"
-            style={{ background: 'rgba(255,255,255,.06)' }}
+        {/* One photograph for this section, shot for this position. */}
+        <div className="relative reveal">
+          <img
+            src="/images/editorial-wholesale.2b4e850b.jpg"
+            alt="Bubbles Detergents packs crated for wholesale order"
+            loading="lazy"
+            className="w-full h-auto block"
+            style={{
+              borderRadius: 20,
+              aspectRatio: '4 / 3',
+              objectFit: 'cover',
+              objectPosition: 'center 55%',
+            }}
           />
-          {featured.slice(0, 2).map((p, i) => (
-            <img
-              key={p.id}
-              src={p.image}
-              alt={p.name}
-              className="absolute rounded-[24px] object-cover shadow-2xl"
-              style={{
-                height: '76%',
-                aspectRatio: '3 / 4',
-                left: i === 0 ? '14%' : 'auto',
-                right: i === 1 ? '14%' : 'auto',
-                transform: `rotate(${i === 0 ? -7 : 7}deg)`,
-                zIndex: 2 - i,
-              }}
-            />
-          ))}
         </div>
       </section>
 

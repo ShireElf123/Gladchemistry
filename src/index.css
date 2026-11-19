@@ -154,48 +154,90 @@
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Unified product frame. Every art file is rendered at 4:5 on the same paper
-   backdrop, so the card just shows it — no tint, no circle, no second style. */
-.stage-frame {
-  background: #eeede8;
+/* ============================================================ product art
+
+   Three image roles, three honest treatments. The renderer picks one from
+   Product.imageRole — it never guesses, and it never treats a photograph as
+   if it were a transparent cut-out.
+
+   .stage-role-cutout  real alpha PNG; floats, object-contain, no backdrop
+   .stage-role-photo   full-bleed product photograph; never cropped, backdrop kept
+   .stage-role-scene   lifestyle photograph; controlled crop, subject anchored
+   ================================================================== */
+
+.stage-art {
+  position: relative;
+  overflow: hidden;
   border-radius: 20px;
+  background: #eeede8;
 }
-.stage-frame::before { display: none; }
-.stage-frame > img {
+.stage-art::before { display: none; }
+.stage-art > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   max-width: none;
-  object-fit: cover;
   filter: none;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.stage-frame:hover > img { transform: scale(1.035); }
 
-/* Full-bleed photographic treatment: the shot fills the stage, no circle. */
-.stage-photo { background: #f2f0ea; }
-.stage-photo::before { display: none; }
-/* Full-bleed shots are framed scenes, so they fill the stage — but anchor to
-   the top so tall product bottles are never decapitated by the crop. */
-.stage-photo > img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
+/* --- photo: the shot is the artwork. Keep every pixel of the product. */
+.stage-art-photo {
+  background: #f0eee7;
+}
+.stage-art-photo > img {
+  object-fit: contain;
+  object-position: center;
+}
+.stage-art-photo.stage-art-cover > img {
   object-fit: cover;
-  object-position: center top;
-  filter: none;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  object-position: center;
 }
-/* Portrait packshots keep the whole product visible instead of cropping. */
-.stage-photo.stage-contain > img { object-fit: contain; object-position: center; }
-.stage-photo:hover > img { transform: scale(1.04); }
 
-.group:hover .stage > img {
-  transform: translateY(-8px) scale(1.03);
+/* --- scene: a composed photograph. A controlled crop, anchored high so a
+       tall bottle is never decapitated by the frame. */
+.stage-art-scene {
+  background: #efece4;
 }
+.stage-art-scene > img {
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+/* --- cutout: genuine transparency. The product sits on the stage's own
+       colour with nothing opaque behind it, and casts a real soft shadow. */
+.stage-art-cutout {
+  background: linear-gradient(180deg, #f7f5ef 0%, #eceae2 100%);
+  display: grid;
+  place-items: center;
+}
+.stage-art-cutout::after {
+  content: '';
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+  width: 46%;
+  height: 5.5%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(16, 35, 28, 0.16);
+  filter: blur(10px);
+  pointer-events: none;
+}
+.stage-art-cutout > img {
+  position: relative;
+  inset: auto;
+  width: auto;
+  height: 82%;
+  max-width: 82%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 18px rgba(16, 35, 28, 0.18));
+  z-index: 1;
+}
+
+.stage-art:hover > img { transform: scale(1.035); }
+.stage-art-cutout:hover > img { transform: translateY(-6px) scale(1.02); }
 
 /* ------------------------------------------------------------- buttons */
 

@@ -1,103 +1,35 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BRANDS, BRAND_LIST } from '../data/brands';
 import type { BrandId } from '../data/brands';
 import { PRODUCTS } from '../data/products';
 
 /* ------------------------------------------------------------------ */
-/*  Hero — ported from the Fizzly Soda hero, in Gladchemistry terms    */
+/*  Hero — one surface, one visual, one idea.                          */
+/*                                                                     */
+/*  Motion principles inherited from the Fizzly Soda hero (settle-in   */
+/*  headline, parallax on scroll, a pausable drift), but the           */
+/*  composition is deliberately reduced: a single warm paper field, a  */
+/*  single art-directed brand photograph, and the type. No stacked     */
+/*  photographic backdrops, no floating catalogue packs.               */
 /* ------------------------------------------------------------------ */
-
-/** Per-brand hero accent cycle, matching the soda site's blob sequence. */
-const ACCENTS: Record<BrandId, string[]> = {
-  gladchemistry: ['#3de0d2', '#c8ff2e', '#7ee59f', '#b7f5c8', '#e8ffb0', '#46dcf5'],
-  'felis-be-glad': ['#ffc933', '#ffb37a', '#c9a8ff', '#ffd98a', '#f7c6a0', '#ffe9b0'],
-  'bubbles-detergents': ['#46dcf5', '#7dd3fc', '#c8ff2e', '#a5e8ff', '#d9f7ff', '#8ee6ff'],
-};
-
-/** Bubbles for the canvas. */
-interface Bubble {
-  x: number;
-  y: number;
-  r: number;
-  s: number;
-  w: number;
-}
 
 export const Hero: React.FC = () => {
   const [brandId, setBrandId] = useState<BrandId>('gladchemistry');
   const [paused, setPaused] = useState(false);
 
-  const stageRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const canRef = useRef<HTMLDivElement>(null);
-  const splashRef = useRef<HTMLDivElement>(null);
-  const fruitRefs = useRef<HTMLDivElement[]>([]);
-  const bubbleTweens = useRef<gsap.core.Tween[]>([]);
-  const rafRef = useRef(0);
-  const pausedRef = useRef(false);
-  const visibleRef = useRef(true);
+  const artRef = useRef<HTMLDivElement>(null);
+  const pointerRef = useRef<HTMLDivElement>(null);
 
   const brand = BRANDS[brandId];
-  const brandProducts = PRODUCTS.filter((p) => p.brand === brandId);
-  /* Prefer a transparent cut-out for the floating hero pack; a full-bleed
-     photo would read as a cropped rectangle behind the headline. */
-  const heroProduct =
-    brandProducts.find((p) => !p.photo) ?? brandProducts[0] ?? PRODUCTS[0];
-  const accent = ACCENTS[brandId];
+  const count = PRODUCTS.filter((p) => p.brand === brandId).length;
 
   const reduceMotion = () =>
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------------------------------------------------- bubble canvas */
-  const drawBubbles = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const W = (canvas.width = canvas.offsetWidth);
-    const H = (canvas.height = canvas.offsetHeight);
-    const bubbles: Bubble[] = Array.from({ length: 46 }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      r: 2 + Math.random() * 9,
-      s: 0.3 + Math.random() * 1.1,
-      w: Math.random() * 6,
-    }));
-
-    const frame = () => {
-      rafRef.current = 0;
-      if (pausedRef.current || !visibleRef.current) return;
-      ctx.clearRect(0, 0, W, H);
-      for (const b of bubbles) {
-        b.y -= b.s;
-        b.w += 0.03;
-        if (b.y < -20) {
-          b.y = H + 20;
-          b.x = Math.random() * W;
-        }
-        const px = b.x + Math.sin(b.w) * 10;
-        ctx.beginPath();
-        ctx.arc(px, b.y, b.r, 0, 7);
-        ctx.strokeStyle = 'rgba(255,255,255,.35)';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-        ctx.fillStyle = 'rgba(255,255,255,.08)';
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(px - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.2, 0, 7);
-        ctx.fillStyle = 'rgba(255,255,255,.6)';
-        ctx.fill();
-      }
-      rafRef.current = requestAnimationFrame(frame);
-    };
-    rafRef.current = requestAnimationFrame(frame);
-  }, []);
-
-  /* --------------------------------------------------- intro + float in */
+  /* ------------------------------------------------- intro + parallax */
   useEffect(() => {
     let ctx: gsap.Context | undefined;
     (async () => {
@@ -109,43 +41,34 @@ export const Hero: React.FC = () => {
       if (reduceMotion()) return;
 
       ctx = gsap.context(() => {
-        // Headline words rise in
         gsap.from('.hero-word', {
-          y: 120,
-          rotate: -12,
+          yPercent: 110,
           opacity: 0,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: 'back.out(2)',
-          delay: 0.15,
+          stagger: 0.09,
+          duration: 0.85,
+          ease: 'power4.out',
+          delay: 0.1,
         });
-        // Pack drops in and bounces
-        gsap.from('.hero-can', {
-          y: -320,
+        gsap.from('.hero-rise', {
+          y: 26,
           opacity: 0,
+          stagger: 0.08,
+          duration: 0.7,
+          ease: 'power3.out',
+          delay: 0.45,
+        });
+        /* The single hero visual settles in, then drifts almost
+           imperceptibly. Restrained depth, not a carousel. */
+        gsap.from('.hero-art', {
+          opacity: 0,
+          scale: 0.965,
+          y: 24,
           duration: 1,
-          ease: 'bounce.out',
-          delay: 0.3,
-        });
-        // Colour blobs scale up
-        gsap.from('.hero-blob', {
-          scale: 0,
-          stagger: 0.15,
-          duration: 0.9,
-          ease: 'elastic.out(1,.6)',
+          ease: 'power3.out',
           delay: 0.2,
         });
-        // Side cards
-        gsap.from('.hero-side', {
-          y: 40,
-          opacity: 0,
-          stagger: 0.12,
-          duration: 0.7,
-          delay: 0.7,
-        });
-        // Parallax on scroll
-        gsap.to('.hero-can-wrap', {
-          yPercent: -6,
+        gsap.to('.hero-art', {
+          yPercent: -5,
           ease: 'none',
           scrollTrigger: {
             trigger: heroRef.current,
@@ -160,411 +83,225 @@ export const Hero: React.FC = () => {
     return () => ctx?.revert();
   }, []);
 
-  /* --------------------------------------------------- bubbles lifecycle */
+  /* --------------------------------------------- gentle pointer drift */
   useEffect(() => {
     if (reduceMotion()) return;
-    drawBubbles();
+    let gsapRef: typeof gsap | undefined;
+    import('gsap').then(({ default: g }) => (gsapRef = g));
 
-    const onResize = () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      drawBubbles();
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse' || paused || !gsapRef || !pointerRef.current) return;
+      const x = e.clientX / window.innerWidth - 0.5;
+      const y = e.clientY / window.innerHeight - 0.5;
+      gsapRef.to(pointerRef.current, {
+        x: -x * 14,
+        y: -y * 10,
+        duration: 1.4,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      });
     };
-    window.addEventListener('resize', onResize);
+    window.addEventListener('pointermove', onMove);
+    return () => window.removeEventListener('pointermove', onMove);
+  }, [paused]);
 
-    const io =
-      typeof IntersectionObserver === 'function'
-        ? new IntersectionObserver((entries) => {
-            visibleRef.current = entries[0].isIntersecting;
-            if (!visibleRef.current && rafRef.current) {
-              cancelAnimationFrame(rafRef.current);
-              rafRef.current = 0;
-            } else if (visibleRef.current && !rafRef.current) {
-              drawBubbles();
-            }
-          })
-        : null;
-    if (io && heroRef.current) io.observe(heroRef.current);
-
-    return () => {
-      window.removeEventListener('resize', onResize);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      io?.disconnect();
-    };
-  }, [drawBubbles]);
-
-  /* --------------------------------------------------- floating fruit */
+  /* --------------------------------------------- breathing float tween */
   useEffect(() => {
+    let tween: gsap.core.Tween | undefined;
     let killed = false;
     (async () => {
       const { default: gsap } = await import('gsap');
-      if (reduceMotion() || killed) return;
-
-      bubbleTweens.current.forEach((t) => t.kill());
-      bubbleTweens.current = [];
-
-      fruitRefs.current.forEach((el, i) => {
-        if (!el) return;
-        gsap.fromTo(
-          el,
-          { scale: 0, rotate: -90 },
-          { scale: 1, rotate: i * 40, duration: 0.7, delay: 0.1 * i, ease: 'back.out(2)' },
-        );
-        const tween = gsap.to(el, {
-          y: '+=18',
-          duration: 2.2 + i * 0.3,
-          yoyo: true,
-          repeat: -1,
-          ease: 'sine.inOut',
-        });
-        if (pausedRef.current) tween.pause();
-        bubbleTweens.current.push(tween);
+      if (reduceMotion() || killed || !artRef.current) return;
+      tween = gsap.to(artRef.current, {
+        y: '+=12',
+        duration: 5.5,
+        yoyo: true,
+        repeat: -1,
+        ease: 'sine.inOut',
       });
+      if (paused) tween.pause();
     })();
     return () => {
       killed = true;
+      tween?.kill();
     };
-  }, [brandId]);
-
-  /* --------------------------------------------------- splash pop-in */
-  useEffect(() => {
-    let ctx: gsap.Context | undefined;
-    (async () => {
-      const { default: gsap } = await import('gsap');
-      if (reduceMotion() || !splashRef.current) return;
-      ctx = gsap.context(() => {
-        gsap.fromTo(
-          splashRef.current,
-          { opacity: 0, scale: 0.82, y: 30 },
-          { opacity: 0.85, scale: 1, y: 0, duration: 0.9, ease: 'power3.out' },
-        );
-      });
-    })();
-    return () => ctx?.revert();
-  }, [brandId]);
-
-  /* --------------------------------------------------- pause control */
-  const togglePause = () => {
-    const next = !paused;
-    setPaused(next);
-    pausedRef.current = next;
-    bubbleTweens.current.forEach((t) => (next ? t.pause() : t.resume()));
-    if (next && rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = 0;
-    } else if (!next && !rafRef.current) {
-      drawBubbles();
-    }
-  };
-
-  /* --------------------------------------------------- pointer parallax */
-  const onPointerMove = (e: React.PointerEvent<HTMLElement>) => {
-    if (e.pointerType !== 'mouse' || pausedRef.current) return;
-    const x = e.clientX / window.innerWidth - 0.5;
-    const gsapRef = (window as unknown as { gsap?: typeof gsap }).gsap;
-    fruitRefs.current.forEach((el) => {
-      if (!el || !gsapRef) return;
-      const depth = Number(el.dataset.depth ?? 0.5);
-      gsapRef.to(el, { x: -x * 90 * depth, duration: 1.4, overwrite: 'auto' });
-    });
-  };
-
-  /* Expose gsap for the pointer handler */
-  useEffect(() => {
-    import('gsap').then(({ default: gsap }) => {
-      (window as unknown as { gsap?: typeof gsap }).gsap = gsap;
-    });
-  }, []);
-
-  /* Small floating packs flanking the hero. Cut-outs only, so they read as
-     floating product rather than cropped photo tiles. */
-  const ORBIT = [
-    ...PRODUCTS.filter((p) => !p.photo && p.brand !== brandId),
-    ...PRODUCTS.filter((p) => !p.photo && p.brand === brandId),
-  ];
-
-  const FRUIT_POS = [
-    { left: '8%', top: '10%', size: 92 },
-    { left: '78%', top: '6%', size: 104 },
-    { left: '2%', top: '56%', size: 78 },
-    { left: '84%', top: '50%', size: 96 },
-    { left: '66%', top: '72%', size: 70 },
-    { left: '20%', top: '76%', size: 86 },
-  ];
+  }, [paused, brandId]);
 
   return (
     <section
       ref={heroRef}
-      onPointerMove={onPointerMove}
-      className="hero-shell relative overflow-hidden"
-      style={{
-        minHeight: '100svh',
-        background:
-          'radial-gradient(ellipse at 50% 70%, #0e6a72 0%, var(--ink) 65%)',
-        padding: '24px 5vw 40px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
       id="hero"
+      className="relative overflow-hidden"
+      style={{
+        background: 'var(--cream)',
+        paddingTop: 'clamp(88px, 12vh, 132px)',
+        paddingBottom: 'clamp(56px, 8vh, 96px)',
+      }}
     >
-      {/* Animated bubbles */}
-      <canvas
-        ref={canvasRef}
+      {/* One deliberate background treatment: a single soft wash in the
+          active house's tone, deepening to nothing. No gradient stacks. */}
+      <div
         aria-hidden
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 pointer-events-none transition-colors duration-700"
+        style={{
+          background: `radial-gradient(120% 90% at 78% 8%, ${brand.stageTone} 0%, rgba(251,247,240,0) 62%)`,
+        }}
       />
 
-      {/* Oversized headline */}
-      <h1
-        className="relative z-10 text-center text-white font-display"
-        style={{
-          fontSize: 'clamp(46px, 9vw, 120px)',
-          lineHeight: 0.92,
-          letterSpacing: '-0.04em',
-          maxWidth: '15ch',
-        }}
-      >
-        <span className="hero-word inline-block">Pure</span>{' '}
-        <span className="hero-word inline-block">care,</span>{' '}
-        <span className="hero-word inline-block" style={{ color: 'var(--lime)' }}>
-          properly
-        </span>{' '}
-        <span className="hero-word inline-block" style={{ color: 'var(--lime)' }}>
-          made.
-        </span>
-      </h1>
-
-      {/* Stage: blobs + fruit + product + splash */}
-      <div
-        ref={stageRef}
-        className="relative z-[2]"
-        style={{
-          width: 'min(92vw, 720px)',
-          height: 'min(52vh, 520px)',
-          marginTop: '-1vw',
-        }}
-      >
-        {/* Colour blobs */}
-        <i
-          className="hero-blob absolute"
-          style={{
-            background: accent[0],
-            left: '-4%',
-            top: '18%',
-            width: '38%',
-            height: '44%',
-            animation: 'blobMorph 9s ease-in-out infinite',
-          }}
-        />
-        <i
-          className="hero-blob absolute"
-          style={{
-            background: accent[1],
-            left: '4%',
-            bottom: '2%',
-            width: '34%',
-            height: '36%',
-            animation: 'blobMorph 9s ease-in-out infinite',
-            animationDelay: '-3s',
-          }}
-        />
-        <i
-          className="hero-blob absolute"
-          style={{
-            background: accent[2],
-            right: '6%',
-            bottom: '8%',
-            width: '28%',
-            height: '30%',
-            animation: 'blobMorph 9s ease-in-out infinite',
-            animationDelay: '-6s',
-          }}
-        />
-
-        {/* Splash behind the pack */}
-        <div
-          ref={splashRef}
-          aria-hidden
-          className="absolute left-1/2 top-[-17%] w-[126%] -translate-x-1/2 z-[1] pointer-events-none"
-          style={{
-            opacity: 0,
-            /* Fade out well before the headline so the type stays crisp */
-            maskImage:
-              'radial-gradient(60% 62% at 50% 46%, #000 0%, rgba(0,0,0,.55) 52%, #0000 100%)',
-            WebkitMaskImage:
-              'radial-gradient(60% 62% at 50% 46%, #000 0%, rgba(0,0,0,.55) 52%, #0000 100%)',
-          }}
-        >
-          <img
-            src={brand.heroImage}
-            alt=""
-            className="w-full h-auto opacity-25"
-            style={{ filter: 'blur(6px) saturate(1.05)' }}
-          />
-        </div>
-
-        {/* Floating "fruit" — here, the range's hero packs */}
-        {FRUIT_POS.map((pos, i) => (
-          <div
-            key={`${brandId}-${i}`}
-            ref={(el) => {
-              if (el) fruitRefs.current[i] = el;
-            }}
-            data-depth={0.5 + (i % 3) * 0.4}
-            className="absolute pointer-events-none"
-            style={{
-              left: pos.left,
-              top: pos.top,
-              width: pos.size,
-              height: pos.size,
-              zIndex: 3,
-              filter: i % 3 === 2 ? 'blur(3px)' : 'none',
-            }}
-          >
-            <div className="w-full h-full grid place-items-center p-1.5">
-              <img
-                src={ORBIT[i % ORBIT.length]?.image ?? heroProduct.image}
-                alt=""
-                className="w-full h-full object-contain"
-                style={{ filter: 'drop-shadow(0 10px 16px rgba(0,0,0,.45))' }}
-              />
+      <div className="relative z-10 mx-auto max-w-[1320px] px-[5vw]">
+        <div className="grid lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] items-center gap-y-12 lg:gap-x-14">
+          {/* ---------------------------------------------------- copy */}
+          <div className="max-w-[620px]">
+            <div className="hero-rise flex items-center gap-3">
+              <span
+                className="inline-block rounded-full px-3.5 py-1.5 text-[11px] font-black uppercase tracking-[0.14em] transition-colors duration-500"
+                style={{ background: brand.stageTone, color: brand.inkColor }}
+              >
+                {brand.name}
+              </span>
+              <span className="text-[11px] font-black uppercase tracking-[0.14em] text-slate-400">
+                Est. 2016 · Springs
+              </span>
             </div>
+
+            <h1
+              className="font-display mt-5"
+              style={{
+                color: 'var(--ink)',
+                /* Sized so the longest line ("properly made.") still fits the
+                   copy column on a 1440 desktop — never clipped by the mask. */
+                fontSize: 'clamp(38px, 5.5vw, 76px)',
+                lineHeight: 0.96,
+                letterSpacing: '-0.04em',
+              }}
+            >
+              {/* Each word is masked so it can rise from behind a clean
+                  edge — the soda settle-in, with none of the rotation. */}
+              {[
+                [{ t: 'Pure' }, { t: 'care,' }],
+                [{ t: 'properly' }, { t: 'made.', accent: true }],
+              ].map((line, li) => (
+                <span key={li} className="block overflow-hidden pb-[0.06em]">
+                  {line.map((w, wi) => (
+                    <span
+                      key={wi}
+                      className="hero-word inline-block"
+                      style={{
+                        color: w.accent ? brand.primaryColor : 'var(--ink)',
+                        marginRight: '0.22em',
+                      }}
+                    >
+                      {w.t}
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </h1>
+
+            <p
+              className="hero-rise mt-6 max-w-[46ch] text-[16px] leading-relaxed"
+              style={{ color: 'var(--ink-soft)' }}
+            >
+              <strong style={{ color: 'var(--ink)' }}>{brand.tagline}</strong> — {brand.description}
+            </p>
+
+            {/* Brand switcher: real buttons with names, not mystery dots */}
+            <div className="hero-rise mt-7 flex flex-wrap gap-2" role="tablist" aria-label="Choose a house">
+              {BRAND_LIST.map((b) => {
+                const on = b.id === brandId;
+                return (
+                  <button
+                    key={b.id}
+                    role="tab"
+                    aria-selected={on}
+                    onClick={() => setBrandId(b.id)}
+                    className="rounded-full px-4 py-2 text-[13px] font-bold transition-all duration-300"
+                    style={{
+                      background: on ? b.primaryColor : '#fff',
+                      color: on ? '#fff' : 'var(--ink-soft)',
+                      border: `1.5px solid ${on ? b.primaryColor : 'rgba(16,35,28,.14)'}`,
+                    }}
+                  >
+                    {b.name}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="hero-rise mt-7 flex flex-wrap items-center gap-2.5">
+              <Link to={`/shop?brand=${brand.id}`} className="btn btn-ink">
+                Shop {brand.name}
+              </Link>
+              <Link to="/brands" className="btn btn-ghost">
+                Meet the houses
+              </Link>
+            </div>
+
+            <p className="hero-rise mt-6 text-[12px] font-bold uppercase tracking-[0.12em] text-slate-400">
+              {count} products · {PRODUCTS.length} across three houses
+            </p>
           </div>
-        ))}
 
-        {/* The product itself, centred and floating */}
-        <div
-          ref={canRef}
-          className="hero-can-wrap absolute inset-0 grid place-items-center z-[4]"
-        >
-          {heroProduct.photo ? (
-            /* Full-bleed shot: a deliberate framed card, not a bare crop */
+          {/* ----------------------------------------------------- art */}
+          <div className="relative">
+            {/* Soft contact shadow, tied to the same surface — not a panel */}
             <div
-              className="hero-can animate-float-slow overflow-hidden"
-              style={{
-                width: 'min(58%, 300px)',
-                aspectRatio: '4 / 5',
-                borderRadius: 26,
-                background: '#f4f2ec',
-                boxShadow:
-                  '0 40px 80px -24px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.5)',
-              }}
-            >
-              <img
-                src={heroProduct.image}
-                alt={heroProduct.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ) : (
-            /* Transparent cut-out: floats directly on the glow, like the soda can */
-            <div
-              className="hero-can animate-float-slow"
-              style={{ width: 'min(64%, 320px)' }}
-            >
-              <img
-                src={heroProduct.image}
-                alt={heroProduct.name}
-                className="w-full h-auto"
-                style={{ filter: 'drop-shadow(0 34px 44px rgba(0,0,0,.62))' }}
-              />
-            </div>
-          )}
-        </div>
-
-        {/* Sparkles */}
-        {[
-          ['10%', '8%'],
-          ['86%', '20%'],
-          ['18%', '54%'],
-        ].map(([left, top], i) => (
-          <span
-            key={i}
-            aria-hidden
-            className="absolute z-[5] text-[26px]"
-            style={{
-              left,
-              top,
-              color: 'var(--sun)',
-              animation: 'twinkle 2.4s ease-in-out infinite',
-              animationDelay: `${i * 0.6}s`,
-            }}
-          >
-            ✦
-          </span>
-        ))}
-      </div>
-
-      {/* Brand switches (the soda "dots") */}
-      <div className="relative z-10 flex gap-2 mt-1 mb-5">
-        {BRAND_LIST.map((b) => {
-          const on = b.id === brandId;
-          return (
-            <button
-              key={b.id}
-              onClick={() => setBrandId(b.id)}
-              aria-label={`Show ${b.name}`}
-              aria-pressed={on}
-              className="rounded-full transition-all duration-300 h-3"
-              style={{
-                width: on ? 46 : 12,
-                background: on ? b.primaryColor : 'rgba(255,255,255,.28)',
-              }}
+              aria-hidden
+              className="absolute inset-x-6 bottom-[-18px] h-10 rounded-[50%]"
+              style={{ background: 'rgba(16,35,28,.16)', filter: 'blur(26px)' }}
             />
-          );
-        })}
-      </div>
+            <div ref={pointerRef} className="relative">
+              <div
+                ref={artRef}
+                className="hero-art relative overflow-hidden"
+                style={{
+                  borderRadius: 28,
+                  aspectRatio: '16 / 9',
+                  background: brand.stageTone,
+                  boxShadow: '0 34px 70px -34px rgba(16,35,28,.42)',
+                  border: '1px solid rgba(16,35,28,.07)',
+                }}
+              >
+                {/* One photograph. Correct role: a 16:9 brand scene shown at
+                    its own 16:9 aspect, so the frame crops nothing at all —
+                    never object-cover on a packshot, never a cut-out. */}
+                <img
+                  key={brand.heroImage}
+                  src={brand.heroImage}
+                  alt={`${brand.name} — ${brand.tagline}`}
+                  className="w-full h-full"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  fetchPriority="high"
+                />
 
-      {/* Copy + CTAs */}
-      <div
-        className="hero-side relative z-10 text-center max-w-[540px]"
-        style={{ color: '#fff' }}
-      >
-        <h3 className="font-display font-extrabold text-[22px] sm:text-[26px] leading-tight">
-          {brand.tagline}, made properly.
-        </h3>
-        <p className="mt-2.5 text-[15px] leading-relaxed text-white/80">
-          {brand.description.split('.')[0]}. Three houses, one standard.
-        </p>
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
-          <Link to="/shop" className="btn btn-lime">
-            Shop the range
-          </Link>
-          <Link
-            to="/brands"
-            className="btn"
-            style={{ background: 'transparent', border: '2px solid rgba(255,255,255,.5)', color: '#fff' }}
-          >
-            Meet the houses
-          </Link>
-        </div>
-      </div>
-
-      {/* Pause motion */}
-      <button
-        onClick={togglePause}
-        aria-pressed={paused}
-        className="absolute bottom-4 right-5 z-20 rounded-full px-3.5 py-2 text-[11px] font-black uppercase tracking-[0.12em]"
-        style={{ background: 'rgba(255,255,255,.14)', color: '#fff' }}
-      >
-        {paused ? 'Resume motion' : 'Pause motion'}
-      </button>
-
-      {/* Glass stat cards */}
-      <div className="hero-side absolute right-5 bottom-14 z-10 hidden lg:grid gap-2.5 justify-items-end">
-        {[
-          { k: String(PRODUCTS.length), label: 'Products', sub: 'Across 3 houses', color: '#7ee59f' },
-          { k: '99.9%', label: 'Germ kill', sub: 'Bubbles detergents', color: '#46dcf5' },
-        ].map((s) => (
-          <div key={s.label} className="gl-card">
-            <span style={{ color: s.color }}>{s.k}</span>
-            <div>
-              {s.label}
-              <small>{s.sub}</small>
+                {/* A single hairline caption plate, flush to the frame */}
+                <div
+                  className="absolute left-0 right-0 bottom-0 flex items-center justify-between px-4 py-3"
+                  style={{
+                    background: 'rgba(12,26,20,.55)',
+                    backdropFilter: 'blur(6px)',
+                  }}
+                >
+                  <span className="text-[11px] font-black uppercase tracking-[0.14em] text-white/90">
+                    {brand.highlights[0]}
+                  </span>
+                  <span className="text-[11px] font-black uppercase tracking-[0.14em]" style={{ color: 'var(--lime)' }}>
+                    Made in SA
+                  </span>
+                </div>
+              </div>
             </div>
+
+            <button
+              onClick={() => setPaused((p) => !p)}
+              aria-pressed={paused}
+              className="absolute -bottom-3 right-3 z-20 rounded-full px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.12em] transition-colors"
+              style={{ background: '#fff', color: 'var(--ink)', border: '1px solid rgba(16,35,28,.12)' }}
+            >
+              {paused ? 'Resume motion' : 'Pause motion'}
+            </button>
           </div>
-        ))}
+        </div>
       </div>
     </section>
   );

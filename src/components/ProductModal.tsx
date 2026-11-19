@@ -47,11 +47,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
             <X className="h-5 w-5" />
           </button>
 
-          <div className="bg-slate-100 relative min-h-[280px]">
+          {/* Same role logic as the card: a photograph is shown whole, never
+              cropped to a square that slices the product. */}
+          <div className="relative min-h-[300px] md:min-h-[440px] bg-[#f0eee7] grid place-items-center p-6">
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full"
+              style={{ objectFit: 'contain', maxHeight: 460 }}
             />
             <span
               className="absolute top-4 left-4 text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full"

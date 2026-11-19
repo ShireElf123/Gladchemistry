@@ -27,18 +27,26 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
         transition={{ duration: 0.4, delay: index * 0.05 }}
         className="group flex flex-col min-w-0"
       >
-        {/* Product stage. Two treatments, matching the source material:
-            photographic scenes run full-bleed, transparent cut-outs float on
-            the tinted pad with the circle behind them. */}
+        {/* Product stage — the treatment follows product.imageRole, so a
+            photograph is never rendered as if it had transparency and a
+            cut-out is never given an opaque backdrop it never had. The stage
+            takes the artwork's own 4:5 aspect, so a photograph is neither
+            cropped nor letterboxed — it simply fits. */}
         <div
           onClick={() => setModalOpen(true)}
-          className="stage stage-frame cursor-pointer"
-          style={{
-            ['--stage-tone' as string]: brand.stageTone,
-            height: tall ? 380 : 330,
-          }}
+          className={`stage-art stage-art-${product.imageRole} ${
+            product.fit === 'cover' ? 'stage-art-cover' : ''
+          } cursor-pointer`}
+          style={{ aspectRatio: tall ? '4 / 4.9' : '4 / 5' }}
         >
-          <img src={product.image} alt={product.name} loading="lazy" />
+          <img
+            src={product.image}
+            alt={product.name}
+            loading="lazy"
+            decoding="async"
+            width={1200}
+            height={1500}
+          />
 
           {/* Flags sit on the stage, hard-edged like the soda store */}
           <div className="absolute top-3.5 left-3.5 flex flex-wrap gap-1.5 z-10">
