@@ -154,6 +154,25 @@
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Unified product frame. Every art file is rendered at 4:5 on the same paper
+   backdrop, so the card just shows it — no tint, no circle, no second style. */
+.stage-frame {
+  background: #eeede8;
+  border-radius: 20px;
+}
+.stage-frame::before { display: none; }
+.stage-frame > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  filter: none;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stage-frame:hover > img { transform: scale(1.035); }
+
 /* Full-bleed photographic treatment: the shot fills the stage, no circle. */
 .stage-photo { background: #f2f0ea; }
 .stage-photo::before { display: none; }
