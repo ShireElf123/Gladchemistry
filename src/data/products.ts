@@ -124,7 +124,7 @@ export const PRODUCTS: Product[] = [
     size: '10ml (oil-based)',
     description:
       'Crisp green apple, aromatic sage, and cedarwood crafted for all-day confidence.',
-    image: '/images/felis-fragrances.jpg',
+    image: '/images/pilot/feliz-hugo-men-50ml.png',
   },
   {
     id: 'fbg-diesel-men',
@@ -138,7 +138,7 @@ export const PRODUCTS: Product[] = [
     size: '10ml (oil-based)',
     description:
       'Bold spicy-woody fragrance with grapefruit, lavender, and warm amber undertones.',
-    image: '/images/felis-fragrances.jpg',
+    image: '/images/feliz/feliz-diesel-men-50ml.png',
   },
   {
     id: 'fbg-car-perfume',

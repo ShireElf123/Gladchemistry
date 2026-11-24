@@ -68,3 +68,12 @@ Four images generated in one burst before the user's one-per-turn instruction wa
 were pulled off the site and parked in `.work/unapproved/` (gitignored):
 `feliz-floral-women-50ml.png`, `feliz-cool-water-men-50ml.png`,
 `gc-foam-bath-1-5l.png`, `gc-bicarbonate-soda.png`.
+
+### Turn 68 — `fbg-diesel-men`
+`public/images/feliz/feliz-diesel-men-50ml.png` — cloned from the pilot, oil deepened to
+smoky amber with a warmer right-hand rim light. Reads as an evening scent without
+departing from the shoot.
+
+Also wired the **pilot itself** onto `fbg-hugo-men`, where it belongs — it is the Hugo Men
+bottle, and it had been sitting unused in `public/images/pilot/` while the card still
+showed the generic range shot.
