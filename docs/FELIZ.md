@@ -602,3 +602,43 @@ generation ("directly beneath CLEANER the blob is completely blank"), which work
 layout is under my control at generation, **suppress at generation**; compositing is only for elements
 the model cannot draw, like the flat NEW flash — which was redrawn cleanly as a red ellipse with vector
 text and nothing beneath it.
+
+### Turn 89 — Black Dip, rebuilt
+
+Reference `IMG-20261118-WA0030.jpg` — Black Dip is the dark bottle third from the left in that group shot.
+(This is the product she herself flagged at turn 81 with "the black dip is skew", so it had a history.)
+Magnified the whole bottle 11x and the label 14x.
+
+**Bottle corrections:**
+1. **The plastic is BROWN-BLACK, not neutral black.** It reads black at a glance but warms to a deep
+   chocolate-brown across the shoulders and edges where the light lands. That warmth is the whole
+   difference between her pack and a plain black slab, and I had rendered flat black.
+2. **The cap is dark BROWN**, wide and domed with vertical grip ribs — not a black ribbed cap.
+3. Body is a squat rectangular slab with a short moulded step between the cap collar and the shoulder.
+
+**Label corrections:** the badge behind "BUBBLES" sits on a pale oval; the label carries a faint
+lace-scroll pattern over the whole background; the shield has a cross inside and sits beside a pair of
+outlined hands; and the artwork set is toilet, shed, cloth, drain grate, warning triangle, green flame
+symbol and a small multicolour circular logo — in that arrangement, not scattered.
+
+**Composition:** 92.0% width / 76.4% height. It is a squat wide slab, so it fills the frame side to side
+and leaves space above and below — the opposite proportion to Thick Bleach at 27.9% wide.
+
+**Four generations to get clean, and what that taught me.** Every attempt got the bottle right and the
+label text wrong in a new way: attempt 1 invented two phone numbers and an email; attempt 2 invented a
+claim line and the word "SHIELD"; attempt 3 put a nonsense line inside the badge; attempt 4 was clean.
+The successful prompt ended with an explicit closed vocabulary —
+
+> The complete list of words allowed on this pack is exactly: BUBBLES, HOUSEHOLD HYGIENE, BLACK DIP,
+> CLEANING LIQUID. Nothing else.
+
+That single sentence did more than any amount of "do not invent text". **Use a closed word list, not a
+prohibition.** Prohibitions get reinterpreted; an allow-list has no room in it.
+
+**Compositing failures, recorded so they are not retried on this kind of label.** I tried three times to
+patch the invented text by hand and made it worse each time: a blur band left a grey slab floating on the
+pale label; a narrow band aimed from a colour mask clipped the top of BUBBLES because the mask also
+caught the letters; and redrawing the oval interior plus re-setting BUBBLES in a system font broke the
+oval rim and left the type oversized and wrong. **On a light, patterned label with fine artwork, do not
+patch text — regenerate with a closed word list.** Compositing is reliable only for a flat solid-colour
+badge on a plain field, which is why the gold NEW flash on Thick Bleach worked.
