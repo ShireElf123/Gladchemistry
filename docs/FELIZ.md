@@ -87,3 +87,20 @@ short black screw cap, golden oil).
 First attempt came back with the label typeset **vertically** up the bottle, which broke the
 set. Regenerated from both the bad frame and the pilot, explicitly demanding a horizontal
 label level with the horizon. Fixed.
+
+### Turn 70 — `fbg-reed-diffuser`
+`public/images/feliz/feliz-reed-diffuser-100ml.png` — own body again (short square cut-glass
+flacon, five matte black reeds, amber oil), and the one deliberate departure from the shoot:
+a **warm sand plaster sweep** instead of charcoal, so it reads as home fragrance rather than
+perfume. Same key light, same rim, same cream label with the horizontal red serif wordmark.
+
+### Status: all five Feliz products have real pictures
+| id | image |
+|---|---|
+| `fbg-hugo-men` | `pilot/feliz-hugo-men-50ml.png` (approved pilot) |
+| `fbg-scandal-ladies` | `feliz/feliz-scandal-ladies-50ml.png` |
+| `fbg-diesel-men` | `feliz/feliz-diesel-men-50ml.png` |
+| `fbg-car-perfume` | `feliz/feliz-ted-lapidus-rollon-15ml.png` |
+| `fbg-reed-diffuser` | `feliz/feliz-reed-diffuser-100ml.png` |
+
+Remaining on generic range shots: 4 Gladchemistry products and 7 Bubbles products.

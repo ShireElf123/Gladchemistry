@@ -92,7 +92,7 @@ export const PRODUCTS: Product[] = [
     size: '100ml + Black Reeds',
     description:
       'Hand-poured luxury home fragrance oil in a crystal-cut square flacon with matte black rattan reeds for 12+ weeks of continuous scent.',
-    image: '/images/reed-diffuser.jpg',
+    image: '/images/feliz/feliz-reed-diffuser-100ml.png',
     badge: 'Luxury Home',
     featured: true,
   },
