@@ -890,3 +890,39 @@ Two things worth recording:
 Plate text verified at 3x: "Inspired by / HUGO / MEN" exactly.
 
 **11 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, Diesel Men, Ted Lapidus car & roll-on.
+
+### Turn 95 — Inspired by Diesel Men, 50ml
+
+Reference: `IMG-20261118-WA0028.jpg`, second from the left. Measured: cap y 172-330 with two chrome bands
+at its foot, body y 345-668, body width ~120, total height 496 → **h/w 4.1**, cap/body **0.73**.
+
+**Faults in my old render:** same template failure as the other Feliz items — generic bottle, black cap,
+cream "Feliz be Glad" label, dark charcoal background.
+
+**What her bottle actually is:**
+1. **Smoked grey-green glass** — translucent and dark, reading almost black in shadow and olive-green at the
+   lit edges. Not clear glass, not black paint.
+2. **Sweeping DIAGONAL FACET LINES** across the front face — long angled ridges and grooves crossing from
+   upper left to lower right, with a second set crossing the other way, forming a slender lattice of
+   highlights. This is the bottle's signature and it is easy to miss at thumbnail size.
+3. **Tall glossy black cylindrical cap** with two thin POLISHED CHROME BANDS at its base, separated by a
+   narrow black groove.
+4. **Brushed silver name plate, bottom centre** — "Inspired by / DIESEL / MEN".
+5. Pale yellow-green juice visible through the smoked glass, with the spray tube down the centre and a
+   darker pump block near the top.
+
+**This one landed first pass, at h/w 4.09 vs 4.1 reference, body 2.66 vs 2.7, cap 0.77 vs 0.73.** Why:
+it was the first item where I gave the model **two independent ratio anchors plus a structural
+description** of the surface treatment ("long angled ridges crossing upper left to lower right, and a
+second set crossing the other way, forming a slender lattice of highlights"). Describing the facets as a
+*lattice of intersecting sets* rather than "diagonal facets" is what produced them correctly — the vaguer
+phrasing had produced plain vertical grooves on other packs.
+
+Also worth noting for the range: the Feliz name plates are **not uniform**. Scandal = brushed silver raised
+plate on the flared base. Hugo = matte BLACK plate. Diesel = brushed silver plate, bottom centre. I now
+check the plate finish per item rather than assuming.
+
+**Standing rule for the remaining items:** two ratio anchors, describe surface treatments as geometry, and
+a closed word list. Three turns running that combination has produced a first-pass or near-first-pass result.
+
+**12 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, Ted Lapidus car & roll-on.
