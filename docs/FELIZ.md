@@ -1248,3 +1248,35 @@ just this one, so it is fixed at the root as well as for this image:
 
 Rule for future image work: **if you replace an image's pixels, change its filename** (or expect the old
 one to persist for up to a week). Bumping the filename is the cheap, reliable fix.
+
+### Turn 101d — the actual cause: her browser held an 18 Nov version
+
+Her screenshot (24 Nov) showed a Pine Gel with a **small tub, roughly half the frame width** — nothing
+like the 95%-width tub I had been editing for several turns. Commit archaeology settled it:
+
+| commit | date | what it shows |
+|---|---|---|
+| `46aa54a` "Bubbles Pine Gel, and it is a 200g tub" | 18 Nov | small tub, height 53.5% of frame ← **what her screen showed** |
+| `ed24bef` rebuild | later | large tub, 84% |
+| `1ce0214` zoom out | later | large tub, re-measured |
+| `9af9d25` shift down | 24 Nov | large tub, 41 px lower |
+
+So **her browser had been serving the 18 November file for six days**. Every fix in between — the
+rebuild, the re-measure, the 41 px nudge — was invisible to her, which is why "looks the same / not
+pushed". The 7-day `max-age` on `/images/*` did exactly what it was told. Nothing was ever broken in
+the repo; the delivery was.
+
+**What she asked for, read correctly this time:** *put THIS one back* (the 18 Nov version she was
+looking at) *and adjust it* (nudge it down) *and push*.
+
+Done exactly that:
+- Restored the `46aa54a` artwork as the base — the small-tub composition she actually wants.
+- Nudged it down **41 px** (3.6% of frame) so its centre lands at **52.0%**, identical to the Citrus
+  Gel beside it. Seam feathered over 30 px; largest row-to-row jump in the top 130 rows is 1.32.
+- Saved as **`bubbles-pine-gel-tub-v3.png`** and repointed `products.ts`. **New filename is mandatory** —
+  the v2 filename is already cached in her browser for up to 7 days, so reusing any old path would
+  have repeated the whole failure.
+
+**Standing rule (added to Errors):** her browser can hold an image for up to a week. When changing an
+image, always ship it under a NEW filename and bump the `-vN` suffix. Never assume "pushed" means
+"visible to her"; compare her screenshot's composition against the repo before diagnosing a push.
