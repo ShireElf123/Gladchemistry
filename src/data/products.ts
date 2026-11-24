@@ -168,8 +168,8 @@ export const PRODUCTS: Product[] = [
     price: 165,
     size: '5L Jerry Can',
     description:
-      'High-foam pH-balanced car shampoo infused with carnauba wax for a streak-free, showroom shine.',
-    image: '/images/bubbles-car-wash.jpg',
+      'Blue 5-litre wash and wax for a quick, easy shine. Green cap, white moulded handle.',
+    image: '/images/bubbles/bubbles-car-wash-wax-5l.png',
     badge: 'Auto Care',
     featured: true,
   },

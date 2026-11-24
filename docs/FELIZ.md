@@ -146,3 +146,11 @@ stains", "It cleans / removes stains / disinfects", 750 ml. Cool-white sweep, pa
 Catalogue description trimmed of invented claims ("99.9% of germs") and replaced with what
 the label actually says. The 750ml/5L variant pair is retained — a 5L is plausible but is not
 visible in any photograph, so it is unverified.
+
+### Turn 73 — `bd-car-wash`
+`public/images/bubbles/bubbles-car-wash-wax-5l.png` — generated from `IMG-20261118-WA0026.jpg`.
+Large blue 5L jerry can, white moulded handle and shoulder, green screw cap, real label:
+"BUBBLES Detergenta", "CAR WASH & WAX", "Quick & Easy shine", with the car-and-bubbles photo.
+
+Description replaced: the site claimed a "carnauba wax infusion" and "pH-balanced", neither of
+which appears on the label. Now says only what the can says.
