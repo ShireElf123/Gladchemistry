@@ -374,3 +374,48 @@ in the built bundle: `stage-photo{aspect-ratio:4/5;...}`.
 Side effect, and it is the right one: cards get taller (480 px at lg), so the product occupies far
 more of the card and the white space that read as "empty" is gone. Being a single component change,
 it applies to the home grid and the shop grid at once.
+
+### Turn 84 (redo) — revert the normalisation, rebuild Pine Gel
+
+She looked at the normalised grid and rejected it: "that made it worst the zoom cut off some of the
+items... revert 1st n just regenerate the ones that not good coz most was good... we do one item per
+turn always". She also said the Pine Gel tub lid was wrong and to analyse the whole picture first.
+
+**Why normalisation failed (my mistake, worth recording).** I scaled every product to 82% of the frame
+*height* only. A bottle and a squat gel tub cannot be unified by one number: forcing the wide tubs to
+82% tall pushed them past the frame edges and cropped their sides. Then, because the frame was still
+4:5 while the images were 1:1, `object-fit: cover` cut another 10% off top and bottom. Two crops
+compounding. **Balancing a grid is not achievable by normalising height alone — a squat tub and a
+tall bottle simply are different shapes, and the source photographs were already individually good.**
+Reverted in a forward commit (`500e1ec`), all sixteen files back to their original sizes and crops.
+
+**Pine Gel, analysed before generating.** The reference is `IMG-20261118-WA0029.jpg`; I cropped the tub
+and magnified the lid 8x and the label 7x and read the construction region by region:
+
+- **Lid:** a green disc set *down inside* the rim with a raised lip ring — not a ribbed screw cap.
+  My previous render had a tall ribbed cap. Wrong.
+- **Below the lid:** a *separate clear transparent snap-on collar*, slightly wider than the lid,
+  overhanging the shoulder, with a ring of small triangular reinforcing gussets pointing down and a
+  moulded latch tab at the front. I had missed this entirely.
+- **Body:** translucent green, straight-walled, gel visible through the lower wall.
+- **Label:** bright mid-green at the centre falling to near-black at both outer thirds where it curves
+  into shadow. The two fine-print columns are **dark print on the bright third and white print on the
+  dark third** — I had it uniformly light-on-green, the wrong way round.
+- **Artwork:** oval "BUBBLES / Detergenta" badge, dark navy "NEW" blob at its upper right, "PINE GEL"
+  in maroon, a dotted green outline around the white blob, purple-blue bubbles down the right edge,
+  **two** palm trees, recycling triangle plus two small icons on the left third, green droplet emblem
+  at the bottom centre.
+
+**Fine print, solved deterministically.** The model writes crisp invented English no matter how the
+prompt words it ("soft," "illegible," "do not invent") and re-renders it on an edit pass. Fabricated
+claims and phone numbers must never ship, so `tools/soften-fineprint.py` handles it after generation:
+a 40px blur blended back with a feathered mask erases every glyph while keeping the label's colour
+gradient, then soft irregular print rows are drawn on top — dark on bright label areas, light on dark
+ones, matching the real pack. No word exists in the output. Re-runnable on any product.
+
+Dead ends this turn, so they aren't retried: blurring without erasing first leaves the earlier invented
+words visible underneath; edge-stretch repair leaves black bars; a flat fill leaves a visible
+rectangle. Width, not height, is the constraint on wide products. And **a light blur is not enough —
+it smudges text into something that still reads as words at 2x.**
+
+Pine Gel description corrected to match her pack (translucent green tub, recessed lid, clear collar).
