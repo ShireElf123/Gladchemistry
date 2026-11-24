@@ -850,3 +850,43 @@ Plate text verified at 3x: "Inspired by / SCANDAL / Ladies" exactly, nothing inv
 
 **10 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, and three Feliz perfumes
 (Hugo Men, Diesel Men, Ted Lapidus car & roll-on).
+
+### Turn 94 — Inspired by Hugo Men, 50ml
+
+Reference: `IMG-20261118-WA0028.jpg`, the third bottle from the left in the four-perfume line-up.
+Measured from the photo: crystal stopper y 240-330, body y 350-670, body width ~125, total height 430
+→ **total h / body w ≈ 3.4**, stopper ≈ **0.45** of body width. Tall and slender.
+
+**Faults in my old render:** plain tall bottle with a small black cylindrical cap, pink juice, cream
+"Feliz be Glad" label, dark charcoal background. Another one built from the catalogue name.
+
+**What her bottle actually is:**
+1. **A chunky CLEAR ACRYLIC BLOCK stopper** — a solid rectangular slab with soft rounded top edges and
+   gently bevelled vertical edges. *Not* cut-crystal. It sits on a **knurled chrome collar** with a slim
+   chrome neck ring below.
+2. **Thick clear glass** with a faint green-grey tint at the edges and corners, and a bright polished thick
+   rim along the square shoulders.
+3. **Pale creamy champagne / ivory juice** filling to just under the shoulders, with faint soft internal
+   swirls.
+4. **A BLACK rectangular name plate** low on the bottom right, angled, reading "Inspired by / HUGO / MEN" —
+   matte black with light grey text. (Scandal's plate is brushed silver; this one is black. Worth noting the
+   Feliz range mixes plate finishes per item.)
+
+**Three passes to get the proportion right, and the lesson is uncomfortable.** On pass 1 the geometry mask
+reported h/w 1.93 against a reference 3.4 — far too squat. I narrowed it; pass 2 came out correct but with
+an over-faceted stopper. Fixing the stopper on pass 3 made it squat again. Pass 4 finally held both.
+
+Two things worth recording:
+
+- **The stopper instruction and the proportion instruction fought each other.** Describing a "chunky block"
+  and "85% of body width" made the model enlarge the whole bottle. Chunky stopper ≠ chunky bottle, but the
+  model treats mass adjectives as global. On the final pass I had to say so explicitly: *"If it looks like a
+  cube you have it wrong — make it clearly taller than wide."*
+- **A ratio measured against the wrong reference point is worthless.** Measuring "chunky" from the stopper
+  is useless because the stopper is a small part of the silhouette. What finally worked was stating TWO
+  anchors — overall height vs body width (3.3), AND body height vs body width (2.1) — so the model has a
+  second constraint to check itself against.
+
+Plate text verified at 3x: "Inspired by / HUGO / MEN" exactly.
+
+**11 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, Diesel Men, Ted Lapidus car & roll-on.
