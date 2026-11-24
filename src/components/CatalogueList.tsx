@@ -5,19 +5,21 @@ import { waLink, productEnquiry } from '../data/shop';
 import { rand } from '../lib/format';
 
 /**
- * The catalogue, as a list.
+ * The catalogue.
  *
- * There are no pictures here on purpose. Every image that shipped in this repo
- * was machine-generated, and the generator invented packaging it could not see
- * — a red bottle for a product that is green, a white jerrycan carrying a brand
- * mark that does not exist, typed-out text where the shop's printed label
- * belonged. A catalogue showing the wrong pack is worse than one showing none,
- * so the imagery is gone and the products stand on their name, size and price.
+ * Two kinds of line, and the difference is honest rather than cosmetic.
+ *
+ * A product whose photograph shows the shop's own printed artwork gets that
+ * photograph. A product whose photograph shows a blank field with the words
+ * typed onto it does not — that is a picture of a label that does not exist,
+ * and on a page selling the product it is a claim about what arrives in the
+ * box. Those eleven stand on their name, size, price and description instead,
+ * which is all a catalogue actually needs.
  *
  * Each line is a `<details>` disclosure: the name reads like a menu entry and
- * opens to the size, price, the shop's description and a WhatsApp enquiry. No
- * JavaScript is required to open one, they work with the keyboard, and the
- * closed state is a scannable list of names — which is what a catalogue is.
+ * opens to the picture, the size, price, the shop's description and a WhatsApp
+ * enquiry. No JavaScript is required to open one, they work with the keyboard,
+ * and the closed state is a scannable list of names and prices.
  */
 const Line: React.FC<{ product: Product; forceOpen: boolean }> = ({ product, forceOpen }) => {
   return (
@@ -25,12 +27,36 @@ const Line: React.FC<{ product: Product; forceOpen: boolean }> = ({ product, for
       className="group border-b border-black/10 last:border-b-0"
       open={forceOpen || undefined}
     >
-      <summary className="flex cursor-pointer list-none items-baseline gap-4 py-3.5 pl-1 pr-2 hover:bg-black/[0.03]">
+      <summary className="flex cursor-pointer list-none items-center gap-4 py-3.5 pl-1 pr-2 hover:bg-black/[0.03]">
         <ChevronDown
-          className="h-4 w-4 shrink-0 self-center transition-transform group-open:rotate-180"
+          className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180"
           style={{ color: 'var(--ink-soft)' }}
           aria-hidden
         />
+
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.fullName ?? product.name}
+            width={44}
+            height={44}
+            loading="lazy"
+            decoding="async"
+            className="h-11 w-11 shrink-0 rounded-xl border border-black/10 bg-white object-contain"
+          />
+        ) : (
+          /* No photograph exists that shows this product's real label, so it
+             gets a branded plate rather than a grey void. A dashed outline
+             would read as a broken image; this reads as a decision. */
+          <span
+            aria-hidden
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl font-display text-[15px] font-extrabold"
+            style={{ background: 'rgba(14,124,74,0.10)', color: 'var(--fern)' }}
+          >
+            {product.name.charAt(0)}
+          </span>
+        )}
+
         <span
           className="min-w-0 flex-1 font-display text-[17px] font-extrabold leading-tight"
           style={{ color: 'var(--ink)' }}
@@ -60,6 +86,15 @@ const Line: React.FC<{ product: Product; forceOpen: boolean }> = ({ product, for
       </summary>
 
       <div className="pb-5 pl-9 pr-2">
+        {product.image && (
+          <img
+            src={product.image}
+            alt={product.fullName ?? product.name}
+            loading="lazy"
+            decoding="async"
+            className="mt-1 mb-3 h-56 w-auto max-w-full rounded-xl border border-black/10 bg-white object-contain p-2"
+          />
+        )}
         <p className="text-[13px] font-bold uppercase tracking-[0.1em] sm:hidden" style={{ color: 'var(--ink-soft)' }}>
           {product.category} · {product.size}
         </p>
@@ -110,12 +145,13 @@ export const CatalogueList: React.FC<{ products: Product[] }> = ({ products }) =
   }
 
   const [openAll, setOpenAll] = useState(false);
+  const withPhoto = products.filter((p) => p.image).length;
 
   return (
     <div>
       <div className="mb-4 flex items-center justify-between gap-4">
         <p className="text-[12px] font-bold" style={{ color: 'var(--ink-soft)', opacity: 0.7 }}>
-          Tap a name to open it
+          Tap a name to open it · {withPhoto} of {products.length} with a photo
         </p>
         <button
           onClick={() => setOpenAll((v) => !v)}

@@ -152,10 +152,18 @@ await app.destroy();
 
 /* ------------------------------------------------------------------ B */
 
-console.log('=== B. THE CATALOGUE CARRIES NO IMAGERY AT ALL ===');
+console.log('=== B. EVERY PICTURE ON SHOW IS A REAL ONE ===');
+/* The rule is not "no pictures". It is "no picture of a label that does not
+   exist". A photo qualifies only when the shop's own printed artwork is legible
+   in it. Eleven products failed that test and are text-only; those eleven must
+   stay text-only, and the rest must actually show their photo. */
 app = await mount({ page: 'catalogue' });
-check('no img element anywhere', !dom.window.document.querySelector('img'));
-check('no picture is referenced in the page source', !/<img/i.test(dom.window.document.body.innerHTML));
+const allImgs = [...dom.window.document.querySelectorAll('img')];
+check('the catalogue shows photographs', allImgs.length > 0, String(allImgs.length));
+check('every picture is a file in the repo', allImgs.every((i) => /^\/images\/products\//.test(i.getAttribute('src') ?? '')));
+check('no picture is a generated frame', !allImgs.some((i) => /\/frames\//.test(i.getAttribute('src') ?? '')));
+check('every picture has alt text', allImgs.every((i) => (i.getAttribute('alt') ?? '').length > 3));
+check('pictures are lazily loaded', allImgs.every((i) => i.getAttribute('loading') === 'lazy'));
 await app.destroy();
 
 /* ------------------------------------------------------------------ C */
@@ -170,22 +178,31 @@ check('the summary carries the product name', (first?.querySelector('summary')?.
 check('the summary carries a price', /R\d/.test(first?.querySelector('summary')?.textContent ?? ''));
 await app.destroy();
 
-/* A product used to be singled out because its picture was fabricated. There
-   are no pictures now, so every product must render the same way: name, size,
-   price and an enquiry. */
+/* A product with a genuine photograph must show it. */
 
 app = await mount({ page: 'catalogue', productId: 'bubbles-car-interior' });
-check('formerly fabricated product: name is listed', /Car Tyre/i.test(bodyText()));
-check('formerly fabricated product: price is listed', /R50/.test(bodyText()));
-check('formerly fabricated product: size is listed', /1L/i.test(bodyText()));
-check('formerly fabricated product: enquiry link survives', Boolean(dom.window.document.querySelector('a[href*="wa.me"]')));
-check('formerly fabricated product: no image', !dom.window.document.querySelector('img'));
+check('real photograph: name is listed', /Car Tyre/i.test(bodyText()));
+check('real photograph: price is listed', /R50/.test(bodyText()));
+check('real photograph: size is listed', /1L/i.test(bodyText()));
+check('real photograph: enquiry link survives', Boolean(dom.window.document.querySelector('a[href*="wa.me"]')));
+check('real photograph: the photo is shown', Boolean(dom.window.document.querySelector('img')));
 await app.destroy();
 
-app = await mount({ page: 'catalogue', productId: 'gc-foam-bath-15l' });
-check('foam bath: name is listed', /Foam Bath/i.test(bodyText()));
-check('foam bath: no image', !dom.window.document.querySelector('img'));
-await app.destroy();
+/* A product whose only photograph carried a typed white label must NOT show
+   one. These are the eleven. If a future edit gives one of them a picture it
+   has to come back through this test first. */
+
+const textOnly = [
+  'gc-foam-bath-15l', 'gc-skin-moist-charcoal', 'gc-bubble-bath-combo',
+  'gc-deobloks', 'gc-bicarb', 'gc-personal-care-startup',
+  'bubbles-dishwashing-2l', 'bubbles-floor-polish-lg', 'bubbles-powder-soap',
+  'bubbles-tile-cleaner-5l',
+];
+for (const id of textOnly) {
+  app = await mount({ page: 'catalogue', productId: id });
+  check(`${id}: renders as text with no picture`, bodyText().length > 0 && !dom.window.document.querySelector('img'));
+  await app.destroy();
+}
 
 /* ------------------------------------------------------------------ D */
 

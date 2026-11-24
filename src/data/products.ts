@@ -7,6 +7,9 @@ export interface Product {
   fullName?: string;
   preMessage: string;
   brand: BrandId;
+  /** Photograph of the real pack. Only set where the label in the picture is
+   *  genuinely hers — see the note at the top of CatalogueList. */
+  image?: string;
   category: string;
   price: number;
   size: string;
@@ -47,6 +50,7 @@ export const PRODUCTS: Product[] = [
   /* ---------------------------------------------------- Gladchemistry care */
   p({
     id: 'gc-skin-moist-125g',
+    image: '/images/products/gladchemistry-skin-moist-125g.jpg',
     name: 'Skin Moist 125g',
     brand: 'gladchemistry',
     category: 'Skin Care',
@@ -61,6 +65,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'gc-skin-moist-family',
+    image: '/images/products/gladchemistry-skin-moist-family.jpg',
     name: 'Skin Moist Family Tub',
     brand: 'gladchemistry',
     category: 'Skin Care',
@@ -73,6 +78,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'gc-raw-shea-butter',
+    image: '/images/products/gladchemistry-raw-shea-butter.jpg',
     name: 'Raw Shea Butter 100g',
     brand: 'gladchemistry',
     category: 'Skin Care',
@@ -85,6 +91,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'gc-sheacoco-hair-care',
+    image: '/images/products/gladchemistry-sheacoco-hair-care.jpg',
     name: 'SheaCoco Hair Care 125g',
     brand: 'gladchemistry',
     category: 'Hair Care',
@@ -96,6 +103,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'gc-hair-food',
+    image: '/images/products/gladchemistry-hair-food.jpg',
     name: 'Hair Food',
     brand: 'gladchemistry',
     category: 'Hair Care',
@@ -107,6 +115,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'gc-hair-oil',
+    image: '/images/products/gladchemistry-hair-oil.jpg',
     name: 'Hair Oil',
     brand: 'gladchemistry',
     category: 'Hair Care',
@@ -118,6 +127,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'gc-castor-oil-50',
+    image: '/images/products/gladchemistry-castor-oil-50ml.jpg',
     name: 'Castor Oil 50ml',
     brand: 'gladchemistry',
     category: 'Hair & Skin Oils',
@@ -129,6 +139,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'gc-castor-oil-500',
+    image: '/images/products/gladchemistry-castor-oil-500ml.jpg',
     name: 'Castor Oil 500ml',
     brand: 'gladchemistry',
     category: 'Hair & Skin Oils',
@@ -210,6 +221,7 @@ export const PRODUCTS: Product[] = [
   /* ------------------------------------------------- Felis be Glad scent */
   p({
     id: 'felis-reed-diffuser',
+    image: '/images/products/felis-reed-diffuser.jpg',
     name: 'Signature Amber Reed Diffuser',
     brand: 'felis-be-glad',
     category: 'Home Diffusers',
@@ -223,6 +235,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'felis-scandal-ladies',
+    image: '/images/products/felis-inspired-scandal-ladies.jpg',
     name: 'Inspired by Scandal Ladies',
     brand: 'felis-be-glad',
     category: 'Fine Fragrances',
@@ -236,6 +249,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'felis-hugo-men',
+    image: '/images/products/felis-inspired-hugo-men.jpg',
     name: 'Inspired by Hugo Men',
     brand: 'felis-be-glad',
     category: 'Fine Fragrances',
@@ -248,6 +262,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'felis-diesel-men',
+    image: '/images/products/felis-inspired-diesel-men.jpg',
     name: 'Inspired by Diesel Men',
     brand: 'felis-be-glad',
     category: 'Fine Fragrances',
@@ -259,6 +274,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'felis-ted-lapidus-car',
+    image: '/images/products/felis-inspired-ted-lapidus-car.jpg',
     name: 'Inspired by Ted Lapidus Car & Roll-On',
     brand: 'felis-be-glad',
     category: 'Car Perfumes',
@@ -270,6 +286,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'felis-fragrance-edp-20ml',
+    image: '/images/products/felis-fragrances-lineup-real.jpg',
     name: 'Fine Fragrance EDP 20ml',
     brand: 'felis-be-glad',
     category: 'Fine Fragrances',
@@ -281,6 +298,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'felis-fragrances-startup',
+    image: '/images/products/felis-fragrances-startup.jpg',
     name: 'Fine Fragrances Business Start Up',
     brand: 'felis-be-glad',
     category: 'Starter Packs',
@@ -295,6 +313,7 @@ export const PRODUCTS: Product[] = [
   /* ------------------------------------------------------- Bubbles clean */
   p({
     id: 'bubbles-dishwashing-liquid',
+    image: '/images/products/bubbles-dishwashing-liquid.png',
     name: 'Hygiene Dishwashing Liquid',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -318,6 +337,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-thick-bleach',
+    image: '/images/products/bubbles-thick-bleach.png',
     name: 'Bubbles Thick Bleach',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -329,6 +349,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-pine-gel',
+    image: '/images/products/bubbles-pine-gel.png',
     name: 'Bubbles Pine Gel',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -340,6 +361,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-citrus-gel',
+    image: '/images/products/bubbles-citrus-gel.jpg',
     name: 'Bubbles Citrus Gel',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -351,6 +373,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-citrus-pine-gel',
+    image: '/images/products/bubbles-pine-gel-dishwashing.jpg',
     name: 'Citrus and Pine Gel Combo',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -362,6 +385,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-all-purpose-cleaner',
+    image: '/images/products/bubbles-all-purpose-cleaner.png',
     name: 'All-Purpose Cleaner',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -373,6 +397,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-multipurpose-750',
+    image: '/images/products/bubbles-multipurpose-750ml.png',
     name: 'Multipurpose Cleaner 750ml',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -384,6 +409,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-black-dip',
+    image: '/images/products/bubbles-black-dip-real.jpg',
     name: 'Household Hygiene Black Dip',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -439,6 +465,7 @@ export const PRODUCTS: Product[] = [
     }),
   p({
     id: 'bubbles-car-wash-wax',
+    image: '/images/products/bubbles-car-wash-wax-real.jpg',
     name: 'Car Wash & Wax Shampoo',
     brand: 'bubbles-detergents',
     category: 'Car Care',
@@ -451,6 +478,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-car-interior',
+    image: '/images/products/bubbles-car-tyre-real.jpg',
     name: 'Car Tyre, Leather & Dash Cleaner',
     brand: 'bubbles-detergents',
     category: 'Car Care',
@@ -462,6 +490,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-detergents-startup',
+    image: '/images/products/bubbles-detergents-startup.jpg',
     name: 'Detergents Business Start Up',
     brand: 'bubbles-detergents',
     category: 'Starter Packs',
@@ -474,6 +503,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-combo-95',
+    image: '/images/products/bubbles-combo-r95.jpg',
     name: 'Combo R95',
     brand: 'bubbles-detergents',
     category: 'Combos',
@@ -485,6 +515,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-combo-137',
+    image: '/images/products/bubbles-combo-r137.jpg',
     name: 'Combo R137',
     brand: 'bubbles-detergents',
     category: 'Combos',
@@ -496,6 +527,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-pine-gel-dishwashing',
+    image: '/images/products/bubbles-pine-gel-dishwashing.jpg',
     name: 'Pine Gel & Dishwashing Liquid',
     brand: 'bubbles-detergents',
     category: 'Combos',
