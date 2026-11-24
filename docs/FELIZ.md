@@ -315,3 +315,33 @@ numbers.**
 
 **Rule learned, third time this session:** crop and enlarge the actual label at 5-9x and read it
 line by line BEFORE writing any prompt. "Analyse" means read the reference, not reason about it.
+
+### Turn 82 — `gc-sanitizer` (the last one)
+
+Read the label at 12x before writing any prompt, per the rule from turn 81. Her bottle in
+`WA0030` is a small white 100ml mist bottle, glossy white ribbed collar, white spray actuator.
+Label, top to bottom:
+
+> green leaf-and-stem motif
+> GLADCHEMISTRY  (wide letter-spaced wordmark)
+> WATERLESS  (small italic caps)
+> **HAND**  (large heavy green)
+> SANITIZER  (small dark, letter-spaced)
+> **RUB**  (large heavy green, matching HAND)
+
+The site's name `Waterless Hand Sanitizer Rub` matches the label word for word, so it was left
+alone — only the picture changed.
+
+**Defect caught and fixed:** the first render invented a sub-brand line under GLADCHEMISTRY
+reading "ORGANIC NAIL & HAIR LUNS" — gibberish, and an invented claim. Removed by edit; the
+space under the wordmark is now blank, which is what her label looks like at that resolution.
+
+**Geometry verified numerically:** bottle side edges are exactly vertical — `0.00000°` deviation
+across 60 rows, silhouette width constant at 247 px. Label hairline rule sits level.
+
+**Status: 16 of 16 products now have their own picture. Zero legacy range-collage images remain
+in `products.ts`.**
+
+Still open, for her to decide (not mine to change): the R65-per-tub vs per-box question, the flat
+R195 across 10-100ml fragrances, whether the cart returns, and the two different dishwashing
+bottles (green `WA0029` vs blue `WA0030` HYGIENE) currently represented by a single listing.

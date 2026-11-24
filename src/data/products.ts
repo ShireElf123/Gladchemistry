@@ -75,8 +75,8 @@ export const PRODUCTS: Product[] = [
     price: 45,
     size: '100ml',
     description:
-      '70% alcohol-based botanical hand sanitizer rub with soothing aloe vera to protect without drying.',
-    image: '/images/bubbles-range-1.jpg',
+      'Waterless hand sanitizer rub in a white 100ml mist bottle with a green leaf motif. 70% alcohol-based with soothing aloe vera, to protect without drying.',
+    image: '/images/gladchemistry/gc-hand-sanitizer-rub-100ml.png',
   },
 
   // Feliz be Glad — Fine Fragrances, Home Diffusers & Car Perfumes
