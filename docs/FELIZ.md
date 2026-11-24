@@ -1737,3 +1737,26 @@ CSS `prefers-reduced-motion` block in `index.css` cannot switch those off. Both 
 ### Rating
 See the table in the reply. The band now: no crop, flat foot, one baseline for captions, captions wrap
 rather than ellipsing a product name, and motion that can be turned off.
+
+## Turn 112 — "the mobile pics look different to the PC"
+
+She was right, and it was worth asking. Two places on the site deliberately serve a **different crop**
+to a phone; everything else is the same file at every width.
+
+### The one that was wrong
+The opening's Feliz band swapped to a **4:5 portrait** plate below 640 px. The photograph is a **wide
+shelf** (1376×768), so a 4:5 crop kept only **45% of its width** and sliced through bottles on both
+edges — the phone was seeing a different, worse picture of the same shelf.
+
+Replaced with a **3:2** plate (`ed-fragrance-32.jpg`, 1200×800): **84% of the shelf**, the whole row of
+bottles reads, and the band is shorter so it no longer pushes the copy off the first screen.
+
+### The one that was fine
+The shea-butter zoom plate is 21:9 on a wide screen and 16:9 on a phone. Measured both crops: the label
+is **complete and legible in both**; the phone gives up a sliver of the jar rim and one leaf. That is a
+comparison, not a loss. Left alone.
+
+### Why the swap exists at all
+A 21:9 band with body copy set over its left third collapses on a 375 px screen — the copy would cover
+the photograph and the type would run to one word a line. So the phone gets a taller crop and puts the
+copy underneath. That reasoning is now written into the component instead of only living in my head.

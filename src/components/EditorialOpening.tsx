@@ -199,15 +199,18 @@ export const EditorialOpening: React.FC = () => {
           style={{ background: 'var(--ink)' }}
         >
           <picture>
-            <source media="(max-width: 639px)" srcSet="/images/gallery/ed-fragrance-tall.jpg" />
+            <source media="(max-width: 639px)" srcSet="/images/gallery/ed-fragrance-32.jpg" />
             <img
               src="/images/gallery/ed-fragrance-band.jpg"
               alt="The Feliz be Glad fragrance collection: a full shelf of bottles under warm light"
               loading="lazy"
               decoding="async"
-              /* 4:5 on a phone, 21:9 from sm up — set in CSS so the phone crop
-                 is never letterboxed by an inline ratio winning the cascade. */
-              className="block w-full object-cover aspect-[4/5] sm:aspect-[21/9]"
+              /* 3:2 on a phone, 21:9 from sm up — set in CSS so the phone crop
+                 is never letterboxed by an inline ratio winning the cascade.
+                 The phone crop was once 4:5, which kept only 45% of the shelf
+                 and cut bottles in half down both sides. 3:2 keeps 84% and the
+                 whole row of bottles reads. */
+              className="block w-full object-cover aspect-[3/2] sm:aspect-[21/9]"
               data-crop="responsive"
             />
           </picture>
