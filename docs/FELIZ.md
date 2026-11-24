@@ -374,3 +374,35 @@ in the built bundle: `stage-photo{aspect-ratio:4/5;...}`.
 Side effect, and it is the right one: cards get taller (480 px at lg), so the product occupies far
 more of the card and the white space that read as "empty" is gone. Being a single component change,
 it applies to the home grid and the shop grid at once.
+
+### Turn 84 — "the items should be balanced in the grids" (she sent screenshots)
+
+With screenshots I could finally measure the real page instead of reasoning about it.
+
+**Diagnosis (numbers).** Each render had been composed to its own crop, so the amount of the frame
+the product actually occupied ranged from **33% (Pine Gel) to 85% (Dishwashing)** — the biggest
+product looked **2.6x** the height of the smallest in the same row. Vertical centre drifted 43-65%,
+and the Feliz backdrops are dark (~RGB 20) against white for everything else. Individually the
+photographs are fine; side by side the grid is a set of mismatched crops.
+
+**Fix — normalise rather than regenerate.** `tools/normalise-stage.py`: measures each photograph's
+subject bbox against its own sampled backdrop, then rescales so every product occupies **82%** of a
+**1:1** canvas, centred, with 9% ground beneath it. Backdrops come from the picture itself, so each
+product keeps its own sweep and tinted circle.
+
+**Result, measured:** subject height spread **80.4% - 82.2%**, ratio **1.02x** (was 2.6x). Vertical
+centre 50% +-1 on all sixteen. And the files got smaller — ~0.98 MB each, down from ~1.5 MB.
+
+**Two bugs I hit and fixed in my own script, worth recording:**
+1. First version derived the canvas size from the subject, so the scale factor cancelled and nothing
+   changed. `python3 tools/normalise-stage.py --dry-run` reported 82% "after" while files were
+   untouched — the verification caught it. The target must be a FIXED canvas.
+2. Flat-fill padding sampled from the sweep put a visible rectangle around the dark Feliz bottles.
+   Edge-stretch padding then produced black bars (bad sampling). Final approach: **mirror-pad the
+   source with `np.pad(mode="reflect")`** before scaling — seamless on both a white sweep and a dark
+   graduated ground, and needs no colour guessing. Verified: border vs inner mean luminance matches
+   within ~2 points on all sixteen.
+
+`.stage-photo` is now `aspect-ratio: 1 / 1` to match, so nothing is cropped.
+
+Originals are preserved in `public/images/_originals/*.orig.png` and are reproducible via the script.
