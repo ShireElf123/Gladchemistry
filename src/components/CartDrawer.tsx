@@ -125,7 +125,7 @@ export const CartDrawer: React.FC = () => {
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="h-20 w-20 rounded-xl object-cover bg-white border border-slate-100"
+                        className="h-20 w-20 rounded-xl object-contain p-1 bg-white border border-slate-100"
                       />
                       <div className="flex-1 min-w-0">
                         <span

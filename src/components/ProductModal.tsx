@@ -68,7 +68,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-contain p-3 md:p-0 md:object-cover"
+              className="w-full h-full object-contain p-3 md:p-4"
             />
             <span
               className="absolute top-4 left-4 text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full"
