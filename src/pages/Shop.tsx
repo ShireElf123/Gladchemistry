@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { BRAND_LIST } from '../data/brands';
 import type { BrandId } from '../data/brands';
-import { CatalogueList } from '../components/CatalogueList';
+import { ProductCard } from '../components/ProductCard';
 
 export const Shop: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -73,8 +73,8 @@ export const Shop: React.FC = () => {
             className="mt-4 text-[16px] leading-relaxed max-w-[52ch]"
             style={{ color: 'var(--ink-soft)' }}
           >
-            {PRODUCTS.length} products across personal care, fragrance and home
-            cleaning. Prices are listed per item; order by WhatsApp or at the counter.
+            {PRODUCTS.length} products across personal care, fragrance and home cleaning.
+            Filter by house, then narrow it down.
           </p>
         </div>
       </section>
@@ -141,9 +141,6 @@ export const Shop: React.FC = () => {
 
           <p className="text-[12px] font-bold text-slate-400">
             Showing {filteredProducts.length} of {PRODUCTS.length}
-            <span className="font-semibold text-slate-400">
-              {' '}· prices are per item, and every line can be enquired on
-            </span>
           </p>
         </div>
       </section>
@@ -167,7 +164,11 @@ export const Shop: React.FC = () => {
             </button>
           </div>
         ) : (
-          <CatalogueList products={filteredProducts} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-11">
+            {filteredProducts.map((product, index) => (
+              <ProductCard key={product.id} product={product} index={index} />
+            ))}
+          </div>
         )}
       </section>
     </div>

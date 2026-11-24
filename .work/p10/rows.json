@@ -1,0 +1,704 @@
+[
+ {
+  "pid": "gc-skin-moist-125g",
+  "name": "Skin Moist 125g",
+  "src": "gladchemistry-skin-moist-125g.jpg",
+  "prod": {
+   "W": 1052,
+   "H": 1024,
+   "prod_w": 551,
+   "prod_h": 380,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-skin-moist-family",
+  "name": "Skin Moist Family Tub",
+  "src": "gladchemistry-skin-moist-family.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 426,
+   "prod_h": 430,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-raw-shea-butter",
+  "name": "Raw Shea Butter 100g",
+  "src": "gladchemistry-raw-shea-butter.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 888,
+   "prod_h": 535,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-sheacoco-hair-care",
+  "name": "SheaCoco Hair Care 125g",
+  "src": "gladchemistry-sheacoco-hair-care.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 513,
+   "prod_h": 517,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-hair-food",
+  "name": "Hair Food",
+  "src": "gladchemistry-hair-food.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 552,
+   "prod_h": 566,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-hair-oil",
+  "name": "Hair Oil",
+  "src": "gladchemistry-hair-oil.jpg",
+  "prod": {
+   "W": 848,
+   "H": 1264,
+   "prod_w": 351,
+   "prod_h": 776,
+   "alpha": false,
+   "short": 848,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-castor-oil-50",
+  "name": "Castor Oil 50ml",
+  "src": "gladchemistry-castor-oil-50ml.jpg",
+  "prod": {
+   "W": 424,
+   "H": 632,
+   "prod_w": 174,
+   "prod_h": 414,
+   "alpha": false,
+   "short": 424,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-castor-oil-500",
+  "name": "Castor Oil 500ml",
+  "src": "gladchemistry-castor-oil-500ml.jpg",
+  "prod": {
+   "W": 896,
+   "H": 1200,
+   "prod_w": 374,
+   "prod_h": 788,
+   "alpha": false,
+   "short": 896,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-skin-moist-charcoal",
+  "name": "Skin Moist & Charcoal Bar",
+  "src": "gladchemistry-skin-moist-charcoal.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 572,
+   "prod_h": 348,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-foam-bath-15l",
+  "name": "1.5L Foam Bath & 100g Bar",
+  "src": "gladchemistry-foam-bath-1500ml.jpg",
+  "prod": {
+   "W": 768,
+   "H": 1376,
+   "prod_w": 399,
+   "prod_h": 873,
+   "alpha": false,
+   "short": 768,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-bubble-bath-combo",
+  "name": "Bubble Bath & Skin Moist Combo",
+  "src": "gladchemistry-bubble-bath-combo.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 607,
+   "prod_h": 679,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-deobloks",
+  "name": "Deobloks 500g",
+  "src": "gladchemistry-deobloks-500g.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 823,
+   "prod_h": 547,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-bicarb",
+  "name": "Pure Bicarbonate of Soda",
+  "src": "gladchemistry-bicarbonate-soda.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 625,
+   "prod_h": 413,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "gc-personal-care-startup",
+  "name": "Personal Care Start Up",
+  "src": "gladchemistry-personal-care-startup.jpg",
+  "prod": {
+   "W": 1376,
+   "H": 768,
+   "prod_w": 969,
+   "prod_h": 523,
+   "alpha": false,
+   "short": 768,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "felis-reed-diffuser",
+  "name": "Signature Amber Reed Diffuser",
+  "src": "felis-reed-diffuser.jpg",
+  "prod": {
+   "W": 896,
+   "H": 1200,
+   "prod_w": 818,
+   "prod_h": 874,
+   "alpha": false,
+   "short": 896,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "felis-scandal-ladies",
+  "name": "Inspired by Scandal Ladies",
+  "src": "felis-inspired-scandal-ladies.jpg",
+  "prod": {
+   "W": 768,
+   "H": 1376,
+   "prod_w": 670,
+   "prod_h": 917,
+   "alpha": false,
+   "short": 768,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "felis-hugo-men",
+  "name": "Inspired by Hugo Men",
+  "src": "felis-inspired-hugo-men.jpg",
+  "prod": {
+   "W": 848,
+   "H": 1264,
+   "prod_w": 560,
+   "prod_h": 1048,
+   "alpha": false,
+   "short": 848,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "felis-diesel-men",
+  "name": "Inspired by Diesel Men",
+  "src": "felis-inspired-diesel-men.jpg",
+  "prod": {
+   "W": 848,
+   "H": 1264,
+   "prod_w": 229,
+   "prod_h": 1008,
+   "alpha": false,
+   "short": 848,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "felis-ted-lapidus-car",
+  "name": "Inspired by Ted Lapidus Car & Roll-On",
+  "src": "felis-inspired-ted-lapidus-car.jpg",
+  "prod": {
+   "W": 768,
+   "H": 1376,
+   "prod_w": 704,
+   "prod_h": 1017,
+   "alpha": false,
+   "short": 768,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "felis-fragrance-edp-20ml",
+  "name": "Fine Fragrance EDP 20ml",
+  "src": "felis-fragrances-startup.jpg",
+  "prod": {
+   "W": 1376,
+   "H": 768,
+   "prod_w": 1136,
+   "prod_h": 489,
+   "alpha": false,
+   "short": 768,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "felis-fragrances-startup",
+  "name": "Fine Fragrances Business Start Up",
+  "src": "felis-fragrances-startup.jpg",
+  "prod": {
+   "W": 1376,
+   "H": 768,
+   "prod_w": 1136,
+   "prod_h": 489,
+   "alpha": false,
+   "short": 768,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-dishwashing-liquid",
+  "name": "Hygiene Dishwashing Liquid",
+  "src": "bubbles-dishwashing-liquid.png",
+  "prod": {
+   "W": 336,
+   "H": 1022,
+   "prod_w": 334,
+   "prod_h": 1020,
+   "alpha": true,
+   "short": 336,
+   "edge": true
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-dishwashing-2l",
+  "name": "Dishwashing Liquid 2L",
+  "src": "bubbles-dishwashing-2l.png",
+  "prod": {
+   "W": 634,
+   "H": 678,
+   "prod_w": 632,
+   "prod_h": 676,
+   "alpha": true,
+   "short": 634,
+   "edge": true
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-thick-bleach",
+  "name": "Bubbles Thick Bleach",
+  "src": "bubbles-thick-bleach.png",
+  "prod": {
+   "W": 295,
+   "H": 1204,
+   "prod_w": 293,
+   "prod_h": 1203,
+   "alpha": true,
+   "short": 295,
+   "edge": true
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-pine-gel",
+  "name": "Bubbles Pine Gel",
+  "src": "bubbles-pine-gel.png",
+  "prod": {
+   "W": 212,
+   "H": 158,
+   "prod_w": 212,
+   "prod_h": 158,
+   "alpha": true,
+   "short": 158,
+   "edge": true
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-citrus-gel",
+  "name": "Bubbles Citrus Gel",
+  "src": "bubbles-citrus-gel.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 714,
+   "prod_h": 725,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-all-purpose-cleaner",
+  "name": "All-Purpose Cleaner",
+  "src": "bubbles-all-purpose-cleaner.png",
+  "prod": {
+   "W": 162,
+   "H": 397,
+   "prod_w": 162,
+   "prod_h": 397,
+   "alpha": true,
+   "short": 162,
+   "edge": true
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-multipurpose-750",
+  "name": "Multipurpose Cleaner 750ml",
+  "src": "bubbles-multipurpose-750ml.png",
+  "prod": {
+   "W": 217,
+   "H": 554,
+   "prod_w": 217,
+   "prod_h": 554,
+   "alpha": true,
+   "short": 217,
+   "edge": true
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-black-dip",
+  "name": "Household Hygiene Black Dip",
+  "src": "bubbles-black-dip-real.jpg",
+  "prod": {
+   "W": 265,
+   "H": 610,
+   "prod_w": 244,
+   "prod_h": 482,
+   "alpha": false,
+   "short": 265,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-floor-polish-lg",
+  "name": "Liquid Polymer Floor Polish",
+  "src": "bubbles-floor-polish-5l.jpg",
+  "prod": {
+   "W": 848,
+   "H": 1264,
+   "prod_w": 352,
+   "prod_h": 780,
+   "alpha": false,
+   "short": 848,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-floor-polish-1l",
+  "name": "Liquid Polymer Floor Polish 1L",
+  "src": "bubbles-floor-polish-5l.jpg",
+  "prod": {
+   "W": 848,
+   "H": 1264,
+   "prod_w": 352,
+   "prod_h": 780,
+   "alpha": false,
+   "short": 848,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-powder-soap",
+  "name": "Powder Soap",
+  "src": "bubbles-powder-soap-5kg.jpg",
+  "prod": {
+   "W": 1024,
+   "H": 1024,
+   "prod_w": 536,
+   "prod_h": 661,
+   "alpha": false,
+   "short": 1024,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-tile-cleaner-5l",
+  "name": "Tile Cleaner 5L",
+  "src": "bubbles-tile-cleaner-5l.jpg",
+  "prod": {
+   "W": 768,
+   "H": 1376,
+   "prod_w": 490,
+   "prod_h": 709,
+   "alpha": false,
+   "short": 768,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-car-wash-wax",
+  "name": "Car Wash & Wax Shampoo",
+  "src": "bubbles-car-wash-wax-real.jpg",
+  "prod": {
+   "W": 1280,
+   "H": 963,
+   "prod_w": 275,
+   "prod_h": 334,
+   "alpha": false,
+   "short": 963,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-car-interior",
+  "name": "Car Tyre, Leather & Dash Cleaner",
+  "src": "bubbles-car-tyre-real.jpg",
+  "prod": {
+   "W": 370,
+   "H": 770,
+   "prod_w": 360,
+   "prod_h": 654,
+   "alpha": false,
+   "short": 370,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-detergents-startup",
+  "name": "Detergents Business Start Up",
+  "src": "bubbles-detergents-startup.jpg",
+  "prod": {
+   "W": 1376,
+   "H": 768,
+   "prod_w": 893,
+   "prod_h": 550,
+   "alpha": false,
+   "short": 768,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-combo-95",
+  "name": "Combo R95",
+  "src": "bubbles-combo-r95.jpg",
+  "prod": {
+   "W": 1400,
+   "H": 1200,
+   "prod_w": 795,
+   "prod_h": 788,
+   "alpha": false,
+   "short": 1200,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-combo-137",
+  "name": "Combo R137",
+  "src": "bubbles-combo-r137.jpg",
+  "prod": {
+   "W": 1400,
+   "H": 1200,
+   "prod_w": 1014,
+   "prod_h": 727,
+   "alpha": false,
+   "short": 1200,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ },
+ {
+  "pid": "bubbles-pine-gel-dishwashing",
+  "name": "Pine Gel & Dishwashing Liquid",
+  "src": "bubbles-pine-gel-dishwashing.jpg",
+  "prod": {
+   "W": 1400,
+   "H": 1200,
+   "prod_w": 785,
+   "prod_h": 782,
+   "alpha": false,
+   "short": 1200,
+   "edge": false
+  },
+  "frame": [
+   1200,
+   1500
+  ]
+ }
+]

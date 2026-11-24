@@ -14,9 +14,8 @@ export interface BrandInfo {
   inkColor: string;
   /** Button class for this house's primary action. */
   buttonClass: string;
+  heroImage: string;
   highlights: string[];
-  /** A photograph the shop supplied, of its actual range. */
-  rangePhoto?: string;
   /** Short punchy line for tickers. */
   tag: string;
 }
@@ -34,8 +33,8 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     stageTone: '#DDF3E4',
     inkColor: '#0E7C4A',
     buttonClass: 'btn btn-fern',
+    heroImage: '/images/hero-organic.png',
     tag: 'Organic botanicals',
-    rangePhoto: '/images/range-1.jpg',
     highlights: [
       '100% Organic Botanical Extracts',
       'Mineral Bath Fizzies & Foam Bath',
@@ -54,8 +53,8 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     stageTone: '#FBEEDB',
     inkColor: '#9A5B08',
     buttonClass: 'btn btn-ink',
+    heroImage: '/images/hero-fragrance.png',
     tag: 'Fine fragrance',
-    rangePhoto: '/images/felis-fragrances.jpg',
     highlights: [
       'Inspired-By Designer Scents',
       'Long-Lasting Reed Diffusers',
@@ -74,8 +73,8 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     stageTone: '#DCEFFB',
     inkColor: '#0C5B7A',
     buttonClass: 'btn btn-ink',
+    heroImage: '/images/bubbles-range-1.jpg',
     tag: 'Serious cleaning',
-    rangePhoto: '/images/bubbles-range-2.jpg',
     highlights: [
       'Heavy-Duty Home & Kitchen Care',
       'High-Foam Car Wash & Wax',
