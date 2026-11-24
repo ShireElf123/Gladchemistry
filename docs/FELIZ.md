@@ -1836,3 +1836,34 @@ file's 4:5. The shape is right; only the box that contains the rotation is wider
 Alignment was an 8.5/10 last turn and that was too generous — there was an 11px sideways scroll on every
 page and a photo band losing nearly half of every bottle. Those are now actually fixed and measured, so the
 number is real this time rather than asserted.
+
+## Turn 115 — the actual cause of "the phone shows a different picture"
+
+Her PC showed a **plain white pillow bag**; her phone showed the **silver sachet with the red line**. I
+had been comparing her phone against my own render and finding them identical, which was true and
+useless — the phone was correct, so the *PC* was the one holding a stale image.
+
+That white bag is `.work/old-8707373.png`, the artwork from commit `8707373`, four rewrites ago. Same URL,
+different bytes. `vercel.json` served `/images/(.*)` with:
+
+    public, max-age=60, stale-while-revalidate=86400
+
+So one device had the old bytes and another had the new ones, and could keep disagreeing for a day. Her
+phone loaded it after a rewrite; her PC's cache did not. **The site was not wrong on either device — the
+URL was.** A rewritten pack kept its name, so there was no way for a browser to know it had changed.
+
+### Fix: content-hashed filenames
+Nineteen product/photo files had been rewritten under an unchanged name (the bicarb four times, the pine
+gel six). All nineteen now carry a hash of their own bytes:
+
+    gc-bicarbonate-soda-sachet.228e8bfa.png
+
+and `vercel.json` gives that pattern `max-age=31536000, immutable` — safe precisely *because* the name
+changes whenever the picture does. The generic `/images/` rule drops its 24-hour stale window to 60 s.
+
+This is the standing rule from here: **a new picture gets a new filename.** It is the only way to evict an
+image from a phone that has already seen the old one, and it is why this cost her four rounds of
+"it didn't change".
+
+Verified: all references updated, every hashed file present, zero failed image requests, six routes still
+at 0px horizontal overflow and 0 crops at 390px and 1440px.
