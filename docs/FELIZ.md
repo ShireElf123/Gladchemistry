@@ -766,3 +766,48 @@ sits clearly below red and green), rather than using a generic "bright and low-s
 
 Final: can h/w 1.51 vs 1.44 reference; label top 36% / bottom 76% vs 40% / 80%; wFill 71.7% / hFill 86.9%.
 **8 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, four Feliz perfumes, reed diffuser.
+
+### Turn 92 — Signature Amber Reed Diffuser, 100ml
+
+Reference: `IMG-20261118-WA0027.jpg` — a 1600x1204 shot, the highest-resolution reference of the set, and
+the bottle sits alone on white. No occlusion at all.
+
+**My old render was a different product.** Not a tuning problem — a conceptual error. I had:
+- reeds STANDING UP out of the bottle, fanned like a bouquet
+- a cream **"Feliz be Glad" label** on the glass
+- no chrome collar
+- a warm beige/sepia背景 with palm shadows
+
+Hers is nothing like that:
+
+1. **The reeds are LYING BESIDE the bottle**, not standing in it. Two thin matte black sticks at a steep
+   diagonal running from the upper left of the frame down to the lower right, passing behind the bottle's
+   upper right and continuing well past it at both ends. This is the whole character of the shot and I had
+   it completely inverted.
+2. **There is NO label.** The glass is bare. No brand name, no volume, no sticker. My invented "Feliz be
+   Glad" plaque was pure fabrication and had to go.
+3. **Brushed CHROME collar** on the neck — cylindrical, about 40% of the bottle's width, polished metal.
+4. **A small white matte plastic plug/cap** above the collar, domed, clearly narrower than the collar.
+5. **Thick-walled square glass, squat** — body as wide as it is tall, heavy bevelled edges, deep flat base.
+   Overall height only about 1.25x the width.
+6. Amber-golden oil filling to about 85%, with a narrow clear headspace under the neck.
+7. Background is bright **neutral white**, not warm beige.
+
+Measured from the reference: bottle glass x 784-1075 (w 291), glass top y 565, base y 872, white plug
+y 430-478, chrome collar y 478-560. Reeds entering frame at approx (665,109) and leaving at (1290,870).
+
+**The lesson here is about reference discipline, not prompting.** This was one of the first items I ever
+made, back when I was working from the catalogue name and a mental picture of what a reed diffuser looks
+like, rather than from her photograph. A diffuser with reeds fanned in the bottle and a brand label is a
+perfectly plausible product — it just isn't *her* product. Everything in the render was plausible and
+nothing was right. **When an item looks "close enough", it may never have been looked at at all.**
+
+Generated clean on the first pass once I had the composition described honestly, because the key
+instruction was negative and extremely specific: "They are NOT standing in the bottle. They are lying
+beside it" plus "There is NO label on this bottle. The glass is bare."
+
+Note on framing: content runs to all four edges (margins 0-1px) because the reeds deliberately sweep
+across the full frame, matching the reference. That is intended here, not a crop error — the bottle
+itself sits in the lower left with generous air, exactly as in her photograph.
+
+**9 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, and four Feliz perfumes.
