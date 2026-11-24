@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 /* ------------------------------------------------------------------ */
 /*  EditorialOpening — what the page opens with                       */
@@ -42,15 +42,22 @@ const PLATES = [
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.85, delay, ease: EASE },
-});
+/* Entrance motion, or nothing at all when the reader has asked for stillness.
+   Framer writes inline transforms, so the CSS media query cannot switch these
+   off — the decision has to be made here. */
+const reveal = (delay = 0, reduce = false) =>
+  reduce
+    ? {}
+    : {
+        initial: { opacity: 0, y: 24 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: '-60px' },
+        transition: { duration: 0.85, delay, ease: EASE },
+      };
 
 export const EditorialOpening: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
 
   /* Two scrubbed transforms only: a slow drift on the plate row, and the zoom
      easing back as it enters. One context, so it all reverts together. */
@@ -103,8 +110,8 @@ export const EditorialOpening: React.FC = () => {
         <div className="grid gap-y-7 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={reduce ? false : { opacity: 0 }}
+              whileInView={reduce ? undefined : { opacity: 1 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.6, ease: EASE }}
               className="mb-5 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] text-slate-400"
@@ -113,8 +120,8 @@ export const EditorialOpening: React.FC = () => {
               The shelf
             </motion.p>
             <motion.h2
-              initial={{ opacity: 0, y: 22 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduce ? false : { opacity: 0, y: 22 }}
+              whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.75, delay: 0.05, ease: EASE }}
               className="display-spread"
@@ -129,8 +136,8 @@ export const EditorialOpening: React.FC = () => {
           </div>
           <div className="lg:col-span-4 lg:col-start-9">
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={reduce ? false : { opacity: 0, y: 16 }}
+              whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
               className="text-[16px] leading-[1.75] text-slate-500"
@@ -145,7 +152,7 @@ export const EditorialOpening: React.FC = () => {
         {/* 02 — the personal-care plates, three on one baseline */}
         <div className="ed-drift mt-14 grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-3">
           {PLATES.map((plate, i) => (
-            <motion.figure key={plate.src} {...reveal(i * 0.1)} className="group m-0">
+            <motion.figure key={plate.src} {...reveal(i * 0.1, !!reduce)} className="group m-0">
               <div className="relative overflow-hidden rounded-[18px]" style={{ background: '#e9e5dd' }}>
                 <img
                   src={plate.src}
@@ -187,7 +194,7 @@ export const EditorialOpening: React.FC = () => {
             <picture> rather than two <img>s: only the crop the viewport actually
             needs is downloaded, so a phone never pays for the 1600px band. */}
         <motion.div
-          {...reveal()}
+          {...reveal(0, !!reduce)}
           className="ed-band relative mt-16 overflow-hidden rounded-[18px]"
           style={{ background: 'var(--ink)' }}
         >
@@ -250,7 +257,7 @@ export const EditorialOpening: React.FC = () => {
         {/* 04 — the zoom: her label at the scale the eye wants, and the only
             call to action this early on the page. */}
         <motion.div
-          {...reveal()}
+          {...reveal(0, !!reduce)}
           className="ed-zoom relative mt-6 overflow-hidden rounded-[18px]"
           style={{ background: '#e9e5dd' }}
         >

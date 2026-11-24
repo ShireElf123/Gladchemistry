@@ -91,20 +91,26 @@ const useReveal = () => {
 /* Gallery tiles for the home band. Captions describe the photograph, not the
    product's virtues — nothing here makes a claim her labels do not. */
 const HOME_GALLERY = [
+  /* `ratio` is the photograph's OWN aspect, taken from the file. The tile is
+     framed at that ratio, so nothing is cropped to fit a cell. Order matters
+     only for reading sequence — the columns are balanced by measured height. */
   {
     src: '/images/gallery/fragrance-collection-dark',
     caption: 'The Feliz be Glad fragrance collection',
     kicker: 'Feliz be Glad',
-    tall: true,
+    ratio: '43 / 24',
   },
-  { src: '/images/gallery/hugo-men-dark', caption: 'Inspired by Hugo Men', kicker: 'Eau de Parfum' },
-  { src: '/images/gallery/scandal-ladies-dark', caption: 'Inspired by Scandal, Ladies', kicker: 'Eau de Parfum' },
-  { src: '/images/gallery/diesel-men-dark', caption: 'Inspired by Diesel Men', kicker: 'Eau de Parfum' },
-  { src: '/images/gallery/ted-lapidus-dark', caption: 'Inspired by Ted Lapidus, Men', kicker: 'Roll-on perfume oil' },
-  { src: '/images/gallery/raw-shea-butter', caption: 'Raw Shea Butter, 100 g', kicker: 'Gladchemistry' },
-  { src: '/images/gallery/hair-food', caption: 'Hair Food', kicker: 'Gladchemistry' },
-  { src: '/images/gallery/skin-moist', caption: 'Skin Moist, for very dry skin', kicker: 'Gladchemistry' },
-  { src: '/images/gallery/sheacoco-hair-care', caption: 'SheaCoco Hair Care', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/hugo-men-dark', caption: 'Inspired by Hugo Men', kicker: 'Eau de Parfum', ratio: '161 / 240' },
+  { src: '/images/gallery/scandal-ladies-dark', caption: 'Inspired by Scandal, Ladies', kicker: 'Eau de Parfum', ratio: '67 / 120' },
+  { src: '/images/gallery/diesel-men-dark', caption: 'Inspired by Diesel Men', kicker: 'Eau de Parfum', ratio: '161 / 240' },
+  { src: '/images/gallery/ted-lapidus-dark', caption: 'Inspired by Ted Lapidus, Men', kicker: 'Roll-on perfume oil', ratio: '67 / 120' },
+  /* The four she named: the personal-care jars. These use the plates already
+     cut at 4:5 for the opening, so the band and the opening show the same
+     frames rather than two different crops of one photograph. */
+  { src: '/images/gallery/ed-shea-butter-4x5', caption: 'Raw Shea Butter, 100 g', kicker: 'Gladchemistry', ratio: '4 / 5' },
+  { src: '/images/gallery/ed-hair-food-4x5', caption: 'Hair Food', kicker: 'Gladchemistry', ratio: '4 / 5' },
+  { src: '/images/gallery/ed-skin-moist-4x5', caption: 'Skin Moist, for very dry skin', kicker: 'Gladchemistry', ratio: '4 / 5' },
+  { src: '/images/gallery/ed-sheacoco-4x5', caption: 'SheaCoco Hair Care', kicker: 'Gladchemistry', ratio: '4 / 5' },
 ];
 
 export const Home: React.FC = () => {
@@ -253,7 +259,7 @@ export const Home: React.FC = () => {
       {/* ============================================== 5. BRAND STORY */}
       <section
         ref={storyRef}
-        className="relative overflow-hidden grid lg:grid-cols-2 items-center gap-6 px-[6vw] py-[90px]"
+        className="relative overflow-hidden grid lg:grid-cols-2 items-center gap-6 px-[5vw] py-[90px]"
         style={{ background: '#0d3b2a', minHeight: '86svh' }}
       >
         {/* Backdrop image */}
@@ -481,7 +487,7 @@ export const Home: React.FC = () => {
             style={{ background: 'rgba(255,255,255,.06)' }}
           />
           <img
-            src="/images/gallery/hair-food.jpg"
+            src="/images/gallery/ed-hair-food-4x5.jpg"
             alt="Gladchemistry Hair Food jar"
             loading="lazy"
             className="absolute rounded-[22px] object-cover shadow-2xl"
@@ -495,7 +501,7 @@ export const Home: React.FC = () => {
             }}
           />
           <img
-            src="/images/gallery/sheacoco-hair-care.jpg"
+            src="/images/gallery/ed-sheacoco-4x5.jpg"
             alt="Gladchemistry SheaCoco Hair Care jar"
             loading="lazy"
             className="absolute rounded-[22px] object-cover shadow-2xl"
@@ -509,7 +515,7 @@ export const Home: React.FC = () => {
             }}
           />
           <img
-            src="/images/gallery/raw-shea-butter.jpg"
+            src="/images/gallery/ed-shea-butter-4x5.jpg"
             alt="Raw Shea Butter in a white bowl"
             loading="lazy"
             className="absolute rounded-[26px] object-cover shadow-2xl"

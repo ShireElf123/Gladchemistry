@@ -1697,3 +1697,43 @@ list is current** — I will not silently overwrite either.
   the measurement, not by eye.)
 - `npm run build` clean, no TS6133 orphans.
 - Offline render of a leaf checked before shipping.
+
+---
+
+## Turn 111 — the photography band: alignment audit
+
+She named the last four tiles ("Raw Shea Butter, 100 g / Hair Food / Skin Moist / SheaCoco Hair Care")
+and asked for an alignment audit on desktop and phone, plus a rating of the UI and animations.
+
+### Four real faults, found by measuring
+
+**1. The "tall" tile was a landscape photograph.** `fragrance-collection-dark.jpg` is **1376×768**
+(1.79) and was being cover-fitted into a **4:5 portrait** frame — **55% of her photograph discarded**.
+The four fragrance bottles are 0.56–0.67 portraits being crushed into squares: **up to 44% lost**.
+Fix: `GalleryTile.ratio` now carries the file's own aspect, and the frame is built at that ratio.
+**Nothing is cropped to fit a cell any more.**
+
+**2. Column balancing was greedy and visibly ragged.** "Shortest column next" left a **0.45 col-width
+staircase** at the foot of the band. Replaced with an exhaustive split search:
+**0.15 col-widths at 3 columns, 0.18 at 2.** The search is a pure function of the ratios, so it
+survives her swapping a photograph.
+
+**3. Three column stacks in a two-column grid.** On `sm` the auto-placement pushed the third stack onto
+an implicit third column — a horizontal scroll on tablets. Columns are now placed explicitly, with
+unused columns hidden, and a resize listener picks the split for the width actually on screen
+(1 / 2 / 3 columns).
+
+**4. One section used a `6vw` gutter while every other used `5vw`** — its content edge sat 1vw off the
+rest of the page. Now one gutter everywhere.
+
+Also: the four tiles she named now use the **plates already cut at 4:5** for the opening, so the band and
+the opening show the same frames rather than two different crops of one photograph.
+
+### Accessibility fix
+`Gallery` and `EditorialOpening` used Framer's `whileInView`, which writes **inline transforms** — the
+CSS `prefers-reduced-motion` block in `index.css` cannot switch those off. Both now call
+`useReducedMotion()` and drop the entrance entirely when it is set. That is a real fix, not a nicety.
+
+### Rating
+See the table in the reply. The band now: no crop, flat foot, one baseline for captions, captions wrap
+rather than ellipsing a product name, and motion that can be turned off.
