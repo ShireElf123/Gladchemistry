@@ -961,3 +961,51 @@ blur-band failures, in a new form.
 
 **13 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath — the three remaining
 Gladchemistry items.
+
+### Turn 97 — `gc-bath-fizzies` rebuilt from her photograph
+
+Reference: `IMG-20261118-WA0032.jpg`. This is the item I first rendered in turn 78, and I got it
+wrong in a way that survived four generations this turn.
+
+**Measured off her photo.** The pail spans **x 150–1066, i.e. 76% of the frame width**, its outer
+flange at y≈1040 and its base at y≈1420 — so mouth diameter **917px** against visible body height
+**380px**: the tub is **2.7× wider than it is tall**. The heap peaks at y≈470, about 41% of the
+frame height. Four discs span the mouth, giving a disc diameter of roughly **20% of the frame
+width**, with thickness about **30–45%** of that diameter. Front crest of the rim at y≈1000.
+
+**What her tub actually is:**
+1. A **wide shallow tapered pail** — a small paint-kettle shape, broad mouth, short sides, sides
+   leaning inward toward the floor. Not a drum, not a straight cylinder.
+2. A **flat outward flange** ringing the mouth, with a moulded lip line at its edge and a recessed
+   groove below it. On the front, offset right of centre, a small **moulded lug** — a rounded
+   rectangular tab. This is the detail that makes it read as a hardware-store pail.
+3. **Plain white polypropylene, no lid, no label, no handle visible.** Matte, faint satin sheen.
+4. The mouth **packed flush to the rim**, the pieces crowding the front lip so only a narrow band of
+   flange shows beyond them.
+5. Broken discs (one in the pen) are **thick blocky pucks with a broad softened bevel**; the faces
+   are chalky and dry, faintly speckled — the blue ones almost crystalline. Colours are saturated
+   and slightly earthy (**#D0306F** pink, **#DCB548** mustard, **#7C9BB3** steel blue), not the
+   baby-pastel tints my old render used.
+
+**The four failures, in order, and what each one taught:**
+1. Gen 1 — correct shapes but the pail was **twice as tall as it should be** and the discs were
+   small rings, not chunky pucks. Percentages alone were not enough.
+2. Gen 2 — proportions close, but a **wide empty white band** of flange showed in front of the pile,
+   where her tub is packed flush to the lip.
+3. Gen 3 — packed correctly, but **three discs spilled onto the floor**. Nothing in her photo is
+   outside the pail. "Heap it" reads as "overflow it" unless the containment is stated.
+4. Gen 4 — containment fixed, but the model added an invented **pedestal foot**. Naming the negative
+   ("no pedestal, no foot, no base ring") fixed it on the next pass.
+5. Gen 5 — accepted. Mouth 85% of frame width (target 88%), body-to-mouth ratio about 0.32 against
+   0.37 in the reference.
+
+**Lesson worth keeping: a ratio needs two terms or it drifts.** "Wide and squat" produced a drum twice
+over. What worked was stating **mouth diameter as a % of frame width *and* mouth-diameter-to-body-height
+as a multiple** — the same two-anchor discipline that landed Diesel Men first pass. And each new
+adjectival emphasis ("packed", "heaped") introduces its own failure mode, so state the containment
+boundary in the same breath.
+
+Description in `products.ts` corrected from "round ... pale blue" to "chunky pressed ... deep pink,
+mustard yellow and dusty blue ... wide open white pail", matching what is actually in her tub.
+
+**14 of 16 rebuilt.** Remaining: Bicarb Sachet, Foam Bath.

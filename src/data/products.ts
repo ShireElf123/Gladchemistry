@@ -29,7 +29,7 @@ export const PRODUCTS: Product[] = [
     price: 185,
     size: '1kg Bucket',
     description:
-      'Round effervescent bath fizzies pressed in pink, yellow and pale blue, packed in an open white bucket. Drop one in a warm bath and let it fizz.',
+      'Chunky pressed bath fizzies in deep pink, mustard yellow and dusty blue, heaped to the brim of a wide open white pail. Drop one in a warm bath and let it fizz.',
     image: '/images/gladchemistry/gc-bath-fizzies-tub.png',
     badge: 'Bestseller',
     featured: true,
