@@ -189,3 +189,13 @@ grives / Fresh freshi fragrance", 750 ml.
 Label language on her pack is partly untranslated Italian ("paranean... grives"). The
 catalogue description is written in plain English rather than reproducing it, but the picture
 keeps the real artwork.
+
+### Turn 76 — `bd-pine-gel`
+`public/images/bubbles/bubbles-pine-gel-tub.png` — generated from her photograph. Small round
+clear tub, green screw lid, green gel, palm-tree label, "BUBBLES Detergenta / PINE GEL /
+Cookery | lignes bough", **10 x 200g**, 200g.
+
+Correction: the site sold this as a **"1kg Tub" with a "5kg Bucket" variant**. Her actual tub is
+**200 g**, and the label reads "10 x 200g" — i.e. it is a 10-tub display box of 200g tubs, not a
+single 1kg tub. Variants narrowed to `200g Tub`, price left at R65 pending her word on whether
+that was per tub or per box (R65 for 10 tubs would be under cost).

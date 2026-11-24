@@ -205,16 +205,16 @@ export const PRODUCTS: Product[] = [
   {
     id: 'bd-pine-gel',
     preMessage: "Heavy-Duty Disinfectant · Long-Lasting Pine",
-    variants: ["1kg Tub", "5kg Bucket"],
+    variants: ["200g Tub"],
     notes: ["Pure Pine Oil", "Deep Clean Gel"],
     name: 'Bubbles Pine Gel',
     brand: 'bubbles-detergents',
     category: 'Home Care',
     price: 65,
-    size: '1kg Tub',
+    size: '200g Tub',
     description:
-      'Heavy-duty pine disinfectant gel that cleans, deodorizes, and leaves floors sparkling.',
-    image: '/images/bubbles-trio.jpg',
+      'Pine gel disinfectant in a 200g clear tub with a green lid. Cleans, deodorises and leaves floors sparkling.',
+    image: '/images/bubbles/bubbles-pine-gel-tub.png',
   },
   {
     id: 'bd-citrus-gel',
