@@ -1197,3 +1197,33 @@ matches itself.**
   apply it to all 16 as the images are revisited.
 
 **Nothing in this turn changed any image, code or product data. Scan and comparison only.**
+
+### Turn 101b — Pine Gel nudged down (adjustment only, no re-render)
+
+Her instruction: **"i said adjust not make a fake new one look at the pic it should just move alil down"**.
+The disc problem was the whole set's old backdrop; the only fault in *this* image was that the tub sat
+too high in its frame, breaking the row when placed beside the Citrus Gel.
+
+Measured against `bubbles-citrus-gel-tub.png` (the neighbour she wants it level with), tub bounding box:
+
+| | top | bottom | centre |
+|---|---|---|---|
+| Citrus Gel | 11.4% | 93.3% | **52.3%** |
+| Pine Gel before | 6.9% | 90.7% | **48.8%** |
+| Pine Gel after | 10.4% | 94.3% | **52.3%** |
+
+Fix: the original artwork moved down **41 px** (3.6% of frame) inside the same 928×1152 frame. Nothing
+re-rendered, redrawn or regenerated. The vacated strip at the top was filled by extrapolating the
+existing backdrop (sampled from the untouched margins) and blended over 26 px; the bottom 41 px were
+eased toward the existing floor tone. Verified: the label block is **pixel-identical at the 41 px
+offset** (mean abs diff 0.00, against 24.7 unshifted), and the largest row-to-row jump in the top
+120 rows is 1.33 versus 1.21 in Citrus's own untouched top — i.e. the blend leaves no visible seam.
+
+The disc was **left exactly as it is**. Its edge is a property of the original render and masking it out
+was attempted and abandoned: the tub's pale clear collar and the pale disc share a colour range, so the
+mask cannot separate them (the red-overlay check put red onto the tub body). Do not retry that mask.
+The four generated re-render candidates in `.work/t101/` were rejected — she asked for an adjustment,
+not new artwork.
+
+Only file changed: `public/images/bubbles/bubbles-pine-gel-tub.png`. Original kept at
+`.work/t101/pine-ORIGINAL-backup.png`.
