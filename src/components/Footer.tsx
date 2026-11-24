@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BRAND_LIST } from '../data/brands';
+import { BrandLogo } from './BrandLogo';
 
 const LINKS = [
   { to: '/shop', label: 'Shop all' },
@@ -16,16 +17,9 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           {/* Brand */}
           <div className="md:col-span-5">
-            <div className="flex items-center gap-2.5">
-              <img
-                src="/images/gladchemistry-logo.jpg"
-                alt="Gladchemistry"
-                className="h-10 w-10 rounded-full object-cover ring-2 ring-white/20"
-              />
-              <span className="font-display font-extrabold text-[22px] tracking-tight">
-                Gladchemistry
-              </span>
-            </div>
+            <Link to="/" aria-label="Gladchemistry home" className="inline-flex">
+              <BrandLogo brand="gladchemistry" size="lg" onDark />
+            </Link>
             <p className="mt-4 text-[14px] leading-relaxed text-white/60 max-w-[42ch]">
               One South African house, three brands: organic personal care, fine fragrance,
               and detergents that do the job properly.

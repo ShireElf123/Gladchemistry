@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrandLogo } from './BrandLogo';
 import { Link, NavLink } from 'react-router-dom';
 import { ShoppingBag, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -28,18 +29,16 @@ export const Navbar: React.FC = () => {
       <header className="sticky top-0 z-40" style={{ background: 'var(--ink)' }}>
         <div className="mx-auto max-w-[1240px] px-5 h-[72px] flex items-center gap-6">
           {/* Brand mark */}
-          <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
-            <img
-              src="/images/gladchemistry-logo.jpg"
-              alt="Gladchemistry"
-              className="h-9 w-9 rounded-full object-cover ring-2 ring-white/20 transition-transform group-hover:scale-105"
-            />
-            <span
-              className="font-display font-extrabold text-[19px] tracking-tight text-white"
-              style={{ letterSpacing: '-0.03em' }}
-            >
-              Gladchemistry
-            </span>
+          {/* The mark, not a photograph of the mark. The JPEG that used to sit here
+              was the whole logo squeezed into a 36px circle with a white plate and a
+              green border, which read as a placeholder at exactly the size where a
+              logo is doing the most work. */}
+          <Link
+            to="/"
+            aria-label="Gladchemistry home"
+            className="flex items-center shrink-0 group transition-transform duration-300 hover:-translate-y-px"
+          >
+            <BrandLogo brand="gladchemistry" size="md" onDark />
           </Link>
 
           {/* Desktop nav */}

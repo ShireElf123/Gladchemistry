@@ -6,6 +6,7 @@ import { PRODUCTS } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { Hero } from '../components/Hero';
 import { Gallery } from '../components/Gallery';
+import { EditorialOpening } from '../components/EditorialOpening';
 
 /* ------------------------------------------------------------------ */
 /*  Home — section-for-section port of the Fizzly Soda homepage        */
@@ -185,7 +186,13 @@ export const Home: React.FC = () => {
       {/* ============================================== 2. TICKER */}
       <Marquee text={MARQUEE_TEXT} />
 
-      {/* ============================================== 3. PRODUCT GRID */}
+      {/* ============================================== 3. EDITORIAL OPENING
+          Her instruction: do not open with the shop grid. This is what the page
+          opens with instead — three of her photographs, deliberately unequal, with
+          the type carrying the section. The grid follows further down. */}
+      <EditorialOpening />
+
+      {/* ============================================== 4. PRODUCT GRID */}
       <section className="px-[5vw] pt-[110px] pb-[80px]">
         <div className="mx-auto max-w-[1240px]">
           <span
@@ -243,7 +250,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ============================================== 4. BRAND STORY */}
+      {/* ============================================== 5. BRAND STORY */}
       <section
         ref={storyRef}
         className="relative overflow-hidden grid lg:grid-cols-2 items-center gap-6 px-[6vw] py-[90px]"
@@ -332,7 +339,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ============================================== 4b. GALLERY
+      {/* ============================================== 6. GALLERY
           Editorial photography band. Her own product photography, which until now
           was only ever seen one pack at a time on a white studio sweep. Set on the
           dark ground so the glass and the cosmetic jars read as objects rather than
@@ -363,7 +370,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ============================================== 5. HOW / PROOF */}
+      {/* ============================================== 7. HOW / PROOF */}
       <section
         ref={howRef}
         className="relative overflow-hidden px-[5vw] pt-[80px] pb-[140px]"
@@ -406,7 +413,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ============================================== 6. PROMO */}
+      {/* ============================================== 8. PROMO */}
       <section
         className="relative overflow-hidden grid lg:grid-cols-[1.1fr_.9fr] items-center gap-8 px-[5vw] py-[90px]"
         style={{ background: 'var(--ink)' }}
@@ -517,7 +524,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ============================================== 7. CLOSER */}
+      {/* ============================================== 9. CLOSER */}
       <section
         className="relative overflow-hidden px-[5vw] py-[100px] text-center"
         style={{ background: 'var(--cream)' }}

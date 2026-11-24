@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Working scratch (analysis proofs, rejected candidates). Never shipped.
+.work/
