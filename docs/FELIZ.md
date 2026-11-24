@@ -1143,3 +1143,57 @@ said **"Johannesburg, Gauteng, South Africa"**. Her shop is **Shop 19, Palm Spri
 
 **Lesson worth keeping:** when a feature cannot be finished, make it **truthful** instead of
 pretending. A green tick that sends nothing is a bug that costs her actual sales.
+
+### Turn 101 — audit: do the 16 photos look like one range? (scan only, nothing changed)
+
+Her question: which set sits more professionally and lines up with each other — and she said explicitly
+**do not add the circles back yet, just scan and compare.**
+
+**The catalogue is split down the middle, 8 and 8:**
+
+| Set | Items |
+|---|---|
+| **No disc behind** (rebuilt in turns 89–99) | Bath Fizzies, Foam Bath, Bicarb, Reed Diffuser, Scandal, Hugo, Diesel, Ted Lapidus |
+| **Disc behind** (built turns 67–80) | Hand Sanitizer, Car Wash, Thick Bleach, Dishwashing, Pine Gel, Citrus Gel, All-Purpose, Black Dip |
+
+**Measured, not eyeballed:**
+
+| Property | No-disc set | Disc set |
+|---|---|---|
+| Background luminance | 199 → 249 (**50-level spread**) | 227 → 242 (15-level spread) |
+| Background warmth (R−B) | −1 → +13 (neutral to **warm**) | −18 → −8 (**all cool blue**) |
+| Subject height, % of frame | 78 → 98 | 89 → 98 |
+| Subject width, % of frame | 44 → 97 (narrow bottles to broad tubs) | 78 → 98 |
+
+**The verdict is not close: the no-disc set is the more professional one, and it is also the set that
+matches itself.**
+
+1. **The disc set carries a cool-blue cast on every single item** (R−B between −8 and −18), while the
+   newer set is neutral to slightly warm. Put side by side, the older half reads faintly blue-grey and
+   cold; the newer half reads warm studio. That single difference is what makes the grid feel
+   assembled from two shoots.
+2. **The discs are not even consistent within their own set.** Measured luminance delta against the
+   backdrop: Hand Sanitizer +3, Car Wash −2, Thick Bleach +7, Dishwashing +6, All-Purpose +4, Black
+   Dip +4 — all barely perceptible washes — but **Pine Gel is −73** and **Citrus Gel −27**. So Pine
+   Gel has a bold dark-green disc while seven of its neighbours have a ghost of one. That is a worse
+   inconsistency than "some have discs and some don't".
+3. **Lighting direction is random across the whole catalogue.** Measured on the lower body: lit from
+   the left for 9 items, from the right for 7 — with no relationship to which set they belong to
+   (Scandal and Hugo, both no-disc perfumes, disagree with each other). Fixing this is a bigger job
+   than removing discs, and is worth doing deliberately rather than by accident.
+4. **Framing is the one thing the no-disc set is worse at.** Its subject heights run 78–98% and widths
+   44–97% against a tight 89–98 / 78–98 in the older set. The narrow perfumes (Scandal, Diesel, Hugo,
+   Ted Lapidus at 44–48% width) sit smaller than the broad tubs and tubs-with-handles. The older set
+   crops consistently large. **So: keep the newer look, but tighten the framing of the four slim
+   bottles.**
+
+**Recommendation (for her to approve, not applied):**
+- Treat the **no-disc, neutral/warm** treatment as the house standard.
+- Bring the eight older images onto it by **removing their discs and warming the background**, rather
+  than by adding discs to the new eight. That means re-rendering eight images, not adding a graphic.
+- Do NOT re-add the pale disc. It was added for the old `.stage` cut-out layout and is not what a
+  real studio shot of her range looks like; the newer images without it are the better-looking ones.
+- Separately, decide one **light direction** and one **subject-height band** (say 88–94% of frame) and
+  apply it to all 16 as the images are revisited.
+
+**Nothing in this turn changed any image, code or product data. Scan and comparison only.**
