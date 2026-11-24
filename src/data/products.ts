@@ -221,7 +221,7 @@ export const PRODUCTS: Product[] = [
   /* ------------------------------------------------- Felis be Glad scent */
   p({
     id: 'felis-reed-diffuser',
-    image: '/images/products/felis-reed-diffuser.jpg',
+    image: '/images/products/felis-reed-diffuser-real.jpg',
     name: 'Signature Amber Reed Diffuser',
     brand: 'felis-be-glad',
     category: 'Home Diffusers',
@@ -298,7 +298,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'felis-fragrances-startup',
-    image: '/images/products/felis-fragrances-startup.jpg',
+    image: '/images/products/felis-fragrances-lineup-real.jpg',
     name: 'Fine Fragrances Business Start Up',
     brand: 'felis-be-glad',
     category: 'Starter Packs',
@@ -409,7 +409,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-black-dip',
-    image: '/images/products/bubbles-black-dip-real.jpg',
+    image: '/images/products/bubbles-black-dip-lineup-real.jpg',
     name: 'Household Hygiene Black Dip',
     brand: 'bubbles-detergents',
     category: 'Home Care',
@@ -490,7 +490,7 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-detergents-startup',
-    image: '/images/products/bubbles-detergents-startup.jpg',
+    image: '/images/products/bubbles-detergents-lineup-real.jpg',
     name: 'Detergents Business Start Up',
     brand: 'bubbles-detergents',
     category: 'Starter Packs',
@@ -527,7 +527,6 @@ export const PRODUCTS: Product[] = [
   }),
   p({
     id: 'bubbles-pine-gel-dishwashing',
-    image: '/images/products/bubbles-pine-gel-dishwashing.jpg',
     name: 'Pine Gel & Dishwashing Liquid',
     brand: 'bubbles-detergents',
     category: 'Combos',

@@ -15,6 +15,8 @@ export interface BrandInfo {
   /** Button class for this house's primary action. */
   buttonClass: string;
   highlights: string[];
+  /** A photograph the shop supplied, of its actual range. */
+  rangePhoto?: string;
   /** Short punchy line for tickers. */
   tag: string;
 }
@@ -33,6 +35,7 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     inkColor: '#0E7C4A',
     buttonClass: 'btn btn-fern',
     tag: 'Organic botanicals',
+    rangePhoto: '/images/range-1.jpg',
     highlights: [
       '100% Organic Botanical Extracts',
       'Mineral Bath Fizzies & Foam Bath',
@@ -52,6 +55,7 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     inkColor: '#9A5B08',
     buttonClass: 'btn btn-ink',
     tag: 'Fine fragrance',
+    rangePhoto: '/images/felis-fragrances.jpg',
     highlights: [
       'Inspired-By Designer Scents',
       'Long-Lasting Reed Diffusers',
@@ -71,6 +75,7 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
     inkColor: '#0C5B7A',
     buttonClass: 'btn btn-ink',
     tag: 'Serious cleaning',
+    rangePhoto: '/images/bubbles-range-2.jpg',
     highlights: [
       'Heavy-Duty Home & Kitchen Care',
       'High-Foam Car Wash & Wax',

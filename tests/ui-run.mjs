@@ -160,6 +160,9 @@ console.log('=== B. EVERY PICTURE ON SHOW IS A REAL ONE ===');
 app = await mount({ page: 'catalogue' });
 const allImgs = [...dom.window.document.querySelectorAll('img')];
 check('the catalogue shows photographs', allImgs.length > 0, String(allImgs.length));
+const srcs = [...new Set(allImgs.map((i) => i.getAttribute('src')))];
+check('every photograph is a real file the shop supplied or that shows her label',
+  srcs.every((s) => /^\/images\/products\//.test(s ?? '')), String(srcs.length));
 check('every picture is a file in the repo', allImgs.every((i) => /^\/images\/products\//.test(i.getAttribute('src') ?? '')));
 check('no picture is a generated frame', !allImgs.some((i) => /\/frames\//.test(i.getAttribute('src') ?? '')));
 check('every picture has alt text', allImgs.every((i) => (i.getAttribute('alt') ?? '').length > 3));

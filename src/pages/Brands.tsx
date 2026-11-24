@@ -70,10 +70,19 @@ export const Brands: React.FC = () => {
                   </div>
                 </div>
 
-                {/* No photograph: the only images this repo ever held were
-                    generated, and they invented packaging. The house card
-                    carries the mark and the words instead. */}
+                {/* The shop's own photograph of this house's stock, where it
+                    gave us one. Not generated, not restyled. */}
                 <div className={`lg:col-span-6 ${!isEven ? 'lg:order-1' : ''}`}>
+                  {brand.rangePhoto ? (
+                    <img
+                      src={brand.rangePhoto}
+                      alt={`${brand.name} range as stocked by the shop`}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full rounded-3xl shadow-xl border-4 border-white object-cover"
+                      style={{ aspectRatio: '4 / 3' }}
+                    />
+                  ) : (
                   <div
                     className="rounded-3xl overflow-hidden shadow-xl border-4 border-white grid place-items-center"
                     style={{ background: brand.stageTone, aspectRatio: '4 / 3' }}
@@ -96,6 +105,7 @@ export const Brands: React.FC = () => {
                       </p>
                     </div>
                   </div>
+                  )}
                 </div>
               </motion.div>
             );
