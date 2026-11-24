@@ -1867,3 +1867,34 @@ image from a phone that has already seen the old one, and it is why this cost he
 
 Verified: all references updated, every hashed file present, zero failed image requests, six routes still
 at 0px horizontal overflow and 0 crops at 390px and 1440px.
+
+## Turn 116 — restoring the artwork she preferred
+
+I had the whole thing upside down. Her PC was showing a **stale cached set**, I called it the wrong one,
+and I "fixed" it by forcing the newer set onto her — onto the device that had the version she liked.
+
+The set her PC was holding is commit `500e1ec`. Measured against her PC screenshots it matches at a
+distance of ~2–7; the current set matches at 14–44. Her words: *"we decided that pc version is the better
+version."*
+
+### What the old set actually is
+Every pack rendered **small, centred, on a soft pastel disc**, over a plain studio ground:
+
+- Gladchemistry on mint, Bubbles on pale blue, the citrus tub on peach
+- the Feliz bottles on their **dark charcoal** ground, each one tiny and deliberate
+- the bicarb as a small white pillow bag inside its disc
+
+The newer set zooms each pack until it nearly fills the frame, loses most of the discs, and puts the three
+Feliz perfumes on bright white. The old set is more consistent and more elegant — the discs do the work,
+and a row of cards reads as one shelf rather than nine different photographs.
+
+### Restored
+All sixteen packs are back to the `500e1ec` artwork, written under **new content-hashed filenames**
+(`gc-bicarbonate-soda-sachet.825f6375.png`), so no browser can hold the version I forced on her.
+
+Note the pine gel: the old file is `bubbles-pine-gel-tub.png` while the product points at
+`bubbles-pine-gel-tub-v3.png`. Both are the same tub, but the old one sits further back inside its disc
+and reads better at card size, so `bd-pine-gel` now points at the restored artwork.
+
+Verified: zero failed image requests, nine captured cards visually match her PC screenshots, and six routes
+still measure 0px horizontal overflow and 0 crops at 390px and 1440px.
