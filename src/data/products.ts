@@ -61,8 +61,8 @@ export const PRODUCTS: Product[] = [
     price: 55,
     size: '500g',
     description:
-      'Pure bicarbonate of soda in a sealed sachet for exfoliation, bath soaks, cleaning and deodorising.',
-    image: '/images/bubbles-range-2.jpg',
+      'Pure bicarbonate of soda in a plain sealed foil sachet, with the words printed down the face. For exfoliation, bath soaks, cleaning and deodorising.',
+    image: '/images/gladchemistry/gc-bicarbonate-soda-sachet.png',
   },
   {
     id: 'gc-sanitizer',

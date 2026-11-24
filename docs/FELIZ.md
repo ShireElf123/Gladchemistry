@@ -225,3 +225,15 @@ citrus/berry/ocean "blends" that nothing on the pack supports.
 
 Size left at 1kg Bucket; her photograph gives no weight, so this stays unverified rather than
 corrected in either direction.
+
+### Turn 79 — `gc-bicarb`
+`public/images/gladchemistry/gc-bicarbonate-soda-sachet.png` — generated from her photograph.
+Plain white sealed foil sachet with "Bicarbonate of Soda" in black sans-serif running
+**vertically** down the face, crimped seam at the top.
+
+The vertical lettering is correct here and was reproduced as-is. Unlike the Feliz roll-on in
+turn 69, where vertical was a generation error to be fixed, this pack really is printed that
+way — the constraint is "match the reference", not "always horizontal".
+
+Sizes already narrowed to `500g Sachet` in turn 71. Description now describes the actual sachet
+rather than an imagined tub.
