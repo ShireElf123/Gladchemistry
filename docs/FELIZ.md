@@ -568,3 +568,37 @@ position (x 536-598, y 612-662). First attempt was both too large and placed 30p
 covered the "S" of BUBBLES — the badge has to be checked after any overlay like this, not just the
 thing being drawn. Small flat graphic elements are the one case where compositing beats regenerating,
 because a redraw is exact and the model's attempt is not.
+
+### Turn 88 — All-Purpose Cleaner, rebuilt
+
+Reference `IMG-20261118-WA0029.jpg`, the white bottle at the right of frame. Magnified whole bottle 6x,
+label 9x, neck 9x.
+
+**The big find: the bottle has NO NECK.** The cap sits straight down onto a wide rounded domed shoulder.
+There is no narrow throat between them at all. My old render had a conventional neck and shoulder,
+which is what made it read as a generic bottle rather than her pack.
+
+Also corrected:
+1. **The moulded swirl groove.** A raised sculpted wave runs diagonally across the shoulder and down the
+   upper body, rippling the surface like a stylised scroll — high on the left, sweeping down and round to
+   the right. This is the bottle's signature and I had rendered nothing of it.
+2. **Asymmetric ovoid shoulder**, wider than the lower body, bulging further on one side. Mine was
+   symmetrical.
+3. **Cap** is a flat-topped squarish-round green cap with a groove below the top edge and a curved finger
+   recess on the front — not a plain ribbed cap.
+4. **"CLEANER" is bright red**; I had it blue. **"ALL-PURPOSE" is mustard-brown**, not gold-on-green.
+5. **NEW sits on a RED oval flash**; I had a pale one.
+6. **Blue bubble cluster is at the lower left**, pale lavender bubbles down the right edge, and one pale
+   purple ring near the top right.
+
+**Composition:** 75.1% width / 89.5% height, margins L115 R115 T71 B49 — evenly balanced, which suits a
+bottle that is itself asymmetric.
+
+**Process note, and a correction to my own approach.** I first tried to erase the invented claim line
+inside the product with a blur band. I read the coordinates off a colour mask that also caught
+"CLEANER" in red, so the band landed on the wordmark and blanked the middle of it — the second time
+this turn that measuring text by colour gave me the wrong box. The right fix was to suppress the line at
+generation ("directly beneath CLEANER the blob is completely blank"), which worked first time. Where the
+layout is under my control at generation, **suppress at generation**; compositing is only for elements
+the model cannot draw, like the flat NEW flash — which was redrawn cleanly as a red ellipse with vector
+text and nothing beneath it.
