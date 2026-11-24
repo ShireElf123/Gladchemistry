@@ -1782,3 +1782,57 @@ changes: still full-bleed cover. The dialog also scrolls inside a `92dvh` cap no
 text still fits a short phone screen.
 
 No image was edited, regenerated or replaced. One CSS change and one class on the frame.
+
+## Turn 114 — full audit with a real browser
+
+Four rounds of "it didn't change" was my fault: I was auditing by reading CSS and measuring files, never
+by rendering the page. The sandbox had no browser. It does now —
+`@sparticuz/chromium` + `playwright-core` from npm, with the NSS libraries unpacked from
+`al2023.tar.br` to `/tmp/al2023/lib` and `LD_LIBRARY_PATH` pointed at them. That is the fix for the
+process, not just the page: every layout claim from here on is a measurement from a rendered page.
+
+Audited six routes at 390 px and 1440 px, recording every image's rendered box against its intrinsic
+size, and every element crossing the viewport edge.
+
+### Found
+
+**The shop's photo band was forcing squares.** `SHOP_GALLERY` carried no ratios, and `Gallery` falls back
+to `1 / 1`. Ten photographs, **44% off the tall bottles on desktop as well as phone** — the same fault I
+had "fixed" on the home page two turns earlier without checking the second instance of it. Fixed: every
+tile now carries its own ratio, 0% crop on that band at both widths.
+
+**There was a horizontal scroll at every width on the home page.** The tilted marquee strip was full-bleed
+*and* rotated about its own centre with -10px side margins: a 1461px strip at 1.6° hangs ~11px past each
+edge. The document was 1461px wide on a 1440px screen and 401px on a 390px phone. The strip is now
+full-bleed and unrotated; only the text inside it tilts, which is what makes the tilt read anyway.
+**Overflow is now 0px on all six routes at both widths.**
+
+**Two decorative tilts on the home page crossed the gutter.** The 92%-wide plate at -3° and the 34% one at
+-2%/-6% with a 6° rotation. Both pulled inside their box; the bottle also stopped being forced to 3:4,
+which was cutting 29% off a 0.56 photograph.
+
+**The hero's own pack was 7% cropped**, at every width: a 3:4 frame around 4:5 renders took the cap off
+whatever was showing. The frame is 4:5 now.
+
+**The hero caption was printed across the pack.** The pack was centred in the full stage while the caption
+is pinned over the stage's bottom, so on a 520px stage the 190px pack reached into it — the product name
+was set over the photographed ground. The stage now reserves the caption band (`pb-[96px]`), and a scrim
+sits under the caption so white text is not landing on a pale blurred chip or the lime blob.
+
+**Brands and About were cropping 25–26%** of three 1.79 sweep photographs and a square jar photo into 4:3
+frames. They now use the photographs' own ratios.
+
+### Verified after the changes
+| route | phone 390 | pc 1440 |
+|---|---|---|
+| /shop /brands /about /price-list /contact | 0 overflow, 0 crops | 0 overflow, 0 crops |
+| / | 0 overflow, 2 flagged | 0 overflow, 2 flagged |
+
+The two remaining flags are both **rotated decorative plates**, where the bounding box is larger than the
+plate: measured `height: 58%`, computed `width: 176.3`, `height: 220.4` — a ratio of 0.800, exactly the
+file's 4:5. The shape is right; only the box that contains the rotation is wider. Not a crop.
+
+### Rating (revised downward, honestly)
+Alignment was an 8.5/10 last turn and that was too generous — there was an 11px sideways scroll on every
+page and a photo band losing nearly half of every bottle. Those are now actually fixed and measured, so the
+number is real this time rather than asserted.

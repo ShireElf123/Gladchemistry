@@ -29,13 +29,21 @@ const Marquee: React.FC<{ text: string[]; tone?: string }> = ({ text, tone = 'va
     style={{
       background: tone,
       color: 'var(--ink)',
-      transform: 'rotate(-1.6deg)',
-      margin: '-14px -10px 0',
+      /* The tilt used to be applied to the full-bleed strip itself, which is
+         rotated about its own centre: a 1461px-wide strip at 1.6deg hangs about
+         11px past each side and made the whole document scroll sideways on every
+         screen size. Overhanging a little is what makes the tilt read as a strip
+         of tape rather than a bar, so the strip stays full-bleed and only the
+         text inside it is tilted. */
+      margin: '-14px 0 0',
       padding: '14px 0',
       zIndex: 5,
     }}
   >
-    <div className="marquee" style={{ display: 'inline-block', animation: 'mq 24s linear infinite' }}>
+    <div
+      className="marquee"
+      style={{ display: 'inline-block', animation: 'mq 24s linear infinite', transform: 'rotate(-1.6deg)' }}
+    >
       {Array.from({ length: 8 }).map((_, i) => (
         <span
           key={i}
@@ -331,15 +339,20 @@ export const Home: React.FC = () => {
               src="/images/gallery/fragrance-collection-dark.jpg"
               alt="The Feliz be Glad fragrance collection"
               loading="lazy"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] rounded-[26px] object-cover shadow-2xl -rotate-3"
+              /* 88% not 92%: a 92%-wide plate rotated 3deg is 92·cos3 + h·sin3 wide,
+                 which reached past the column and pushed the page sideways. */
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[88%] rounded-[26px] object-cover shadow-2xl -rotate-3"
               style={{}}
             />
             <img
               src="/images/gallery/scandal-ladies-dark.jpg"
               alt="Inspired by Scandal, Ladies"
               loading="lazy"
-              className="absolute right-[-2%] bottom-[-6%] w-[34%] rounded-[18px] object-cover shadow-2xl rotate-6"
-              style={{ aspectRatio: '3 / 4' }}
+              /* Sits inside the frame at 30% and right-0: at 34% with right-[-2%]
+                 its rotated corner crossed the gutter. */
+              className="absolute right-0 bottom-[-4%] w-[30%] rounded-[18px] object-cover shadow-2xl rotate-6"
+              /* The bottle is 670x1200, not 3:4. Forcing 3:4 cropped 29% of it. */
+              style={{ aspectRatio: '67 / 120' }}
             />
           </div>
         </div>
@@ -494,6 +507,7 @@ export const Home: React.FC = () => {
             style={{
               height: '62%',
               aspectRatio: '4 / 5',
+              flex: 'none',
               left: '2%',
               top: '8%',
               transform: 'rotate(-9deg)',
@@ -508,6 +522,7 @@ export const Home: React.FC = () => {
             style={{
               height: '58%',
               aspectRatio: '4 / 5',
+              flex: 'none',
               right: '1%',
               bottom: '4%',
               transform: 'rotate(10deg)',
@@ -522,6 +537,7 @@ export const Home: React.FC = () => {
             style={{
               height: '74%',
               aspectRatio: '4 / 5',
+              flex: 'none',
               transform: 'rotate(-2deg)',
               zIndex: 2,
               boxShadow: '0 34px 70px -22px rgba(0,0,0,.85)',

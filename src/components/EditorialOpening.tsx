@@ -274,7 +274,10 @@ export const EditorialOpening: React.FC = () => {
                 loading="lazy"
                 decoding="async"
                 className="block w-full h-full object-cover"
-                style={{ aspectRatio: '16 / 9', objectPosition: 'center 50%' }}
+                /* 2.33 is the photograph's own ratio on BOTH breaks, so the
+                   label crop is the same picture on a phone as on a desktop.
+                   The old 16:9 phone band cropped 24% off its sides. */
+                style={{ aspectRatio: '2.33', objectPosition: 'center 50%' }}
               />
             </div>
             <div

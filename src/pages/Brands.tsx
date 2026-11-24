@@ -75,7 +75,7 @@ export const Brands: React.FC = () => {
                     <img
                       src={brand.heroImage}
                       alt={brand.name}
-                      className="w-full aspect-[4/3] object-cover"
+                      className="w-full aspect-[43/24] object-cover"
                     />
                   </div>
                 </div>

@@ -40,7 +40,7 @@ export const About: React.FC = () => {
               <img
                 src="/images/gallery/skin-moist-close.jpg"
                 alt="Gladchemistry Skin Moist jar"
-                className="w-full aspect-[4/3] object-cover"
+                className="w-full aspect-square object-cover"
               />
             </div>
           </div>

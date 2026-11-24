@@ -9,17 +9,20 @@ import { Gallery } from '../components/Gallery';
 
 
 /* Photographs for the shop band. Captions state what is in the frame. */
+/* Each tile carries its file's OWN aspect ratio. Without one the frame falls
+   back to a square, which was cropping 44% off the tall bottles and 33% off the
+   mid-height ones in this band. */
 const SHOP_GALLERY = [
-  { src: '/images/gallery/fragrance-collection-dark', caption: 'The Feliz be Glad fragrance collection', kicker: 'Feliz be Glad', tall: true },
-  { src: '/images/gallery/diesel-men-dark', caption: 'Inspired by Diesel Men', kicker: 'Eau de Parfum' },
-  { src: '/images/gallery/hugo-men-dark', caption: 'Inspired by Hugo Men', kicker: 'Eau de Parfum' },
-  { src: '/images/gallery/scandal-ladies-dark', caption: 'Inspired by Scandal, Ladies', kicker: 'Eau de Parfum' },
-  { src: '/images/gallery/ted-lapidus-dark', caption: 'Inspired by Ted Lapidus, Men', kicker: 'Roll-on perfume oil' },
-  { src: '/images/gallery/raw-shea-butter', caption: 'Raw Shea Butter, 100 g', kicker: 'Gladchemistry' },
-  { src: '/images/gallery/skin-moist', caption: 'Skin Moist, for very dry skin', kicker: 'Gladchemistry' },
-  { src: '/images/gallery/skin-moist-close', caption: 'Skin Moist, label detail', kicker: 'Gladchemistry', tall: true },
-  { src: '/images/gallery/sheacoco-hair-care', caption: 'SheaCoco Hair Care', kicker: 'Gladchemistry' },
-  { src: '/images/gallery/hair-food', caption: 'Hair Food', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/fragrance-collection-dark', caption: 'The Feliz be Glad fragrance collection', kicker: 'Feliz be Glad', ratio: '43 / 24' },
+  { src: '/images/gallery/diesel-men-dark', caption: 'Inspired by Diesel Men', kicker: 'Eau de Parfum', ratio: '161 / 240' },
+  { src: '/images/gallery/hugo-men-dark', caption: 'Inspired by Hugo Men', kicker: 'Eau de Parfum', ratio: '161 / 240' },
+  { src: '/images/gallery/scandal-ladies-dark', caption: 'Inspired by Scandal, Ladies', kicker: 'Eau de Parfum', ratio: '67 / 120' },
+  { src: '/images/gallery/ted-lapidus-dark', caption: 'Inspired by Ted Lapidus, Men', kicker: 'Roll-on perfume oil', ratio: '67 / 120' },
+  { src: '/images/gallery/raw-shea-butter', caption: 'Raw Shea Butter, 100 g', kicker: 'Gladchemistry', ratio: '1 / 1' },
+  { src: '/images/gallery/skin-moist', caption: 'Skin Moist, for very dry skin', kicker: 'Gladchemistry', ratio: '1024 / 997' },
+  { src: '/images/gallery/skin-moist-close', caption: 'Skin Moist, label detail', kicker: 'Gladchemistry', ratio: '1 / 1' },
+  { src: '/images/gallery/sheacoco-hair-care', caption: 'SheaCoco Hair Care', kicker: 'Gladchemistry', ratio: '1 / 1' },
+  { src: '/images/gallery/hair-food', caption: 'Hair Food', kicker: 'Gladchemistry', ratio: '1 / 1' },
 ];
 
 export const Shop: React.FC = () => {

@@ -482,7 +482,11 @@ export const Hero: React.FC = () => {
               <img
                 src={PRODUCTS[(i * 3) % PRODUCTS.length].image}
                 alt=""
-                className="w-full h-full object-cover"
+                /* Contain: these are 4:5 packs in square chips, so cover was
+                   slicing the tops off the very packs the hero is selling —
+                   a lidless pine gel tub and a beheaded car-wash jerry can,
+                   on the first screen, at every width. */
+                className="w-full h-full object-contain p-1"
               />
             </div>
           </div>
@@ -495,13 +499,20 @@ export const Hero: React.FC = () => {
             makes a shop hero feel broken, and a flat swap makes it feel cheap. */}
         <div
           ref={canRef}
-          className="hero-can-wrap absolute inset-0 grid place-items-center z-[4]"
+          /* The caption is absolutely positioned over the bottom of the stage, so
+             the pack has to be centred in the space ABOVE it. Without this pad the
+             pack's plate ran under the caption and the product name was printed
+             across the photographed ground instead of on the dark backdrop. */
+          className="hero-can-wrap absolute inset-0 grid place-items-center z-[4] pb-[96px] sm:pb-[104px]"
         >
           <div
             className="hero-can animate-float-slow overflow-hidden"
             style={{
               width: 'min(52%, 260px)',
-              aspectRatio: '3 / 4',
+              /* 4:5, the ratio every pack render is shot at. The old 3:4 frame
+                 cropped 7% off the top of whatever pack was showing — enough to
+                 take the cap off the foam bath. */
+              aspectRatio: '4 / 5',
               borderRadius: 28,
               background: brand.stageTone,
               boxShadow: '0 30px 60px -18px rgba(0,0,0,.7), 0 0 0 6px rgba(255,255,255,.14)',
@@ -520,6 +531,19 @@ export const Hero: React.FC = () => {
               />
             </AnimatePresence>
           </div>
+
+          {/* A scrim under the caption. Without it the caption sat straight on the
+              blurred decorative chips and the green blob: white text over a pale
+              blurred pill, and the price over a lime patch. It also gives the pack
+              a ground to float above instead of dissolving into the artwork. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[38%]"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(8,26,20,0) 0%, rgba(8,26,20,.38) 45%, rgba(8,26,20,.78) 100%)',
+            }}
+          />
 
           {/* Caption + hover arrows, directly under the pack. This is what turns a
               floating picture into a product: it names it and prices it. */}
