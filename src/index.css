@@ -75,6 +75,12 @@
   letter-spacing: -0.035em;
 }
 
+.display-spread {
+  font-size: clamp(34px, 4.6vw, 62px);
+  line-height: 1.02;
+  letter-spacing: -0.032em;
+}
+
 .display-lg {
   font-size: clamp(32px, 4.2vw, 54px);
   line-height: 1;

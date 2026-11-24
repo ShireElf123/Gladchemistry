@@ -196,13 +196,13 @@ export const Home: React.FC = () => {
       <section className="px-[5vw] pt-[110px] pb-[80px]">
         <div className="mx-auto max-w-[1240px]">
           <span
-            className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em]"
-            style={{ background: 'rgba(16,35,28,.07)', color: 'var(--ink)' }}
+            className="mb-5 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.3em] text-slate-400"
           >
-            The signature range
+            <span aria-hidden className="h-px w-8" style={{ background: 'var(--fern)' }} />
+            The range
           </span>
 
-          <h2 className="mt-4 display-xl" style={{ color: 'var(--ink)' }}>
+          <h2 className="display-xl" style={{ color: 'var(--ink)' }}>
             Pick your <em className="u-mark not-italic" style={{ color: 'var(--fern)' }}>range</em>
           </h2>
           <p className="mt-4 max-w-[520px] text-[16px] leading-relaxed text-slate-500">

@@ -26,6 +26,10 @@ const MARK_H = { sm: 'h-7', md: 'h-9', lg: 'h-14' } as const;
    different scale — matching cap-height to the Gladchemistry mark instead. */
 const WORDMARK_H = { sm: 'h-5', md: 'h-7', lg: 'h-[42px]' } as const;
 const NAME_SIZE = { sm: 'text-[15px]', md: 'text-[19px]', lg: 'text-[28px]' } as const;
+/* The gap scales with the mark. A fixed 8px gap is right at 36px and visibly
+   tight at 56px — this is the kind of thing that makes a lock-up look assembled
+   rather than drawn. */
+const GAP = { sm: 'gap-[7px]', md: 'gap-[9px]', lg: 'gap-[13px]' } as const;
 const SUB_SIZE = { sm: 'text-[7px]', md: 'text-[8px]', lg: 'text-[10px]' } as const;
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({
@@ -37,9 +41,9 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
 }) => {
   if (brand === 'gladchemistry') {
     return (
-      <div className={`inline-flex items-center gap-2 ${className}`}>
+      <div className={`inline-flex items-center ${GAP[size]} ${className}`}>
         <img
-          src={onDark ? "/images/logos/gc-mark-solid.png" : "/images/logos/gc-mark.png"}
+          src={onDark ? '/images/logos/gc-mark-solid.png' : '/images/logos/gc-mark.png'}
           alt=""
           aria-hidden
           className={`${MARK_H[size]} shrink-0`}
@@ -50,7 +54,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
           style={{ filter: onDark ? 'none' : 'drop-shadow(0 1px 1px rgba(0,0,0,.16))' }}
         />
         {!markOnly && (
-          <span className="flex flex-col leading-none">
+          <span className="flex flex-col leading-none" style={{ paddingTop: size === 'lg' ? 2 : 1 }}>
             <span
               className={`font-display font-extrabold ${NAME_SIZE[size]}`}
               style={{ letterSpacing: '-0.035em', color: onDark ? '#fff' : '#2e3a30' }}
@@ -92,7 +96,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   /* Bubbles: no supplied artwork, so the mark is drawn, and the name is live
      type to match the Gladchemistry treatment instead of a second visual voice. */
   return (
-    <div className={`inline-flex items-center gap-2 ${className}`}>
+    <div className={`inline-flex items-center ${GAP[size]} ${className}`}>
       <svg
         viewBox="0 0 40 40"
         className={`${MARK_H[size]} w-auto shrink-0`}

@@ -1561,3 +1561,46 @@ The three plates are all Gladchemistry personal care, because those are the squa
 survive a 4:5 crop. Her fragrance photographs are 670–805 px wide portraits on dark grounds — superb as
 full-bleed, unusable as a 4:5 plate in a row of pale grounds. If she wants the fragrance house in the
 opening, it needs a different composition (one dark full-bleed band), not another plate.
+
+---
+
+## Turn 108 — pushing the opening further
+
+She asked whether it was the best it could be, and said push it if so — without breaking direction.
+
+### What moved
+1. **The third house is now in the opening.** Turn 107's honest note said the opening showed one house
+   three times. Her fragrance photograph (`fragrance-collection-dark.jpg`, 1376×768, a full shelf of
+   bottles under warm light) is now a **full-bleed band** between the plates and the zoom: 21:9 on
+   desktop, her frame edge to edge, one line set over the dark left third where the photograph is
+   genuinely empty. That is Feliz be Glad *and* Bubbles' brand story in one frame — the bottles she
+   sells, arranged the way she arranged them.
+2. **The phones get their own composition.** A 21:9 band with copy over it collapses on a handset, so
+   below 640px the `<picture>` element serves a **4:5 portrait crop** of the same photograph and the
+   copy sits underneath, never on top of the bottles. Only the crop the viewport needs is downloaded —
+   a phone never pays for the 1600px band.
+3. **Contrast was measured, not eyeballed.** White text over the band's scrimmed left third: **min
+   5.30:1, 5th percentile 10.24:1, 0% of the copy column below 4.5:1**. The scrim tapers to fully
+   transparent by 56% of the width so her photograph is not flattened — an earlier, heavier scrim
+   killed half the frame and was rejected.
+4. **The logo lock-up is now measured.** The old fixed 8px gap read correctly at 36px and tight at 56px;
+   the gap now scales (`7 / 9 / 13px`) and the sub-line is pulled flush by exactly one tracking unit, so
+   `PRODUCTS` aligns to the `G` above it at every size.
+5. **Section rhythm.** The opening headline moved to a new `.display-spread` scale
+   (`clamp(34px, 4.6vw, 62px)`) so the page's two big statements are not the same size competing. The
+   grid's "signature range" pill became the same rule-and-eyebrow device as the opening, so the two
+   sections read as one system rather than two designers.
+
+### Verified
+- `npm run build` clean; no TS6133 orphans.
+- Bundle carries both crops, both logo variants and `display-spread`; both `aspect-[4/5]` and
+  `aspect-[21/9]` utilities are emitted with the `sm:` media query.
+- Old lens: `ed-fragrance-4x5.jpg` cut and discarded — a 614px-wide upscale, and the band composition
+  was better.
+
+### Still open (honest)
+- The three plates remain Gladchemistry personal care. That is deliberate now — they are the pale
+  studio row, and the fragrance lives in the dark band where it belongs.
+- Bubbles still has no photograph of its own in the opening. Its bottles are in her kitchen-counter
+  shot (`bubbles-range-1.jpg`), which is a phone snap at 720×1280 — not good enough for a band this
+  size. A proper Bubbles studio shot would let this section become three houses, three frames.

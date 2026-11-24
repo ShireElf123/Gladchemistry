@@ -5,24 +5,21 @@ import { motion } from 'framer-motion';
 /* ------------------------------------------------------------------ */
 /*  EditorialOpening — what the page opens with                       */
 /*                                                                    */
-/*  A catalogue opens with a grid. A brand opens with a plate.        */
+/*  A catalogue opens with a grid. A brand opens with a spread.       */
 /*                                                                    */
-/*  Every frame is 4:5, cut at that exact aspect from her own files   */
-/*  so no jar is ever sliced by object-fit. Three plates on one       */
-/*  baseline, then one full-bleed zoom of the same subject at the     */
-/*  scale the eye wants — that single close-up is what stops the      */
-/*  block reading as a contact sheet. Captions are ledger rules under */
-/*  each plate, set small and quiet.                                  */
+/*  Structure, top to bottom:                                         */
+/*   01  a masthead that names the shop, not a slogan                 */
+/*   02  the Gladchemistry plates — three 4:5 frames on one baseline  */
+/*   03  a full-bleed fragrance band, her frame edge to edge          */
+/*   04  the same shelf, zoomed: one 21:9 crop of her label, and the  */
+/*       only call to action on the page this early                   */
+/*                                                                    */
+/*  Every crop was cut at the aspect it displays at, from her own     */
+/*  files, centred on the measured subject — so no jar is sliced by   */
+/*  object-fit at any viewport.                                       */
 /* ------------------------------------------------------------------ */
 
-interface Plate {
-  src: string;
-  alt: string;
-  caption: string;
-  meta: string;
-}
-
-const PLATES: Plate[] = [
+const PLATES = [
   {
     src: '/images/gallery/ed-hair-food-4x5.jpg',
     alt: 'Gladchemistry Hair Food jar, 100 g',
@@ -45,11 +42,18 @@ const PLATES: Plate[] = [
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+const reveal = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.85, delay, ease: EASE },
+});
+
 export const EditorialOpening: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
 
-  /* One quiet parallax on the plate row — a single transform, so it never
-     fights the per-plate reveals and costs nothing on scroll. */
+  /* Two scrubbed transforms only: a slow drift on the plate row, and the zoom
+     easing back as it enters. One context, so it all reverts together. */
   useEffect(() => {
     let ctx: gsap.Context | undefined;
     let killed = false;
@@ -67,11 +71,21 @@ export const EditorialOpening: React.FC = () => {
         });
         gsap.fromTo(
           '.ed-zoom img',
-          { scale: 1.14 },
+          { scale: 1.12 },
           {
-            scale: 1.02,
+            scale: 1.01,
             ease: 'none',
-            scrollTrigger: { trigger: '.ed-zoom', start: 'top bottom', end: 'bottom top', scrub: true },
+            scrollTrigger: { trigger: '.ed-zoom', start: 'top bottom', end: 'center center', scrub: true },
+          }
+        );
+        gsap.fromTo(
+          '.ed-band img',
+          { scale: 1.1, yPercent: -2 },
+          {
+            scale: 1,
+            yPercent: 2,
+            ease: 'none',
+            scrollTrigger: { trigger: '.ed-band', start: 'top bottom', end: 'bottom top', scrub: true },
           }
         );
       }, ref);
@@ -85,8 +99,7 @@ export const EditorialOpening: React.FC = () => {
   return (
     <section ref={ref} className="px-[5vw] pt-[104px] pb-[28px]">
       <div className="mx-auto max-w-[1240px]">
-        {/* Masthead: rule + eyebrow, a statement set large, one paragraph in a
-            narrow measure. Three weights of voice. */}
+        {/* 01 — masthead */}
         <div className="grid gap-y-7 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">
             <motion.p
@@ -104,8 +117,8 @@ export const EditorialOpening: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.75, delay: 0.05, ease: EASE }}
-              className="display-xl"
-              style={{ color: 'var(--ink)', maxWidth: '16ch' }}
+              className="display-spread"
+              style={{ color: 'var(--ink)', maxWidth: '17ch' }}
             >
               Made for the{' '}
               <em className="not-italic" style={{ color: 'var(--fern)' }}>
@@ -129,17 +142,10 @@ export const EditorialOpening: React.FC = () => {
           </div>
         </div>
 
-        {/* Three plates, one baseline, equal optical weight. */}
+        {/* 02 — the personal-care plates, three on one baseline */}
         <div className="ed-drift mt-14 grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-3">
           {PLATES.map((plate, i) => (
-            <motion.figure
-              key={plate.src}
-              initial={{ opacity: 0, y: 26 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.9, delay: i * 0.1, ease: EASE }}
-              className="group m-0"
-            >
+            <motion.figure key={plate.src} {...reveal(i * 0.1)} className="group m-0">
               <div className="relative overflow-hidden rounded-[18px]" style={{ background: '#e9e5dd' }}>
                 <img
                   src={plate.src}
@@ -159,7 +165,10 @@ export const EditorialOpening: React.FC = () => {
                 className="mt-3 flex items-baseline justify-between gap-3 border-t pt-2.5"
                 style={{ borderColor: 'rgba(16,35,28,.14)' }}
               >
-                <span className="text-[12px] font-semibold uppercase tracking-[0.14em]" style={{ color: 'var(--ink)' }}>
+                <span
+                  className="text-[12px] font-semibold uppercase tracking-[0.14em]"
+                  style={{ color: 'var(--ink)' }}
+                >
                   {plate.caption}
                 </span>
                 <span className="whitespace-nowrap text-[11px] uppercase tracking-[0.14em] text-slate-400">
@@ -170,26 +179,92 @@ export const EditorialOpening: React.FC = () => {
           ))}
         </div>
 
-        {/* The zoom. One frame, full bleed, the jar at the scale the eye wants
-            to inspect it — and the only place a call to action appears, so the
-            photography is never interrupted by buttons. */}
+        {/* 03 — the house that has not been in the opening yet. On a wide screen
+            this is her frame edge to edge with one line set over the dark left
+            third where the photograph is empty. On a phone a 21:9 band with text
+            over it collapses, so it becomes a portrait crop with the copy below.
+
+            <picture> rather than two <img>s: only the crop the viewport actually
+            needs is downloaded, so a phone never pays for the 1600px band. */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.9, ease: EASE }}
+          {...reveal()}
+          className="ed-band relative mt-16 overflow-hidden rounded-[18px]"
+          style={{ background: 'var(--ink)' }}
+        >
+          <picture>
+            <source media="(max-width: 639px)" srcSet="/images/gallery/ed-fragrance-tall.jpg" />
+            <img
+              src="/images/gallery/ed-fragrance-band.jpg"
+              alt="The Feliz be Glad fragrance collection: a full shelf of bottles under warm light"
+              loading="lazy"
+              decoding="async"
+              /* 4:5 on a phone, 21:9 from sm up — set in CSS so the phone crop
+                 is never letterboxed by an inline ratio winning the cascade. */
+              className="block w-full object-cover aspect-[4/5] sm:aspect-[21/9]"
+              data-crop="responsive"
+            />
+          </picture>
+
+          {/* The scrim only exists where there is copy over the photograph. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 hidden sm:block"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(8,16,13,.90) 0%, rgba(8,16,13,.84) 16%, rgba(8,16,13,.62) 30%, rgba(8,16,13,.24) 44%, rgba(8,16,13,0) 56%)',
+            }}
+          />
+
+          <div className="absolute inset-y-0 left-0 hidden max-w-[360px] flex-col justify-center gap-3 p-8 sm:flex lg:p-10">
+            <p className="text-[11px] font-black uppercase tracking-[0.24em]" style={{ color: 'var(--lime)' }}>
+              Feliz be Glad
+            </p>
+            <p className="display-spread text-white">
+              Fine fragrance,
+              <br />
+              on the same shelf.
+            </p>
+            <p className="mt-1 max-w-[34ch] text-[14px] leading-relaxed text-white/70">
+              Eau de parfum, reed diffusers and car perfumes — kept beside the everyday
+              essentials, not in a separate shop.
+            </p>
+          </div>
+
+          {/* phone: the copy sits under the photograph, never on top of it */}
+          <div className="flex flex-col gap-3 bg-[var(--ink)] p-6 sm:hidden">
+            <p className="text-[11px] font-black uppercase tracking-[0.24em]" style={{ color: 'var(--lime)' }}>
+              Feliz be Glad
+            </p>
+            <p className="display-spread text-white">
+              Fine fragrance,
+              <br />
+              on the same shelf.
+            </p>
+            <p className="max-w-[38ch] text-[14px] leading-relaxed text-white/70">
+              Eau de parfum, reed diffusers and car perfumes — kept beside the everyday
+              essentials, not in a separate shop.
+            </p>
+          </div>
+        </motion.div>
+
+        {/* 04 — the zoom: her label at the scale the eye wants, and the only
+            call to action this early on the page. */}
+        <motion.div
+          {...reveal()}
           className="ed-zoom relative mt-6 overflow-hidden rounded-[18px]"
           style={{ background: '#e9e5dd' }}
         >
           <div className="grid lg:grid-cols-12">
-            <div className="relative overflow-hidden lg:col-span-8" style={{ aspectRatio: '21 / 9' }}>
+            {/* aspect only where the two cells sit side by side; stacked on a
+                phone this sets its own 16:9 so the label is not letterboxed. */}
+            <div className="relative overflow-hidden lg:col-span-8 lg:aspect-[21/9]">
               <img
                 src="/images/gallery/ed-shea-zoom.jpg"
                 alt="Close crop of the Gladchemistry 100% Pure Raw Shea Butter label, 100 g, Country of Origin: Ghana"
                 loading="lazy"
                 decoding="async"
-                className="h-full w-full object-cover"
-                style={{ objectPosition: 'center 50%' }}
+                className="block w-full h-full object-cover"
+                style={{ aspectRatio: '16 / 9', objectPosition: 'center 50%' }}
               />
             </div>
             <div
@@ -197,15 +272,10 @@ export const EditorialOpening: React.FC = () => {
               style={{ background: 'var(--ink)' }}
             >
               <div>
-                <p
-                  className="text-[11px] font-black uppercase tracking-[0.24em]"
-                  style={{ color: 'var(--lime)' }}
-                >
+                <p className="text-[11px] font-black uppercase tracking-[0.24em]" style={{ color: 'var(--lime)' }}>
                   Sixteen products
                 </p>
-                <p
-                  className="mt-3 font-display text-[26px] leading-[1.15] tracking-[-0.02em] text-white"
-                >
+                <p className="mt-3 font-display text-[26px] leading-[1.15] tracking-[-0.02em] text-white">
                   Filled and labelled in Springs, Gauteng.
                 </p>
                 <p className="mt-3 text-[14px] leading-relaxed text-white/65">
