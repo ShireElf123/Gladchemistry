@@ -24,7 +24,7 @@ export const NotFound: React.FC = () => {
           </h1>
           <p className="text-base text-slate-600 leading-relaxed">
             The link may be old or mistyped. Everything we make is a tap away — browse
-            Gladchemistry organic care, Felis be Glad fragrances, and Bubbles Detergents.
+            Gladchemistry organic care, Feliz be Glad fragrances, and Bubbles Detergents.
           </p>
         </div>
 

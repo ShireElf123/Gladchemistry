@@ -11,7 +11,7 @@ const METRICS = [
     detail: 'Botanical & skin-safe',
   },
   {
-    brand: 'Felis be Glad',
+    brand: 'Feliz be Glad',
     label: 'Scent Longevity',
     percent: 94,
     color: '#D97706',

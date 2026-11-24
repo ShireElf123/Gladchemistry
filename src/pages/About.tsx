@@ -53,7 +53,7 @@ export const About: React.FC = () => {
             {
               icon: Award,
               title: 'Fine Fragrance Oils',
-              desc: 'Felis be Glad uses high-concentration parfum oils for rich, enduring sillage.',
+              desc: 'Feliz be Glad uses high-concentration parfum oils for rich, enduring sillage.',
               color: 'bg-amber-100 text-amber-700',
             },
             {

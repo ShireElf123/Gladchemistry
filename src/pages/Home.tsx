@@ -202,7 +202,7 @@ export const Home: React.FC = () => {
 
         <div className="relative z-10 max-w-[560px] reveal">
           <span className="inline-block rounded-full px-4 py-1.5 text-[12px] font-black uppercase tracking-[0.1em] bg-white/10 text-white">
-            Felis be Glad
+            Feliz be Glad
           </span>
           <h2 className="display-lg mt-3 text-white">
             A little <em className="u-mark not-italic" style={{ color: 'var(--sun)' }}>luxury</em>,
@@ -229,7 +229,7 @@ export const Home: React.FC = () => {
 
           <div className="mt-7 flex flex-wrap gap-2.5">
             <Link to="/shop?brand=felis-be-glad" className="btn btn-lime">
-              Shop Felis be Glad
+              Shop Feliz be Glad
             </Link>
             <Link
               to="/brands"
@@ -260,7 +260,7 @@ export const Home: React.FC = () => {
             />
             <img
               src="/images/felis-fragrances.jpg"
-              alt="Felis be Glad fragrance"
+              alt="Feliz be Glad fragrance"
               className="absolute right-[2%] bottom-[4%] w-[42%] rounded-[22px] object-cover shadow-2xl rotate-6"
               style={{ aspectRatio: '3 / 4' }}
             />

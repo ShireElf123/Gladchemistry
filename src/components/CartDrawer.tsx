@@ -61,7 +61,7 @@ export const CartDrawer: React.FC = () => {
                     Order Confirmed!
                   </h3>
                   <p className="text-sm text-slate-500 max-w-xs">
-                    Thank you for shopping with Gladchemistry, Felis be Glad & Bubbles Detergents.
+                    Thank you for shopping with Gladchemistry, Feliz be Glad & Bubbles Detergents.
                   </p>
                 </div>
               ) : items.length === 0 ? (

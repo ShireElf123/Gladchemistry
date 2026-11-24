@@ -79,7 +79,7 @@ export const PRODUCTS: Product[] = [
     image: '/images/bubbles-range-1.jpg',
   },
 
-  // Felis be Glad — Fine Fragrances, Home Diffusers & Car Perfumes
+  // Feliz be Glad — Fine Fragrances, Home Diffusers & Car Perfumes
   {
     id: 'fbg-reed-diffuser',
     preMessage: "12-Week Continuous Scent · Hand-Poured Elixir",
@@ -99,13 +99,13 @@ export const PRODUCTS: Product[] = [
   {
     id: 'fbg-scandal-ladies',
     preMessage: "High-Sillage Parfum · Captivating Honey & Floral",
-    variants: ["30ml EDP", "50ml EDP", "100ml EDP"],
+    variants: ["10ml", "20ml", "30ml", "40ml", "50ml", "100ml"],
     notes: ["Wild Honey", "Gardenia", "Blood Orange"],
     name: 'Inspired by Scandal Ladies',
     brand: 'felis-be-glad',
     category: 'Fine Fragrances',
     price: 195,
-    size: '30ml Eau de Parfum',
+    size: '10ml (oil-based)',
     description:
       'Captivating honey, gardenia, and blood orange notes in a sleek sculpted teal glass flacon.',
     image: '/images/felis-fragrances.jpg',
@@ -115,13 +115,13 @@ export const PRODUCTS: Product[] = [
   {
     id: 'fbg-hugo-men',
     preMessage: "Crisp Aromatic Signature · All-Day Confidence",
-    variants: ["100ml EDP", "50ml EDP"],
+    variants: ["10ml", "20ml", "30ml", "40ml", "50ml", "100ml"],
     notes: ["Green Apple", "Sage", "Cedarwood"],
     name: 'Inspired by Hugo Men',
     brand: 'felis-be-glad',
     category: 'Fine Fragrances',
     price: 260,
-    size: '100ml Eau de Parfum',
+    size: '10ml (oil-based)',
     description:
       'Crisp green apple, aromatic sage, and cedarwood crafted for all-day confidence.',
     image: '/images/felis-fragrances.jpg',
@@ -129,13 +129,13 @@ export const PRODUCTS: Product[] = [
   {
     id: 'fbg-diesel-men',
     preMessage: "Bold Woody Spice · Evening & Statement Scent",
-    variants: ["30ml EDP", "100ml EDP"],
+    variants: ["10ml", "20ml", "30ml", "40ml", "50ml", "100ml"],
     notes: ["Grapefruit", "Lavender", "Warm Amber"],
     name: 'Inspired by Diesel Men',
     brand: 'felis-be-glad',
     category: 'Fine Fragrances',
     price: 195,
-    size: '30ml Eau de Parfum',
+    size: '10ml (oil-based)',
     description:
       'Bold spicy-woody fragrance with grapefruit, lavender, and warm amber undertones.',
     image: '/images/felis-fragrances.jpg',

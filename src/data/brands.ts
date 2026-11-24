@@ -43,7 +43,7 @@ export const BRANDS: Record<BrandId, BrandInfo> = {
   },
   'felis-be-glad': {
     id: 'felis-be-glad',
-    name: 'Felis be Glad',
+    name: 'Feliz be Glad',
     tagline: 'Fine Fragrances & Diffusers',
     category: 'Fragrance, Home & Auto',
     description:

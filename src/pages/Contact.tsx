@@ -25,7 +25,7 @@ export const Contact: React.FC = () => {
                 Contact &amp; Wholesale
               </h1>
               <p className="text-sm text-slate-500 mt-2 leading-relaxed">
-                Have a question about Gladchemistry, Felis be Glad, or Bubbles Detergents? Reach
+                Have a question about Gladchemistry, Feliz be Glad, or Bubbles Detergents? Reach
                 out for orders, stockist opportunities, or bulk pricing.
               </p>
             </div>
@@ -148,7 +148,7 @@ export const Contact: React.FC = () => {
                   <select className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
                     <option>All 3 Brands</option>
                     <option>Gladchemistry (Organic Personal Care)</option>
-                    <option>Felis be Glad (Fine Fragrances &amp; Diffusers)</option>
+                    <option>Feliz be Glad (Fine Fragrances &amp; Diffusers)</option>
                     <option>Bubbles Detergents (Home &amp; Car Care)</option>
                   </select>
                 </div>
