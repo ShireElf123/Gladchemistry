@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { BRAND_LIST } from '../data/brands';
 import type { BrandId } from '../data/brands';
 import { PRODUCTS } from '../data/products';
-import { ProductCard } from '../components/ProductCard';
+import { CatalogueList } from '../components/CatalogueList';
 import { Hero } from '../components/Hero';
 
 /* ------------------------------------------------------------------ */
@@ -167,16 +167,9 @@ export const Home: React.FC = () => {
             ))}
           </div>
 
-          {/* Grid */}
-          <div
-            ref={gridRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12"
-          >
-            {visibleProducts.map((product, i) => (
-              <div key={product.id} className="grid-anim">
-                <ProductCard product={product} index={i} />
-              </div>
-            ))}
+          {/* The range, as a list of names. No imagery: see CatalogueList. */}
+          <div ref={gridRef}>
+            <CatalogueList products={visibleProducts} />
           </div>
 
           <div className="mt-12 flex flex-col items-center gap-2">
@@ -244,24 +237,24 @@ export const Home: React.FC = () => {
 
         {/* The story's own photograph — shot for this position, not borrowed
             from a product card. */}
-        <div className="relative reveal">
-          <div
-            aria-hidden
-            className="absolute inset-x-8 bottom-[-14px] h-9 rounded-[50%]"
-            style={{ background: 'rgba(63,42,18,.16)', filter: 'blur(22px)' }}
-          />
-          <img
-            src="/images/editorial-felis-story.d7dfbb47.jpg"
-            alt="Felis be Glad reed diffuser and inspired-by Hugo Men fragrance on a sunlit stone ledge"
-            loading="lazy"
-            className="relative w-full h-auto block"
-            style={{
-              borderRadius: 24,
-              aspectRatio: '4 / 5',
-              objectFit: 'cover',
-              boxShadow: '0 30px 60px -30px rgba(63,42,18,.5)',
-            }}
-          />
+        <div
+          className="relative reveal grid place-items-center rounded-[24px]"
+          style={{ background: '#E8E2F5', aspectRatio: '4 / 5' }}
+        >
+          <div className="text-center px-8">
+            <p
+              className="font-display text-[15px] font-black uppercase tracking-[0.2em]"
+              style={{ color: '#3d2f5c' }}
+            >
+              Felis be Glad
+            </p>
+            <p
+              className="mt-3 font-display text-[26px] font-extrabold leading-tight"
+              style={{ color: '#3d2f5c' }}
+            >
+              Fine fragrance, poured by hand
+            </p>
+          </div>
         </div>
       </section>
 
@@ -283,28 +276,22 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
-                img: '/images/editorial-care.08b6221f.jpg',
                 tag: 'Gladchemistry',
                 line: 'Skin, hair and bath, formulated by a chemist.',
                 to: '/shop?brand=gladchemistry',
                 tone: '#DDF3E4',
-                pos: 'center 40%',
               },
               {
-                img: '/images/editorial-scent.58c04330.jpg',
                 tag: 'Felis be Glad',
                 line: 'Fine fragrance, reed diffusers and car perfumes.',
                 to: '/shop?brand=felis-be-glad',
                 tone: '#E8E2F5',
-                pos: 'center 45%',
               },
               {
-                img: '/images/editorial-clean.f63e9614.jpg',
                 tag: 'Bubbles Detergents',
                 line: 'Home and car cleaning that actually shifts grime.',
                 to: '/shop?brand=bubbles-detergents',
                 tone: '#D9EFE0',
-                pos: 'center 55%',
               },
             ].map((h) => (
               <Link
@@ -313,18 +300,11 @@ export const Home: React.FC = () => {
                 className="group relative block overflow-hidden rounded-[24px] reveal"
                 style={{ background: h.tone, aspectRatio: '4 / 5' }}
               >
-                <img
-                  src={h.img}
-                  alt={h.tag}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
-                  style={{ objectFit: 'cover', objectPosition: h.pos }}
-                />
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      'linear-gradient(180deg, rgba(6,20,15,0) 40%, rgba(6,20,15,.82) 100%)',
+                      'linear-gradient(180deg, rgba(6,20,15,0) 30%, rgba(6,20,15,.82) 100%)',
                   }}
                 />
                 <div className="absolute inset-x-0 bottom-0 p-5">

@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 import { PRODUCTS } from '../data/products';
 import { BRAND_LIST } from '../data/brands';
 import type { BrandId } from '../data/brands';
-import { ProductCard } from '../components/ProductCard';
+import { CatalogueList } from '../components/CatalogueList';
 
 export const Shop: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -141,12 +141,9 @@ export const Shop: React.FC = () => {
 
           <p className="text-[12px] font-bold text-slate-400">
             Showing {filteredProducts.length} of {PRODUCTS.length}
-            {filteredProducts.some((p) => p.photoGrade === 'weak') && (
-              <span className="font-semibold text-slate-400">
-                {' '}· a few lines are typeset where the photograph is not yet
-                good enough to publish
-              </span>
-            )}
+            <span className="font-semibold text-slate-400">
+              {' '}· prices are per item, and every line can be enquired on
+            </span>
           </p>
         </div>
       </section>
@@ -170,11 +167,7 @@ export const Shop: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-11">
-            {filteredProducts.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
-            ))}
-          </div>
+          <CatalogueList products={filteredProducts} />
         )}
       </section>
     </div>

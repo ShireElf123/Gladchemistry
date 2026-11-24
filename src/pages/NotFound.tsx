@@ -77,11 +77,14 @@ export const NotFound: React.FC = () => {
                 style={{ height: 160, background: b.stageTone }}
               >
                 <div className="disc" />
-                <img
-                  src={b.heroImage}
-                  alt={b.name}
-                  className="relative w-full h-full object-cover"
-                />
+                <div className="relative w-full h-full grid place-items-center">
+                  <span
+                    className="font-display text-[26px] font-extrabold"
+                    style={{ color: b.inkColor }}
+                  >
+                    {b.name.charAt(0)}
+                  </span>
+                </div>
               </div>
               <p className="text-[10px] font-black uppercase tracking-[0.14em]" style={{ color: b.inkColor }}>
                 {b.category}

@@ -142,49 +142,49 @@ globalThis.fetch = async (url, init) => {
 
 console.log('=== A. THE CATALOGUE IS NOT A CHECKOUT ===');
 dom.window.localStorage.clear();
-let app = await mount({ page: 'card' });
-check('card renders', bodyText().length > 0);
+let app = await mount({ page: 'catalogue' });
+check('catalogue renders', bodyText().length > 0);
 check('no "Order Confirmed!" copy exists', !/Order Confirmed/i.test(bodyText()));
-check('no cart vocabulary on the card', !/Add to cart/i.test(bodyText()));
-check('no checkout vocabulary on the card', !/Continue to order details/i.test(bodyText()));
+check('no cart vocabulary', !/Add to cart/i.test(bodyText()));
+check('no checkout vocabulary', !/Continue to order details/i.test(bodyText()));
 check('an enquiry route is offered', /Enquire/.test(bodyText()));
 await app.destroy();
 
 /* ------------------------------------------------------------------ B */
 
-console.log('=== B. A PRODUCT WITH A GOOD PHOTOGRAPH SHOWS IT ===');
-app = await mount({ page: 'card', productId: 'bubbles-pine-gel' });
-const img = dom.window.document.querySelector('.stage img');
-check('the photograph is rendered', Boolean(img), img?.getAttribute('src'));
-check('it carries alt text naming the product', /Pine Gel/i.test(img?.getAttribute('alt') ?? ''));
+console.log('=== B. THE CATALOGUE CARRIES NO IMAGERY AT ALL ===');
+app = await mount({ page: 'catalogue' });
+check('no img element anywhere', !dom.window.document.querySelector('img'));
+check('no picture is referenced in the page source', !/<img/i.test(dom.window.document.body.innerHTML));
 await app.destroy();
 
 /* ------------------------------------------------------------------ C */
 
-console.log('=== C. ARTWORK WHOSE LABEL IS NOT HERS IS TYPESET, NEVER SHOWN ===');
-
-/* The car interior cleaner is the one product with no photograph of it in the
-   repo at all. The frame that used to ship invented a white jerrycan and a
-   paw-print mark that is not her brand, so the picture was withdrawn. The tile
-   must still sell the product: name, size, price, enquiry. */
-app = await mount({ page: 'card', productId: 'bubbles-car-interior' });
-check('no image element at all', !dom.window.document.querySelector('.stage img'));
-check('the name is still listed', /Car Tyre/i.test(bodyText()));
-check('the price is still listed', /R50/.test(bodyText()));
-check('the size is still listed', /1L/i.test(bodyText()));
-check('a typographic plate is used', Boolean(dom.window.document.querySelector('.plate')));
-check('the plate says why, not "coming soon"', /reshot/i.test(bodyText()));
-check('the enquiry link survives', Boolean(dom.window.document.querySelector('a[href*="wa.me"]')));
+console.log('=== C. EVERY PRODUCT IS A NAME YOU CAN OPEN ===');
+app = await mount({ page: 'catalogue' });
+const details = dom.window.document.querySelectorAll('details');
+check('products are disclosed as details elements', details.length > 0, String(details.length));
+const first = details[0];
+check('it is closed until opened', first?.hasAttribute('open') === false);
+check('the summary carries the product name', (first?.querySelector('summary')?.textContent ?? '').length > 3);
+check('the summary carries a price', /R\d/.test(first?.querySelector('summary')?.textContent ?? ''));
 await app.destroy();
 
-/* And the products that DID get her real photograph back must actually show it,
-   otherwise the withdrawal has quietly emptied the catalogue instead of fixing
-   it. */
-app = await mount({ page: 'card', productId: 'gc-foam-bath-15l' });
-const fb = dom.window.document.querySelector('.stage img');
-check('reinstated photo is rendered', Boolean(fb), fb?.getAttribute('src'));
-check('it is her photograph, not a generated frame', /c85579b9/.test(fb?.getAttribute('src') ?? ''));
-check('the plate is NOT used', !dom.window.document.querySelector('.plate'));
+/* A product used to be singled out because its picture was fabricated. There
+   are no pictures now, so every product must render the same way: name, size,
+   price and an enquiry. */
+
+app = await mount({ page: 'catalogue', productId: 'bubbles-car-interior' });
+check('formerly fabricated product: name is listed', /Car Tyre/i.test(bodyText()));
+check('formerly fabricated product: price is listed', /R50/.test(bodyText()));
+check('formerly fabricated product: size is listed', /1L/i.test(bodyText()));
+check('formerly fabricated product: enquiry link survives', Boolean(dom.window.document.querySelector('a[href*="wa.me"]')));
+check('formerly fabricated product: no image', !dom.window.document.querySelector('img'));
+await app.destroy();
+
+app = await mount({ page: 'catalogue', productId: 'gc-foam-bath-15l' });
+check('foam bath: name is listed', /Foam Bath/i.test(bodyText()));
+check('foam bath: no image', !dom.window.document.querySelector('img'));
 await app.destroy();
 
 /* ------------------------------------------------------------------ D */
@@ -285,13 +285,13 @@ console.log('=== N. ORDERING IS A CONVERSATION, AND IT DOES NOT PRETEND OTHERWIS
 globalThis.fetch = async () => {
   throw new Error('the catalogue must not POST an order anywhere');
 };
-app = await mount({ page: 'card', productId: 'gc-hair-oil' });
+app = await mount({ page: 'catalogue', productId: 'gc-hair-oil' });
 const enquire = dom.window.document.querySelector('a.enquire');
-check('the card offers an enquiry link', Boolean(enquire));
+check('the product line offers an enquiry link', Boolean(enquire));
 const href = enquire?.getAttribute('href') ?? '';
 check('it goes to WhatsApp', href.startsWith('https://wa.me/27737190821'), href);
 check('the message names the product', /Hair%20Oil/.test(href));
-check('the message states the price', /R55/.test(href), href);
+check('the message states the price', /R55/.test(decodeURIComponent(href)), href);
 check(
   'nothing on the card claims online ordering is live',
   !/Online ordering is live/.test(bodyText()) && !/Add to cart/.test(bodyText())

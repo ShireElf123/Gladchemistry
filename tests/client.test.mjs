@@ -1,7 +1,7 @@
 // Proves the browser-side rule: a success state exists ONLY for a 2xx {ok:true}.
 const { submitOrder, submitContact, orderMailto } = await import('../src/lib/submit.ts');
 const { priceOrder } = await import('../src/lib/order.ts');
-const { PRODUCTS } = await import('../src/data/products.ts');
+await import('../src/data/products.ts');
 
 let pass = 0, fail = 0;
 const check = (l, c, e = '') => { if (c) { pass++; console.log('  PASS', l); } else { fail++; console.log('  FAIL', l, e); } };

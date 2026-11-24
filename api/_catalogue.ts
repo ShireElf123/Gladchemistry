@@ -46,7 +46,6 @@ export function priceLines(
       unitPrice: product.price,
       quantity,
       lineTotal: Math.round(product.price * quantity * 100) / 100,
-      image: product.image,
     });
   }
 

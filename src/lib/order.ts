@@ -58,7 +58,6 @@ export interface PricedLine {
   unitPrice: number;
   quantity: number;
   lineTotal: number;
-  image: string;
 }
 
 export interface PricedOrder {

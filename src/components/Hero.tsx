@@ -262,17 +262,41 @@ export const Hero: React.FC = () => {
                   border: '1px solid rgba(16,35,28,.07)',
                 }}
               >
-                {/* One photograph. Correct role: a 16:9 brand scene shown at
-                    its own 16:9 aspect, so the frame crops nothing at all —
-                    never object-cover on a packshot, never a cut-out. */}
-                <img
-                  key={brand.heroImage}
-                  src={brand.heroImage}
-                  alt={`${brand.name} — ${brand.tagline}`}
-                  className="w-full h-full"
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
-                  fetchPriority="high"
-                />
+                {/* No photograph. The hero used to run a generated brand scene,
+                    which invented packaging the shop does not sell. Until real
+                    photography exists the art panel carries the house mark and
+                    its colours, and nothing that could be mistaken for a product. */}
+                <div
+                  className="w-full h-full grid place-items-center"
+                  style={{ background: brand.stageTone }}
+                >
+                  <div className="text-center px-6">
+                    <div
+                      className="mx-auto mb-4 grid place-items-center rounded-full"
+                      style={{
+                        width: 78, height: 78,
+                        background: brand.primaryColor,
+                        color: brand.inkColor,
+                      }}
+                    >
+                      <span className="font-display text-[26px] font-extrabold">
+                        {brand.name.charAt(0)}
+                      </span>
+                    </div>
+                    <p
+                      className="font-display text-[22px] font-extrabold leading-tight"
+                      style={{ color: brand.inkColor }}
+                    >
+                      {brand.name}
+                    </p>
+                    <p
+                      className="mt-1 text-[12px] font-bold uppercase tracking-[0.14em]"
+                      style={{ color: brand.inkColor, opacity: 0.65 }}
+                    >
+                      {brand.tagline}
+                    </p>
+                  </div>
+                </div>
 
                 {/* A single hairline caption plate, flush to the frame */}
                 <div

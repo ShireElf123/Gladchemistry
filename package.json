@@ -8,8 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "node tests/run-tests.mjs",
-    "audit:assets": "node .work/audit-assets.mjs"
+    "test": "node tests/run-tests.mjs"
   },
   "dependencies": {
     "framer-motion": "^14.14.0",

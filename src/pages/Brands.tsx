@@ -70,13 +70,31 @@ export const Brands: React.FC = () => {
                   </div>
                 </div>
 
+                {/* No photograph: the only images this repo ever held were
+                    generated, and they invented packaging. The house card
+                    carries the mark and the words instead. */}
                 <div className={`lg:col-span-6 ${!isEven ? 'lg:order-1' : ''}`}>
-                  <div className="rounded-3xl overflow-hidden bg-white shadow-xl border-4 border-white">
-                    <img
-                      src={brand.heroImage}
-                      alt={brand.name}
-                      className="w-full aspect-[4/3] object-cover"
-                    />
+                  <div
+                    className="rounded-3xl overflow-hidden shadow-xl border-4 border-white grid place-items-center"
+                    style={{ background: brand.stageTone, aspectRatio: '4 / 3' }}
+                  >
+                    <div className="text-center px-8">
+                      <p
+                        className="font-display text-[42px] font-extrabold leading-none"
+                        style={{ color: brand.inkColor }}
+                      >
+                        {brand.name}
+                      </p>
+                      <p
+                        className="mt-3 text-[12px] font-black uppercase tracking-[0.16em]"
+                        style={{ color: brand.inkColor, opacity: 0.65 }}
+                      >
+                        {brand.category}
+                      </p>
+                      <p className="mt-4 max-w-[34ch] text-[14px] font-semibold" style={{ color: brand.inkColor, opacity: 0.8 }}>
+                        {brand.highlights.join(' · ')}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
