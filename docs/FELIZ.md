@@ -1329,3 +1329,48 @@ What was added is static depth and hierarchy:
 Verified in the production bundle: `createPortal` present, `.hero-shell:after`, `.hero-grain`,
 `.hero-can-wrap:after` and the vignette gradient all emitted into the built CSS, and `99.9% Germ kill`
 gone.
+
+### Turn 103 — a gallery, using her own photography (the "Shopify touch")
+
+Her instruction: **"u also made these u still have them lets add some allegiance that shopify touch to our
+shop can use them professionally in some place"**. She attached ten of the renders.
+
+**Important honesty note first.** These files are **not** in the repo. No `.jfif` exists anywhere in git
+history, and `public/images/frames/` (the only place they were ever referenced) is empty on disk. Every
+earlier glossy catalogue render was thrown away after the turn that produced it. So they were taken from
+this message's attachments and **committed properly this time**, so they cannot be lost again.
+
+**What they are:** five dark studio shots of the Feliz be Glad fragrances (Scandal Ladies, Hugo Men, Diesel
+Men, Ted Lapidus roll-on, and a collection line-up) and five Gladchemistry personal-care shots (Skin Moist
+in two framings, SheaCoco Hair Care, Hair Food, Raw Shea Butter).
+
+**Note — these are older-render style.** They do *not* follow the pale-disc, wide-frame standard decided in
+turn 101: the fragrance shots are lit on a dark plinth, not a studio sweep. That is deliberate here —
+they are used as editorial photography in a **dark band**, where that lighting is correct, and not as
+catalogue cards. They are **not** wired into `products.ts`, so no product card shows one.
+
+**Storage:** `public/images/gallery/` — 10 JPEGs, 888 KB total, longest edge 1024–1600, `quality=86`,
+progressive. Committed to git this time.
+
+**New component:** `src/components/Gallery.tsx`
+- Editorial grid with a caption plate on each tile (kicker + caption, white on a gradient) so it reads as a
+  catalogue rather than a wall of pictures.
+- Full **lightbox**: click any tile, or use arrow keys; Escape or a backdrop click closes it; the page
+  behind is scroll-locked while open.
+- The lightbox is **portalled to `<body>`** — same lesson as the product modal in turn 102, so a
+  transformed ancestor can never trap it.
+- `gridAutoFlow: 'row dense'` so a 2×2 tile never leaves a hole, and the tile counts are chosen to fill
+  rows exactly (Home 12 cells, Shop 16, About 4 — all multiples of four columns).
+- Tiles are `loading="lazy"` and `decoding="async"`.
+
+**Three placements, each with a job:**
+1. **Home**, after the Feliz be Glad story and before "From bench to bathroom": a dark photography band,
+   *"Photographed, not borrowed."* — seven tiles including the fragrance line-up as the 2×2 anchor.
+2. **Shop**, under the catalogue grid: *"Every pack, in detail."* — all ten, with the collection line-up
+   and the Skin Moist label detail as 2×2 anchors.
+3. **About**: the `hero-organic.png` template graphic was replaced with her real Skin Moist photograph,
+   and the four personal-care shots sit as a gallery under the pillars.
+
+Verified: all ten files return 200 from the built site, all ten paths are present in the production
+bundle, and the Skin Moist label was zoomed to full resolution to confirm no invented claim is legible in
+the new close-up tile.

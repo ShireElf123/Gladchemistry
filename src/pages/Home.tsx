@@ -5,6 +5,7 @@ import type { BrandId } from '../data/brands';
 import { PRODUCTS } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { Hero } from '../components/Hero';
+import { Gallery } from '../components/Gallery';
 
 /* ------------------------------------------------------------------ */
 /*  Home — section-for-section port of the Fizzly Soda homepage        */
@@ -84,6 +85,26 @@ const useReveal = () => {
 
   return ref;
 };
+
+
+/* Gallery tiles for the home band. Captions describe the photograph, not the
+   product's virtues — nothing here makes a claim her labels do not. */
+const HOME_GALLERY = [
+  {
+    src: '/images/gallery/fragrance-collection-dark',
+    caption: 'The Feliz be Glad fragrance collection',
+    kicker: 'Feliz be Glad',
+    tall: true,
+  },
+  { src: '/images/gallery/hugo-men-dark', caption: 'Inspired by Hugo Men', kicker: 'Eau de Parfum' },
+  { src: '/images/gallery/scandal-ladies-dark', caption: 'Inspired by Scandal, Ladies', kicker: 'Eau de Parfum' },
+  { src: '/images/gallery/diesel-men-dark', caption: 'Inspired by Diesel Men', kicker: 'Eau de Parfum' },
+  { src: '/images/gallery/ted-lapidus-dark', caption: 'Inspired by Ted Lapidus, Men', kicker: 'Roll-on perfume oil' },
+  { src: '/images/gallery/raw-shea-butter', caption: 'Raw Shea Butter, 100 g', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/hair-food', caption: 'Hair Food', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/skin-moist', caption: 'Skin Moist, for very dry skin', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/sheacoco-hair-care', caption: 'SheaCoco Hair Care', kicker: 'Gladchemistry' },
+];
 
 export const Home: React.FC = () => {
   const [activeBrand, setActiveBrand] = useState<BrandId | 'all'>('all');
@@ -280,6 +301,37 @@ export const Home: React.FC = () => {
               style={{ aspectRatio: '3 / 4' }}
             />
           </div>
+        </div>
+      </section>
+
+      {/* ============================================== 4b. GALLERY
+          Editorial photography band. Her own product photography, which until now
+          was only ever seen one pack at a time on a white studio sweep. Set on the
+          dark ground so the glass and the cosmetic jars read as objects rather than
+          as catalogue cut-outs. Entrance motion only; nothing loops. */}
+      <section
+        className="relative overflow-hidden px-[5vw] py-[92px]"
+        style={{ background: 'linear-gradient(180deg,#0a2a20 0%,#061a14 100%)' }}
+      >
+        <Gallery
+          dark
+          eyebrow="The range, up close"
+          title={
+            <>
+              Photographed, not{' '}
+              <em className="u-mark not-italic" style={{ color: 'var(--lime)' }}>
+                borrowed
+              </em>
+              .
+            </>
+          }
+          intro="Every pack in the three houses, shot the way it actually looks on the shelf."
+          tiles={HOME_GALLERY}
+        />
+        <div className="mx-auto mt-10 max-w-[1240px] text-center">
+          <Link to="/shop" className="btn btn-lime">
+            See all {PRODUCTS.length} products →
+          </Link>
         </div>
       </section>
 

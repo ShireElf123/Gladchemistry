@@ -2,6 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Leaf, FlaskConical, Award, HeartHandshake } from 'lucide-react';
 import { BrandLogo } from '../components/BrandLogo';
+import { Gallery } from '../components/Gallery';
+
+
+const ABOUT_GALLERY = [
+  { src: '/images/gallery/raw-shea-butter', caption: 'Raw Shea Butter, 100 g', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/skin-moist', caption: 'Skin Moist, for very dry skin', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/sheacoco-hair-care', caption: 'SheaCoco Hair Care', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/hair-food', caption: 'Hair Food', kicker: 'Gladchemistry' },
+];
 
 export const About: React.FC = () => {
   return (
@@ -25,10 +34,12 @@ export const About: React.FC = () => {
             </p>
           </div>
           <div className="lg:col-span-5">
+            {/* Her own photograph of the Gladchemistry jar, not a stock template
+                graphic. The label in the frame is the label on the shelf. */}
             <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
               <img
-                src="/images/hero-organic.png"
-                alt="Gladchemistry Formulation"
+                src="/images/gallery/skin-moist-close.jpg"
+                alt="Gladchemistry Skin Moist jar"
                 className="w-full aspect-[4/3] object-cover"
               />
             </div>
@@ -72,6 +83,25 @@ export const About: React.FC = () => {
             </div>
           ))}
         </div>
+
+        {/* Her own personal-care photography, set as a gallery rather than one
+            decorative picture, so the page shows the actual range. */}
+        <section>
+          <Gallery
+            eyebrow="The personal care range"
+            title={
+              <>
+                Jars we fill,{' '}
+                <em className="u-mark not-italic" style={{ color: 'var(--fern)' }}>
+                  labels we print
+                </em>
+                .
+              </>
+            }
+            intro="Gladchemistry skincare and hair care, photographed as packed."
+            tiles={ABOUT_GALLERY}
+          />
+        </section>
       </div>
     </div>
   );

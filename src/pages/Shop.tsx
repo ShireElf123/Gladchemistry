@@ -5,6 +5,22 @@ import { PRODUCTS } from '../data/products';
 import { BRAND_LIST } from '../data/brands';
 import type { BrandId } from '../data/brands';
 import { ProductCard } from '../components/ProductCard';
+import { Gallery } from '../components/Gallery';
+
+
+/* Photographs for the shop band. Captions state what is in the frame. */
+const SHOP_GALLERY = [
+  { src: '/images/gallery/fragrance-collection-dark', caption: 'The Feliz be Glad fragrance collection', kicker: 'Feliz be Glad', tall: true },
+  { src: '/images/gallery/diesel-men-dark', caption: 'Inspired by Diesel Men', kicker: 'Eau de Parfum' },
+  { src: '/images/gallery/hugo-men-dark', caption: 'Inspired by Hugo Men', kicker: 'Eau de Parfum' },
+  { src: '/images/gallery/scandal-ladies-dark', caption: 'Inspired by Scandal, Ladies', kicker: 'Eau de Parfum' },
+  { src: '/images/gallery/ted-lapidus-dark', caption: 'Inspired by Ted Lapidus, Men', kicker: 'Roll-on perfume oil' },
+  { src: '/images/gallery/raw-shea-butter', caption: 'Raw Shea Butter, 100 g', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/skin-moist', caption: 'Skin Moist, for very dry skin', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/skin-moist-close', caption: 'Skin Moist, label detail', kicker: 'Gladchemistry', tall: true },
+  { src: '/images/gallery/sheacoco-hair-care', caption: 'SheaCoco Hair Care', kicker: 'Gladchemistry' },
+  { src: '/images/gallery/hair-food', caption: 'Hair Food', kicker: 'Gladchemistry' },
+];
 
 export const Shop: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -170,6 +186,27 @@ export const Shop: React.FC = () => {
             ))}
           </div>
         )}
+      </section>
+
+      {/* ------------------------------------------------ photographs
+          The catalogue grid above answers "what is it and what does it cost".
+          This band answers "what does it actually look like" — her own studio
+          photography, at a size the grid cannot give it. */}
+      <section className="px-[5vw] pb-[90px] pt-[20px]">
+        <Gallery
+          eyebrow="Photographed range"
+          title={
+            <>
+              Every pack,{' '}
+              <em className="u-mark not-italic" style={{ color: 'var(--fern)' }}>
+                in detail
+              </em>
+              .
+            </>
+          }
+          intro="Tap any photograph to enlarge it."
+          tiles={SHOP_GALLERY}
+        />
       </section>
     </div>
   );
