@@ -142,22 +142,26 @@ def main():
     for spec in args.region:
         coords, mode = spec.split(":")
         x0, y0, x1, y1 = (int(v) for v in coords.split(","))
-        regions.append(((x0, y0, x1, y1), mode))
+        # A feather wider than the region itself caps the blend weight below 1
+        # and leaves the text readable. Clamp it to a quarter of the short side.
+        feather = min(args.feather, (x1 - x0) // 4, (y1 - y0) // 4)
+        feather = max(feather, 2)
+        regions.append(((x0, y0, x1, y1), mode, feather))
 
     clip = 1.0 if args.no_clip else product_mask(im)
 
     # 1. erase the existing glyphs
     mask = np.zeros((h, w), np.float32)
-    for box, _ in regions:
-        mask = np.maximum(mask, feather_mask((w, h), box, args.feather))
+    for box, _, feather in regions:
+        mask = np.maximum(mask, feather_mask((w, h), box, feather))
     mask = mask * clip
     mask = np.clip(mask, 0, 1)[..., None]
     base = np.asarray(wide, np.float32) * mask + np.asarray(im, np.float32) * (1 - mask)
 
     # 2. lay down illegible print
-    for i, (box, mode) in enumerate(regions):
+    for i, (box, mode, feather) in enumerate(regions):
         alpha = print_rows((w, h), box, mode, args.seed + i, args.strength)
-        alpha *= feather_mask((w, h), box, 40)
+        alpha *= feather_mask((w, h), box, feather)
         alpha *= clip
         alpha = alpha[..., None]
         colour = 255.0 if mode == "light" else 14.0

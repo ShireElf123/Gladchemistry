@@ -496,3 +496,40 @@ Also: the model invented a phone number, a street address and a website in the l
 first generation of this tub, and a nonsense subtitle ("Famourts · Citres · Pytate") on the second.
 Both were caught by reading the render at 3x before shipping. The subtitle is now suppressed by
 instructing that the strip beneath the title be left blank, which worked.
+
+### Turn 86 — Dishwashing Liquid, rebuilt
+
+Reference `IMG-20261118-WA0029.jpg`, bottle at the left of frame. Magnified the whole bottle 6x, the
+label 9x and the waist 9x.
+
+**Six things the old render had wrong:**
+
+1. **The waist grips.** I had horizontal ribs wrapping the sides. The real bottle has a vertical column
+   of about **seven separate oval grip pads** moulded into the plastic at the waist, stacked one above
+   another. Different moulding entirely, and it is the most distinctive thing about the bottle.
+2. **The cap.** Real is a short green cylindrical cap with vertical grip ribs and a **red flip-top spout**
+   on top — a flat red disc with a tab, not a tall nozzle.
+3. **"NEW" is on a RED flash**, not a pale grey one.
+4. **"DISHWASHING" is lighter-weight grey-olive outlined sans**, not solid green; **"LIQUID" is dark
+   maroon-red**, not green.
+5. **The plate icon** is a white dinner plate seen at a slight angle from above with cutlery, not a
+   mug or bowl.
+6. **Lemons sit lower left** with leaves, and the label is a lighter yellow-green panel with a soft
+   darker green edge and out-of-focus leaves behind.
+
+**Composition:** 44.8% width / 90.9% height. Tall and narrow by nature — that is the real proportion,
+and it is fine as long as the cap and base clear the frame.
+
+**Tool bug found and fixed.** `soften-fineprint.py` had a real defect: the feather radius defaulted to
+30px, so on a text row only ~24px tall the blend weight peaked around 0.5 and **never reached full
+erase** — the words stayed readable no matter how many times the tool ran. The feather is now clamped
+to a quarter of the region's short side. That is why the same command appeared to work on big columns
+and silently fail on small ones.
+
+**Dead end, recorded.** I tried three times to gain a little bottom margin by shifting and rescaling
+the whole frame: row-shift, stretch-fill, then scale-and-recentre with a feathered paste. Every version
+left a visible seam or a soft rectangle, and the last one made the background read as part of the
+product. The original render already clears the frame edge by 30px, so it was restored and shipped
+as generated. **Do not composite a studio photo to nudge its framing — regenerate it with the framing
+asked for.** Compositing is only reliable for erasing text inside the product, which is what the tool
+is clipped to.
