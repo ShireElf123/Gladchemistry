@@ -1506,3 +1506,58 @@ gradient. That is more than most small-brand storefronts do.
 6. **No scroll cue.** On a 100svh hero with nothing below the fold, visitors do not know there is more.
 
 Not changed without her say-so — these are design decisions, not defects.
+
+---
+
+## Turn 107 — the opening, and the logo
+
+### What she asked
+> "nice now play with the elegance n the logo alil be senior dev n also lets not open with the shop grid
+> but elegant with the pic i sent but place them evenly or only a few zoomed please a pro site"
+
+Three things: refine the logo, stop opening with the catalogue, and open with her own photographs
+arranged *evenly, or with only a few zoomed*.
+
+### What the page does now
+`hero → ticker → EDITORIAL OPENING → product grid → brand story → gallery → proof → promo → closer`
+
+The opening is no longer the shop grid. It is a masthead plus a plate row plus one zoom:
+
+| frame | crop | why |
+|---|---|---|
+| Hair Food | 4:5, jar centred, air above the lid | portrait plate |
+| 100% Pure Raw Shea Butter | 4:5, the whole still life | middle plate |
+| SheaCoco Hair Care | 4:5 | portrait plate |
+| Raw Shea Butter label | **21:9 zoom, 1.4× the plate scale** | the one "zoomed" frame |
+
+Every crop was **cut at the aspect it is displayed at**, from her originals, centred on the measured
+subject. Nothing relies on `object-fit` to choose the composition, so no jar can be sliced through its
+label at any viewport. The three plates share one baseline and one 4:5 aspect — that is the "evenly"
+she asked for — and the single 21:9 frame between them is the "few zoomed".
+
+### The logo
+The header, footer and About page were showing a **705×705 JPEG of the whole logo inside a white box with
+a green border**, and the navbar had the same JPEG cropped into a 36 px circle. At the one size where a
+logo works hardest, it read as a placeholder.
+
+Now: the leaf is a transparent PNG lifted from her artwork, the name is **live type**
+(`Glad` in ink, `chemistry` in green, `PRODUCTS` beneath), so it is crisp at any density and recolours
+onto dark or cream without a plate behind it. There is a second variant — `gc-mark-solid.png` — which
+keeps the white body of the leaf, for use on the ink-coloured header: the outline version dissolves
+there, because most of the leaf *is* white.
+
+Feliz keeps her own letterforms; only the white JPEG ground was removed, so her red serif sits on the
+tinted brand stages instead of on a white sticker. Bubbles has no supplied artwork, so its mark is drawn
+and its name set in the same live-type system.
+
+`favicon.png` and `apple-touch-icon.png` are now her leaf. The template's purple lightning bolt is gone.
+
+### Also fixed
+- `<title>` said **"Felis be Glad"** — the brand is *Feliz*. Corrected, plus a description and OG tags.
+- `.work/` (analysis proofs, rejected candidates) is now git-ignored rather than shipped.
+
+### Honest note
+The three plates are all Gladchemistry personal care, because those are the square studio shots that
+survive a 4:5 crop. Her fragrance photographs are 670–805 px wide portraits on dark grounds — superb as
+full-bleed, unusable as a 4:5 plate in a row of pale grounds. If she wants the fragrance house in the
+opening, it needs a different composition (one dark full-bleed band), not another plate.
