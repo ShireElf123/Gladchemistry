@@ -179,3 +179,13 @@ because they are white-background cut-outs. They convert as each gets shot.
 Verified: tsc clean, build clean, `stage-photo` present in the built CSS, 16 image paths, 12
 unique, none missing, all 200 on the preview server. **Not** verified visually — no browser
 in the sandbox (`playwright install` fails on TLS to cdn.playwright.dev).
+
+### Turn 75 — `bd-all-purpose`
+`public/images/bubbles/bubbles-all-purpose-cleaner-750ml.png` — generated from her photograph.
+The distinctive asymmetric sloping shoulder is preserved, with the green screw cap and the
+real green oval label: "BUBBLES Detergenta", "ALL-PURPOSE CLEANER", "Paranean akkasoroans &
+grives / Fresh freshi fragrance", 750 ml.
+
+Label language on her pack is partly untranslated Italian ("paranean... grives"). The
+catalogue description is written in plain English rather than reproducing it, but the picture
+keeps the real artwork.

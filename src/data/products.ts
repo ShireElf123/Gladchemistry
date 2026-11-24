@@ -241,8 +241,8 @@ export const PRODUCTS: Product[] = [
     price: 44,
     size: '750ml',
     description:
-      'Versatile lemon-fresh surface cleaner that cuts through stubborn dirt and grime.',
-    image: '/images/bubbles-trio.jpg',
+      'All-purpose cleaner with a fresh fragrance, in a white 750ml bottle with a green cap. Removes grease and grime.',
+    image: '/images/bubbles/bubbles-all-purpose-cleaner-750ml.png',
   },
   {
     id: 'bd-black-dip',
