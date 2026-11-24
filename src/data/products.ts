@@ -214,7 +214,7 @@ export const PRODUCTS: Product[] = [
     size: '200g Tub',
     description:
       'Pine gel disinfectant in a 200g translucent green tub with a recessed green lid and a clear snap-on collar. Cleans, deodorises and leaves floors sparkling.',
-    image: '/images/bubbles/bubbles-pine-gel-tub.png',
+    image: '/images/bubbles/bubbles-pine-gel-tub-v2.png',
   },
   {
     id: 'bd-citrus-gel',

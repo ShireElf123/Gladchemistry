@@ -1227,3 +1227,24 @@ not new artwork.
 
 Only file changed: `public/images/bubbles/bubbles-pine-gel-tub.png`. Original kept at
 `.work/t101/pine-ORIGINAL-backup.png`.
+
+### Turn 101c — why the Pine Gel "looked the same": a 7-day image cache
+
+She said **"looks the same its not pushed i think"**. It *was* pushed and *was* deployed — the file hash
+in the deployed commit matches the working file exactly (`57658544…`). The problem was caching.
+
+`vercel.json` served everything under `/images/(.*)` with:
+
+    Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+Seven days, on **filenames that never change**. Any replacement of an image at the same path is invisible
+to anyone who has already loaded the page, for a week. That is a trap for every future image edit, not
+just this one, so it is fixed at the root as well as for this image:
+
+1. **The Pine Gel now uses a new path**, `bubbles-pine-gel-tub-v2.png` (identical bytes to the shifted
+   file). A new URL cannot be served from cache.
+2. **`vercel.json` image cache cut to `max-age=60`** with the same `stale-while-revalidate`. A minute of
+   caching still protects the origin; a week no longer hides edits.
+
+Rule for future image work: **if you replace an image's pixels, change its filename** (or expect the old
+one to persist for up to a week). Bumping the filename is the cheap, reliable fix.
