@@ -19,6 +19,12 @@ So we do it deterministically, after generation:
      what the real pack does (dark print on the bright green third, white print
      on the near-black third where the label curves into shadow).
 
+Everything is CLIPPED TO THE PRODUCT by default (`--clip`, on unless disabled).
+A rectangular region that is a little too generous otherwise drags the blur —
+and the fake print rows — out over the studio background, which shows up as a
+grey haze and stray bars floating beside the product. Clipping intersects each
+region with a backdrop-deviation mask so nothing outside the pack is touched.
+
 Usage:
     python3 tools/soften-fineprint.py IMAGE --region X0,Y0,X1,Y1:mode [...]
 
@@ -38,6 +44,37 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
 WIDE_BLUR = 40  # glyphs cannot survive this
+
+
+def product_mask(im, tol=26):
+    """1 where the pixel differs from the sampled backdrop, i.e. on the product.
+
+    The backdrop is sampled from the frame corners. `tol` is generous enough to
+    keep a translucent tub wall and a soft contact shadow, tight enough to drop
+    the sweep.
+    """
+    a = np.asarray(im, np.float32)
+    h, w = a.shape[:2]
+    k = max(6, min(h, w) // 40)
+    corners = np.concatenate(
+        [
+            a[:k, :k].reshape(-1, 3),
+            a[:k, -k:].reshape(-1, 3),
+            a[-k:, :k].reshape(-1, 3),
+            a[-k:, -k:].reshape(-1, 3),
+        ]
+    )
+    bg = np.median(corners, 0)
+    dev = np.abs(a - bg[None, None, :]).max(2)
+    mask = (dev > tol).astype(np.float32)
+    # close small holes so the fake print does not get cut by label highlights
+    mask = np.asarray(
+        Image.fromarray((mask * 255).astype(np.uint8)).filter(
+            ImageFilter.MaxFilter(9)
+        ).filter(ImageFilter.GaussianBlur(1.5)),
+        np.float32,
+    ) / 255.0
+    return mask
 
 
 def feather_mask(size, box, feather):
@@ -90,6 +127,11 @@ def main():
     ap.add_argument("--seed", type=int, default=53)
     ap.add_argument("--strength", type=float, default=0.4, help="print opacity")
     ap.add_argument("--feather", type=int, default=30)
+    ap.add_argument(
+        "--no-clip",
+        action="store_true",
+        help="allow the treatment to extend past the product (usually wrong)",
+    )
     args = ap.parse_args()
 
     im = Image.open(args.image).convert("RGB")
@@ -102,10 +144,13 @@ def main():
         x0, y0, x1, y1 = (int(v) for v in coords.split(","))
         regions.append(((x0, y0, x1, y1), mode))
 
+    clip = 1.0 if args.no_clip else product_mask(im)
+
     # 1. erase the existing glyphs
     mask = np.zeros((h, w), np.float32)
     for box, _ in regions:
         mask = np.maximum(mask, feather_mask((w, h), box, args.feather))
+    mask = mask * clip
     mask = np.clip(mask, 0, 1)[..., None]
     base = np.asarray(wide, np.float32) * mask + np.asarray(im, np.float32) * (1 - mask)
 
@@ -113,6 +158,7 @@ def main():
     for i, (box, mode) in enumerate(regions):
         alpha = print_rows((w, h), box, mode, args.seed + i, args.strength)
         alpha *= feather_mask((w, h), box, 40)
+        alpha *= clip
         alpha = alpha[..., None]
         colour = 255.0 if mode == "light" else 14.0
         base = base * (1 - alpha) + colour * alpha

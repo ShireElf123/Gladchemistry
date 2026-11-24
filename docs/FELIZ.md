@@ -454,3 +454,45 @@ a sharp background. Regenerating and measuring is cleaner than compositing.
 `tools/soften-fineprint.py`, but the lesson is that the region must cover the WHOLE print column to the
 label's outer edge — my first two attempts started ~40px too far right and left the first words of each
 line readable. Correct regions for this tub: left `150,414 -> 392,792`, right `600,414 -> 820,796`.
+
+### Turn 85 — Citrus Gel, rebuilt from her own photograph
+
+Third-generation tub, and the first time Citrus Gel has had a real reference. It is not on any of the
+close-up shots: it appears only in the full-range photograph `IMG-20261118-WA0031.jpg` (repo copy:
+`public/images/reference/gladchemistry-range.jpg`), tucked under the Pine Gel tub at the lower left.
+Cropping and magnifying that region 10x and 13x gave a readable label.
+
+**What the old render had wrong — five things:**
+
+1. **The lid.** I had a flat green lid with a ribbed clear band. The real tub has the same
+   **recessed green lid plus clear snap-on gusseted collar** as Pine Gel. Same mould family.
+2. **The artwork was missing entirely.** The label is not a plain white panel — it is filled edge to
+   edge with a large stylised **citrus slice**: soft out-of-focus wedges of amber-orange, orange and
+   pale olive-green radiating from a centre, like a giant cut fruit seen close up. This was the single
+   biggest visual difference and I had rendered nothing of it.
+3. **"CITRUS GEL" is brick red / terracotta**, not orange. I had rendered it orange.
+4. **The fruit sits at the LOWER LEFT of the white blob** — one whole orange with two leaves, one cut
+   orange showing segments. I had it lower right.
+5. **No amber gel visible** through the tub wall. The real tub glows amber above and below the label.
+
+**Composition, measured:** tub at **69.1% width / 67.7% height**, margins L129 R157 T277 B94. Slightly
+smaller than Pine Gel (73.3% / 70.9%) on purpose — it is the smaller tub of the two, and keeping that
+difference is what stops the pair looking like clones of each other.
+
+**Tool fix this turn.** `tools/soften-fineprint.py` now CLIPS to the product by default. A rectangular
+region that is a little too generous was dragging the blur and the fake print rows out over the studio
+sweep, leaving a grey haze and stray bars floating beside the tub. It intersects every region with a
+backdrop-deviation mask, so nothing outside the pack is touched. `--no-clip` restores the old behaviour.
+
+**Two self-inflicted dead ends, recorded so they are not repeated:**
+- Patching a single invented line by hand with a sampled-gradient rectangle left a **visible grey box**.
+  Filling flat colour inside a label never blends; the label underneath is not uniform.
+- Guessing region coordinates cost three attempts and one of them **erased the "C" of "CITRUS GEL"**,
+  leaving "ITRUS GEL". The fix is to overlay a graduated coordinate grid on the render and read the
+  column bounds off it: left column x 150-302, right column x 745-808, bottom brand line y 928-982.
+  Measure the region, do not estimate it.
+
+Also: the model invented a phone number, a street address and a website in the label footer on the
+first generation of this tub, and a nonsense subtitle ("Famourts · Citres · Pytate") on the second.
+Both were caught by reading the render at 3x before shipping. The subtitle is now suppressed by
+instructing that the strip beneath the title be left blank, which worked.

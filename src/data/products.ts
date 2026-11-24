@@ -227,7 +227,7 @@ export const PRODUCTS: Product[] = [
     price: 65,
     size: '200g Tub',
     description:
-      'Citrus gel in a 200g clear tub with a green lid. Cuts through grease on kitchen and bathroom surfaces.',
+      'Citrus gel in a 200g translucent tub with a recessed green lid and a clear snap-on collar. Cuts through grease on kitchen and bathroom surfaces.',
     image: '/images/bubbles/bubbles-citrus-gel-tub.png',
   },
   {
