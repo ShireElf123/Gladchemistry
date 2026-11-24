@@ -926,3 +926,38 @@ check the plate finish per item rather than assuming.
 a closed word list. Three turns running that combination has produced a first-pass or near-first-pass result.
 
 **12 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, Ted Lapidus car & roll-on.
+
+### Turn 96 — Inspired by Ted Lapidus Men, 15ml roll-on
+
+Reference: `IMG-20261118-WA0028.jpg`, the small roll-on at the far right of the four-perfume line-up.
+Measured: tube y 420-665, tube width ~68 → **h/w ≈ 3.6**.
+
+**Faults in my old render:** black cylindrical cap, amber juice, cream "Feliz be Glad" label, dark charcoal
+background. Same template as the other four Feliz items — wrong product again.
+
+**What her roll-on actually is:**
+1. **A bare white roll-on ball**, exposed, no cap over it. The upper half of the sphere shows.
+2. **Moulded glass screw threads** on the neck, several fine horizontal ridges, then a **thick rolled glass
+   rim** where the neck meets the body, catching a bright highlight. The threads being *in the glass* rather
+   than on a plastic collar is the detail that makes it read as a cheap-and-cheerful 15ml roll-on rather
+   than a premium vial.
+3. **Clear thin glass tube**, straight-sided, with very pale amber/golden-cream juice and a few millimetres
+   of headspace.
+4. **A dark wrap label low on the body** — wrapping around the cylinder so its edges curve away with the
+   glass, occupying roughly the bottom quarter.
+
+**A judgement call worth recording.** In her photograph the label is **black-on-black** — dark type printed
+on a dark band, barely readable even at 18x. I first reproduced that faithfully and it came out as a black
+smudge: at card size the product name was invisible, which defeats the purpose of a shop listing. So I
+raised the type to **light grey on the dark band** — same three lines, same size, same placement, same
+band. Nothing invented, nothing added; only the contrast lifted so the name reads. The reference's own
+legibility is an artifact of a phone photo shot in poor light, not a design intent I should copy.
+
+Also worth recording as a failure: my first fix attempt was to **draw the text over the top** of the
+existing render with PIL. The generated text was still underneath, so the result had doubled lettering —
+"TED LAPIDUS" with a ghost "LAPIDUS" behind it. **Compositing type onto an image that already contains
+type never works**; regenerate with the contrast specified instead. This is the same lesson as turn 89's
+blur-band failures, in a new form.
+
+**13 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath — the three remaining
+Gladchemistry items.
