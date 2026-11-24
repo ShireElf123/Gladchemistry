@@ -192,14 +192,14 @@ export const PRODUCTS: Product[] = [
     preMessage: "Ultra Grease-Cutter · Fresh Lemon Hygiene",
     variants: ["750ml", "5L Bulk"],
     notes: ["Lemon Extract", "Concentrated Foam"],
-    name: 'Hygiene Dishwashing Liquid',
+    name: 'Bubbles Dishwashing Liquid',
     brand: 'bubbles-detergents',
     category: 'Home Care',
     price: 38,
     size: '750ml',
     description:
-      'Ultra-concentrated grease-cutting dishwashing liquid with fresh lemon fragrance.',
-    image: '/images/bubbles-trio.jpg',
+      'Green dishwashing liquid in a clear 750ml bottle with a red flip cap. Cuts through dish grease, lemon fragrance.',
+    image: '/images/bubbles/bubbles-dishwashing-liquid-750ml.png',
     featured: true,
   },
   {

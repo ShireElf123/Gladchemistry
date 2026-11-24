@@ -237,3 +237,19 @@ way — the constraint is "match the reference", not "always horizontal".
 
 Sizes already narrowed to `500g Sachet` in turn 71. Description now describes the actual sachet
 rather than an imagined tub.
+
+### Turn 80 — `bd-dishwashing` (I WAS WRONG: the photo existed)
+I had told her repeatedly that no photograph of the dishwashing liquid existed. It did —
+`IMG-20261118-WA0029.jpg`, the same file I had only ever skimmed as a collage of bottles. A
+careful look shows a tall waisted clear bottle of bright green liquid with a **red flip cap on a
+green collar** and a green label reading "BUBBLES Detergenta / DISHWASHING LIQUID / 750ml".
+
+Lesson recorded: when the claim is "no reference exists", open every upload properly first.
+`WA0029` had already been used for the Thick Bleach and All-Purpose shots, so the information was
+sitting in a file I had labelled as covered.
+
+Generated: `public/images/bubbles/bubbles-dishwashing-liquid-750ml.png`.
+
+Name corrected `Hygiene Dishwashing Liquid` → **`Bubbles Dishwashing Liquid`**, which is what the
+label says. Description rewritten off the pack. Variants left as `750ml` / `5L Bulk`; only 750ml
+is photographed, so 5L stays unverified.
