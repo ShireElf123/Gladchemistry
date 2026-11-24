@@ -17,6 +17,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
   const { addToCart } = useCart();
   const [modalOpen, setModalOpen] = useState(false);
   const brand = BRANDS[product.brand];
+  // Photos we generated per product live in a named brand folder; those are
+  // full-frame studio shots. Everything else is still a legacy range cut-out.
+  const isStudioPhoto = /^\/images\/(feliz|gladchemistry|bubbles)\//.test(product.image);
 
   return (
     <>
@@ -27,10 +30,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
         transition={{ duration: 0.4, delay: index * 0.05 }}
         className="group flex flex-col min-w-0"
       >
-        {/* Product stage — tinted pad + circle + pack art */}
+        {/* Two kinds of picture live in this catalogue. A studio photograph has its
+            own ground, so it goes full-bleed and its sweep becomes the stage. A
+            legacy cut-out on white still needs the old tinted pad and circle behind
+            it, or it looks like a white box dropped on a coloured rectangle. */}
         <div
           onClick={() => setModalOpen(true)}
-          className="stage cursor-pointer"
+          className={isStudioPhoto ? 'stage-photo' : 'stage'}
           style={{
             ['--stage-tone' as string]: brand.stageTone,
             height: tall ? 340 : 290,

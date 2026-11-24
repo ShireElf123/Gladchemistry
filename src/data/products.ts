@@ -124,7 +124,7 @@ export const PRODUCTS: Product[] = [
     size: '10ml (oil-based)',
     description:
       'Crisp green apple, aromatic sage, and cedarwood crafted for all-day confidence.',
-    image: '/images/pilot/feliz-hugo-men-50ml.png',
+    image: '/images/feliz/feliz-hugo-men-50ml.png',
   },
   {
     id: 'fbg-diesel-men',

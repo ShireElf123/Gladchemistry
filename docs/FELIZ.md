@@ -154,3 +154,28 @@ Large blue 5L jerry can, white moulded handle and shoulder, green screw cap, rea
 
 Description replaced: the site claimed a "carnauba wax infusion" and "pH-balanced", neither of
 which appears on the label. Now says only what the can says.
+
+### Turn 74 — how product pictures are framed (her question: "placements shouldn't be white backgrounds to look pro?")
+
+She is right about the cause, and it was not the pictures — it was the layout.
+`.stage` in `index.css` paints a brand-tinted pad *and* a 62%-white circle behind the image.
+That is the Fizzly cut-out-pack treatment: it assumes a transparent or pure-white product on
+which the circle reads as a halo. Our generated shots are full studio photographs with their
+own seamless grounds, so the white box sat on a pastel rectangle. That is the "not pro" look.
+
+Fix, in code — **no image has been regenerated for this**:
+- New `.stage-photo` class: fills the stage edge to edge at borderRadius 22, `object-fit:
+  cover`, `object-position: center 42%`, no pad, no circle, no drop-shadow. Hover becomes a
+  slow 1.045 scale instead of a lift.
+- `ProductCard.tsx` picks the class by path: anything under `/images/(feliz|gladchemistry|
+  bubbles)/` is a studio photograph and goes full-bleed; everything else keeps the legacy pad.
+- Hugo Men moved `pilot/` → `feliz/` (git mv, file bytes untouched) so it qualifies too.
+  `pilot/` no longer exists; `docs/FELIZ.md`'s old path is superseded by
+  `public/images/feliz/feliz-hugo-men-50ml.png`.
+
+Current split: **8 studio / 8 legacy**. The legacy eight still show the pad, correctly,
+because they are white-background cut-outs. They convert as each gets shot.
+
+Verified: tsc clean, build clean, `stage-photo` present in the built CSS, 16 image paths, 12
+unique, none missing, all 200 on the preview server. **Not** verified visually — no browser
+in the sandbox (`playwright install` fails on TLS to cdn.playwright.dev).

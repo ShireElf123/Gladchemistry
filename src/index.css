@@ -158,6 +158,30 @@
   transform: translateY(-8px) scale(1.03);
 }
 
+/* Studio photograph variant. The picture carries its own seamless ground, so it
+   fills the whole stage edge to edge: no tinted pad, no white circle, no drop
+   shadow. The frame only crops it to a consistent 4:5 so a grid of mixed product
+   shapes still lines up. */
+.stage-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #eceae6;
+}
+
+.stage-photo > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .stage-photo > img {
+  transform: scale(1.045);
+}
+
 /* ------------------------------------------------------------- buttons */
 
 .btn {
