@@ -184,8 +184,8 @@ export const PRODUCTS: Product[] = [
     price: 42,
     size: '750ml',
     description:
-      'Clinging thick bleach formula that eliminates 99.9% of germs, removes tough stains, and whitens surfaces.',
-    image: '/images/bubbles-trio.jpg',
+      'Thickened bleach in a 750ml bottle with a green cap. Cleans, removes stains and disinfects.',
+    image: '/images/bubbles/bubbles-thick-bleach-750ml.png',
   },
   {
     id: 'bd-dishwashing',

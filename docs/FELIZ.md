@@ -136,3 +136,13 @@ jerry can is visible in another upload (`WA0026`), which probably is the car was
 `public/images/gladchemistry/gc-foam-bath-1-5l.png` — generated FROM her photograph as
 reference. Real bottle contour, real white flip cap, real pink liquid, real green label with
 the leaf mark and "Gladchemistry produces". Soft warm-grey sweep with a pale blush circle.
+
+### Turn 72 — `bd-thick-bleach`
+`public/images/bubbles/bubbles-thick-bleach-750ml.png` — generated from her photograph
+(`IMG-20261118-WA0031.jpg`). Squat white ribbed-shoulder bottle, green screw cap, the real
+blue-and-yellow sunburst label: "BUBBLES Detergenta", "THICK BLEACH / Removes germs and
+stains", "It cleans / removes stains / disinfects", 750 ml. Cool-white sweep, pale mint circle.
+
+Catalogue description trimmed of invented claims ("99.9% of germs") and replaced with what
+the label actually says. The 750ml/5L variant pair is retained — a 5L is plausible but is not
+visible in any photograph, so it is unverified.
