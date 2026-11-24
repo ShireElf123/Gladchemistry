@@ -685,3 +685,49 @@ the label."* Worth remembering: **when you shrink an element, name where its con
 or the model relocates it.
 
 Final: wFill 48.0% / hFill 87.0%, margins L241 R242 T82 B68. 6 of 16 rebuilt.
+
+### Turn 90 — Waterless Hand Sanitizer Rub, 100ml
+
+Reference: `IMG-20261118-WA0030.jpg`, the small white spray bottle at the far right — the same group
+shot as Black Dip. Convenient, but it means this bottle is **partly occluded by Black Dip on its left**,
+so I only trusted the right side and the vertical measurements.
+
+Analysed at 16x, region by region, before generating.
+
+**What her pack actually is:**
+1. **Short stubby cylinder** — overall height about 2.5x its width. It's a 100ml spray, not a tall bottle.
+2. **Two-part closure:** a low fat **white ribbed screw collar** with fine vertical flutes, and above it a
+   **frosted translucent actuator head**, pale milky-white, slightly taller than the collar, narrower again.
+   The reference is ambiguous at thumbnail size between "spray nozzle" and "screw cap"; at 16x it resolves
+   clearly as a ribbed collar plus frosted head.
+3. **The label WRAPS THE ENTIRE BODY** — from just below the shoulder right down to the base rim, with only
+   a thin white rim of plastic showing at the very bottom. My old render had a **floating grey panel** with
+   white plastic above and below it, which is what made it read as a mock-up rather than a product.
+4. Label ground is **light cool grey**, not white.
+5. A **green grass band** with an irregular hand-painted upper edge runs along the bottom of the label.
+6. Type stack: sprig emblem, GLADCHEMISTRY, thin rule, WATERLESS (green), HAND (huge dark green),
+   SANITIZER (smaller green, tucked tight under HAND), RUB (huge dark green).
+7. There is real fine print under GLADCHEMISTRY and under RUB. **Illegible in the reference** — which is the
+   correct treatment. I must not invent it.
+
+**Closed word list again:** GLADCHEMISTRY, WATERLESS, HAND, SANITIZER, RUB. Nothing else.
+
+**Five generations.** Attempt 1 invented an efficacy claim — "Alcohol handit with 70% alcohol" plus a
+"Nails, Hair" strapline. Attempt 2 dropped the text but my label was still a floating panel and the
+proportions were wrong. Attempt 3 fixed the proportions but rendered the fine print as **rounded grey
+capsules** that read as placeholder UI, not print. Attempt 4 got the print right but the label went
+**beige-grey** and the head went **green-tinted and too tall**. Attempt 5 was clean.
+
+Three lessons, all worth keeping:
+
+- **"Soft and illegible" produces capsules, not print.** The model reads "soft blur" as a rounded blob shape.
+  What fixed it: describing the *typographic texture* — "very fine, tightly set, small dark-grey type... reads
+  as thin dense horizontal texture... fine rectangular marks on straight baselines only" and naming the wrong
+  answer outright: "do NOT draw rounded grey capsules, pills, bars, lozenges or solid grey blobs."
+- **A long prompt drifts in the opposite direction on the next pass.** Fixing the print turned the label
+  beige and tinted the head green — two details I'd specified correctly in the previous prompt but not
+  restated. Restate the colours of every flat area on every pass.
+- **The occlusion trap:** measuring the left edge of this bottle is impossible. Don't average across a
+  silhouette that's partly hidden — measure only the free side.
+
+Final: wFill 52.8% / hFill 87.0% (bottle h/w 2.35). 7 of 16 rebuilt.
