@@ -345,3 +345,32 @@ in `products.ts`.**
 Still open, for her to decide (not mine to change): the R65-per-tub vs per-box question, the flat
 R195 across 10-100ml fragrances, whether the cart returns, and the two different dishwashing
 bottles (green `WA0029` vs blue `WA0030` HYGIENE) currently represented by a single listing.
+
+### Turn 83 — the cards were decapitating every bottle
+
+With imagery finished, the open question was the one she raised in turn 74 and I never
+verified: *"the placements shouldnt be whilre back grounsds to look pro?"*
+
+**Root cause, measured.** The card stage was a fixed `height: 290` (or `340` when `tall`) inside a
+3-column grid of `max-w-[1240px]` with `px-5` and `gap-x-6`, giving a **384 x 290** frame =
+aspect **1.32:1**. Every studio render is **4:5 = 0.80:1**. With `object-fit: cover` the image was
+scaled to fill the width — 384 x 476 — and 39% of its height was thrown away, split 78 px off the
+top and 108 px off the bottom by `object-position: center 42%`.
+
+The top of a product shot is exactly where the cap, pump, handle or sachet crimp lives. So the grid
+was slicing the lids off every bottle. Simulated at true card size to confirm: Black Dip lost its
+cap, the sanitiser lost its pump, the car wash lost its handle, the foam bath lost its cap.
+**That is what "not professional" looked like. Not the photography — the frame.**
+
+**Why a better crop factor could not fix it.** Subject bounding boxes across the 16 renders run
+from **35% to 85%** of frame height (pine gel 35%, dishwashing 85%). No single `object-position`
+percentage or `scale` keeps all of them whole.
+
+**Fix.** The frame now matches the picture: `.stage-photo` gets `aspect-ratio: 4 / 5`, and
+`ProductCard` no longer passes a pixel height for studio photos (legacy cut-outs still do, since
+they are centred rather than cropped). The image is displayed whole, exactly as composed. Verified
+in the built bundle: `stage-photo{aspect-ratio:4/5;...}`.
+
+Side effect, and it is the right one: cards get taller (480 px at lg), so the product occupies far
+more of the card and the white space that read as "empty" is gone. Being a single component change,
+it applies to the home grid and the shop grid at once.

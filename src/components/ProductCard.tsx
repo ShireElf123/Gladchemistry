@@ -39,7 +39,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
           className={isStudioPhoto ? 'stage-photo' : 'stage'}
           style={{
             ['--stage-tone' as string]: brand.stageTone,
-            height: tall ? 340 : 290,
+            /* A studio photo's frame takes its height from the 4/5 aspect-ratio
+               in CSS so nothing is cropped. Legacy cut-outs keep an explicit
+               height because they are centred in the stage, not cropped to it. */
+            ...(isStudioPhoto ? {} : { height: tall ? 340 : 290 }),
           }}
         >
           <img src={product.image} alt={product.name} loading="lazy" />

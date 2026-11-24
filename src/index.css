@@ -167,6 +167,11 @@
   overflow: hidden;
   border-radius: 22px;
   background: #eceae6;
+  /* Every studio render is shot 4:5. The frame must match that ratio or
+     `object-fit: cover` decapitates the products — the caps, pumps and handles
+     live in the top of the frame and were being sliced off. Match the ratio and
+     the picture is shown whole, exactly as it was composed. */
+  aspect-ratio: 4 / 5;
 }
 
 .stage-photo > img {
