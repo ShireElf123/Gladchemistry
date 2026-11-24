@@ -1102,3 +1102,44 @@ item. The next item with fine print should go straight to geometry.
 **16 of 16 rebuilt.** The whole catalogue — three Bubbles gels/sprays plus five Feliz perfumes and
 all eight Gladchemistry lines — is now drawn from her own photographs rather than from catalogue
 copy.
+
+### Turn 100 — the cart was lying, and the address was wrong
+
+With all 16 pictures done, the outstanding work was the backlog I had been carrying since the
+early turns. The user said "next" and then skipped the four questions I put to them, so this turn
+fixes only what needs **no business decision from her**.
+
+**Defect: the cart confirmed orders that were never placed.** `CartDrawer.tsx` flipped a boolean,
+showed a green tick and **"Order Confirmed!"**, waited 2.2 s, then emptied the cart. No email, no
+WhatsApp, no payment, no record on the server. A customer could reasonably believe they had ordered
+a product the shop would never hear about. That is worse than having no cart at all.
+
+Fixed by making checkout **honest rather than complete**: it now composes the order (one line per
+item, quantity, size, line total, subtotal) and opens it in **WhatsApp addressed to the shop's own
+published number, +27 73 719 0821** (`wa.me/27737190821`). The customer sees the exact message
+being sent and to whom, and is told plainly that nothing is charged on the site and that the total
+is confirmed with them first. The heading changed from "Order Confirmed!" to **"Order sent on
+WhatsApp"**, and the button from "Proceed to Checkout" to **"Send order on WhatsApp"** with a
+one-line explanation above it. Verified in the production bundle: the number and `wa.me/` are
+present, and the string "Order Confirmed" no longer appears anywhere in the build.
+
+This is deliberately not a real checkout. When she wants one, it needs a payment provider and a
+way to receive orders; the WhatsApp handoff is the honest interim, not a substitute.
+
+**Defect: the contact details disagreed with her own shop.** Both `Contact.tsx` and `Footer.tsx`
+said **"Johannesburg, Gauteng, South Africa"**. Her shop is **Shop 19, Palm Springs Mall, Springs,
+1559**. Corrected in both places.
+
+**Still open, and only she can answer them** (asked this turn, skipped):
+1. Whether R65 for a Pine/Citrus Gel is **per 200g tub** or **per box of tubs** — per box it would
+   be under cost.
+2. Whether fragrance pricing really is **flat from 10ml to 100ml** (Scandal and Diesel Men are R195
+   at every size; Hugo Men is R260 at 10ml).
+3. Whether the **green `WA0029` bottle or the blue `WA0030` "HYGIENE" bottle** is the one sold as
+   "Hygiene Dishwashing Liquid" — the listing shows the green picture under the Hygiene name.
+4. **Bath Fizzies at R185**: the tub carries no weight, so "1kg Bucket" is unverified.
+5. The email **info@gladchemistry.com** is listed on the site but I have no evidence that address
+   exists or is monitored. Left in place, but it needs confirming.
+
+**Lesson worth keeping:** when a feature cannot be finished, make it **truthful** instead of
+pretending. A green tick that sends nothing is a bug that costs her actual sales.

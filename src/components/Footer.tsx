@@ -73,7 +73,7 @@ export const Footer: React.FC = () => {
               Get in touch
             </h4>
             <ul className="space-y-2.5 text-[14px] font-semibold text-white/75">
-              <li>Johannesburg, Gauteng, South Africa</li>
+              <li>Shop 19, Palm Springs Mall, Springs, 1559</li>
               <li>info@gladchemistry.com</li>
               <li className="text-white/50">Mon – Fri · 08:00 – 17:00</li>
               <li className="text-white/50">Sat · 09:00 – 13:00</li>

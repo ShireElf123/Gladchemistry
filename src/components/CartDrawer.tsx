@@ -4,18 +4,44 @@ import { X, Plus, Minus, Trash2, ShoppingBag, CheckCircle2 } from 'lucide-react'
 import { useCart } from '../context/CartContext';
 import { BRANDS } from '../data/brands';
 
+// The shop's own number, as published on the contact page: +27 73 719 0821
+const SHOP_WHATSAPP = '27737190821';
+
 export const CartDrawer: React.FC = () => {
   const { items, isOpen, closeCart, updateQuantity, removeFromCart, clearCart, subtotal } =
     useCart();
-  const [checkedOut, setCheckedOut] = useState(false);
+  const [sent, setSent] = useState(false);
 
+  /**
+   * Orders are handed to WhatsApp, not "confirmed" by the site.
+   *
+   * Previously this flipped a flag, showed "Order Confirmed!" and emptied the
+   * cart -- while sending nothing anywhere. A customer could believe they had
+   * ordered and the shop would never hear about it. Until there is a payment
+   * and fulfilment backend, the honest behaviour is to build the order and
+   * open it in WhatsApp addressed to the shop, so the customer sees exactly
+   * what is being sent and to whom.
+   */
   const handleCheckout = () => {
-    setCheckedOut(true);
-    setTimeout(() => {
-      clearCart();
-      setCheckedOut(false);
-      closeCart();
-    }, 2200);
+    const lines = items.map(
+      ({ product, quantity }) => `• ${quantity} x ${product.name} (${product.size}) — R${(product.price * quantity).toFixed(2)}`
+    );
+    const message = [
+      'Hi Gladchemistry, I would like to order:',
+      '',
+      ...lines,
+      '',
+      `Subtotal: R${subtotal.toFixed(2)}`,
+      '',
+      'Please confirm availability and total.',
+    ].join('\n');
+
+    window.open(
+      `https://wa.me/${SHOP_WHATSAPP}?text=${encodeURIComponent(message)}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
+    setSent(true);
   };
 
   return (
@@ -52,17 +78,29 @@ export const CartDrawer: React.FC = () => {
 
             {/* Body */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
-              {checkedOut ? (
+              {sent ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-12">
                   <div className="h-16 w-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
                     <CheckCircle2 className="h-9 w-9" />
                   </div>
                   <h3 className="font-display font-bold text-xl text-slate-900 mb-2">
-                    Order Confirmed!
+                    Order sent on WhatsApp
                   </h3>
                   <p className="text-sm text-slate-500 max-w-xs">
-                    Thank you for shopping with Gladchemistry, Feliz be Glad & Bubbles Detergents.
+                    Your order has been opened in WhatsApp, addressed to Gladchemistry. Send that
+                    message and we will confirm availability and the total. Nothing is charged on
+                    this site.
                   </p>
+                  <button
+                    onClick={() => {
+                      setSent(false);
+                      clearCart();
+                      closeCart();
+                    }}
+                    className="mt-5 px-4 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold cursor-pointer"
+                  >
+                    Done
+                  </button>
                 </div>
               ) : items.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-12">
@@ -134,7 +172,7 @@ export const CartDrawer: React.FC = () => {
             </div>
 
             {/* Footer */}
-            {items.length > 0 && !checkedOut && (
+            {items.length > 0 && !sent && (
               <div className="p-6 border-t border-slate-100 bg-slate-50/60 space-y-4">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-slate-500">Subtotal</span>
@@ -146,8 +184,12 @@ export const CartDrawer: React.FC = () => {
                   onClick={handleCheckout}
                   className="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-lg shadow-slate-900/15 transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  Proceed to Checkout
+                  Send order on WhatsApp
                 </button>
+                <p className="text-[11px] text-slate-400 text-center leading-relaxed">
+                  Checkout opens WhatsApp with your order written out. Nothing is charged on this
+                  site — we confirm the total with you first.
+                </p>
               </div>
             )}
           </motion.aside>
