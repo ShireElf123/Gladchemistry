@@ -642,3 +642,46 @@ caught the letters; and redrawing the oval interior plus re-setting BUBBLES in a
 oval rim and left the type oversized and wrong. **On a light, patterned label with fine artwork, do not
 patch text — regenerate with a closed word list.** Compositing is reliable only for a flat solid-colour
 badge on a plain field, which is why the gold NEW flash on Thick Bleach worked.
+
+### Turn 89b — Black Dip: the dynamics she flagged
+
+She said "some dynamics are off please analyse the main pics and the one u generated to be accurate."
+She was right, and the shape was the problem — not the colour, which is what I had been fussing over.
+
+To measure honestly I had to first admit the reference is **occluded**: the blue dishwashing bottle
+overlaps Black Dip's entire left edge, and a white trigger spray crowds its right. Any naive column-scan
+returns garbage — mine did, twice, and reported h/w 1.10, 1.38 and 1.97 for the same bottle. The fix was
+to stop scanning brightness and measure the things that are actually clean in the reference: the label
+rectangle, the cap, and the body's right edge.
+
+**What was actually wrong, measured:**
+
+| | her pack | my render |
+|---|---|---|
+| label height / bottle height | **0.33** | 0.45 |
+| label width / bottle width | ~0.76 | 0.80 |
+| cap width / body width | **~0.30** | 0.45 |
+| body height / width | **~1.45** | 1.36 |
+
+So: my label was a third too tall, my cap half again too wide, and my body too squat. The cap error was
+the worst of them — a wide cap on a short body reads as a generic chemical jug. Hers is a narrow cap on
+a tall slab, which is what makes it look like a household hygiene product.
+
+**Three moulding details I had left out entirely:**
+1. A **moulded horizontal seam** across the full width of the front face, high up just above the label.
+   This is the single strongest read of "moulded plastic" and I had a completely smooth body.
+2. A **flared foot with a shallow groove** just above the base, and rounded bottom corners.
+3. The long straight sloping **shoulder planes** from the narrow cap — about a quarter of the height.
+
+**Lighting.** I had over-corrected the brown until the whole bottle was chocolate. In her photograph the
+plastic is **near-black**; warm brown is only a narrow glow where light grazes the top of the shoulders
+and the lit edges. The right edge carries a thin bright vertical rim for the full height, and the left
+side sits in deeper shadow. Satin, not glossy.
+
+**One new failure:** told to shrink the label, the model put a **duplicate BUBBLES oval on the bare
+shoulder** — it kept the logo's prominence by moving it outside the label. Fixed by naming the bare area
+explicitly: *"the upper body and shoulders are completely bare... the only place BUBBLES appears is inside
+the label."* Worth remembering: **when you shrink an element, name where its content is allowed to live**,
+or the model relocates it.
+
+Final: wFill 48.0% / hFill 87.0%, margins L241 R242 T82 B68. 6 of 16 rebuilt.
