@@ -13,7 +13,7 @@ Live: <https://gladchemistry.vercel.app>
 
 ## Pages
 
-- `/` — Home: brand switcher, hero, brand showcase, benchmarks, featured bestsellers
+- `/` — Home: hero with brand switcher, ticker, featured products, the 3 houses, proof strip
 - `/shop` — Full catalogue with brand filter (`/shop?brand=gladchemistry`)
 - `/brands` — Side-by-side comparison of the three brands
 - `/about` — Brand story and formulation standards
@@ -47,15 +47,37 @@ npm run dev      # http://localhost:5173
 
 ```
 src/
-├── components/   # Navbar, Footer, CartDrawer, ProductCard, ProductModal, ...
+├── components/
+│   └── ...           # Navbar, Footer, CartDrawer, ProductCard, ProductModal
 ├── context/      # CartContext — cart state and totals
 ├── data/         # brands.ts and products.ts — the whole catalogue lives here
 └── pages/        # Home, Shop, Brands, About, Contact
 public/images/    # Product, hero and logo imagery
 ```
 
-Products and brands are data-driven: add an entry to `src/data/products.ts` and it
-flows through the shop grid, brand filters, and featured sections automatically.
+### Design system
+
+Calibrated against the **Fizzly Soda** storefront: flat saturated colour, oversized
+confident display type, product art on tinted stages, chunky pill buttons and ticker
+strips — not glassy admin panels.
+
+`src/index.css` holds the shared tokens and primitives:
+
+| Token / class | Role |
+| --- | --- |
+| `--ink`, `--cream`, `--lime` | Core palette (ink text, warm paper, lime accent) |
+| `.display-xl` / `.display-lg` | Fluid oversized headings (`clamp`) |
+| `.u-mark` | Underlined emphasis word inside a heading |
+| `.stage` | Tinted product pad with a soft white circle behind the pack |
+| `.btn` + `btn-ink` / `btn-fern` / `btn-lime` / `btn-ghost` | Chunky pill buttons |
+| `.chip` | Filter pills with an active ink state |
+| `.flag` | Hard uppercase badge (BESTSELLER, NEW) |
+| `.marquee` | Scrolling ticker strip |
+| `.panel` | Flat white surface, one hairline, no blur |
+
+Each brand carries its own `stageTone` and `inkColor` in `src/data/brands.ts`, so
+product art is always tinted to the house it belongs to.
+
 
 ## Deployment
 

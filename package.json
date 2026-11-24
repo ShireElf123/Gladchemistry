@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node tests/run-tests.mjs"
   },
   "dependencies": {
     "framer-motion": "^14.14.0",
+    "gsap": "^3.15.1",
     "lucide-react": "^1.75.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -18,10 +20,15 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.5",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@types/jsdom": "^30.0.0",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "esbuild": "^0.28.2",
+    "jsdom": "^31.0.1",
     "oxlint": "^1.90.0",
     "tailwindcss": "^4.3.5",
     "typescript": "~7.0.2",

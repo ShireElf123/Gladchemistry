@@ -35,7 +35,8 @@ export const Brands: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className={`rounded-[2.25rem] p-6 sm:p-10 border ${brand.bgTint} ${brand.borderTint} grid grid-cols-1 lg:grid-cols-12 gap-8 items-center`}
+                className="rounded-[28px] p-6 sm:p-10 border border-black/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+                style={{ background: brand.stageTone }}
               >
                 <div className={`lg:col-span-6 space-y-5 ${!isEven ? 'lg:order-2' : ''}`}>
                   <BrandLogo brand={brand.id} size="lg" />
@@ -69,14 +70,42 @@ export const Brands: React.FC = () => {
                   </div>
                 </div>
 
+                {/* The shop's own photograph of this house's stock, where it
+                    gave us one. Not generated, not restyled. */}
                 <div className={`lg:col-span-6 ${!isEven ? 'lg:order-1' : ''}`}>
-                  <div className="rounded-3xl overflow-hidden bg-white shadow-xl border-4 border-white">
+                  {brand.rangePhoto ? (
                     <img
-                      src={brand.heroImage}
-                      alt={brand.name}
-                      className="w-full aspect-[4/3] object-cover"
+                      src={brand.rangePhoto}
+                      alt={`${brand.name} range as stocked by the shop`}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full rounded-3xl shadow-xl border-4 border-white object-cover"
+                      style={{ aspectRatio: '4 / 3' }}
                     />
+                  ) : (
+                  <div
+                    className="rounded-3xl overflow-hidden shadow-xl border-4 border-white grid place-items-center"
+                    style={{ background: brand.stageTone, aspectRatio: '4 / 3' }}
+                  >
+                    <div className="text-center px-8">
+                      <p
+                        className="font-display text-[42px] font-extrabold leading-none"
+                        style={{ color: brand.inkColor }}
+                      >
+                        {brand.name}
+                      </p>
+                      <p
+                        className="mt-3 text-[12px] font-black uppercase tracking-[0.16em]"
+                        style={{ color: brand.inkColor, opacity: 0.65 }}
+                      >
+                        {brand.category}
+                      </p>
+                      <p className="mt-4 max-w-[34ch] text-[14px] font-semibold" style={{ color: brand.inkColor, opacity: 0.8 }}>
+                        {brand.highlights.join(' · ')}
+                      </p>
+                    </div>
                   </div>
+                  )}
                 </div>
               </motion.div>
             );
