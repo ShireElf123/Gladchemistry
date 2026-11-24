@@ -199,3 +199,14 @@ Correction: the site sold this as a **"1kg Tub" with a "5kg Bucket" variant**. H
 **200 g**, and the label reads "10 x 200g" — i.e. it is a 10-tub display box of 200g tubs, not a
 single 1kg tub. Variants narrowed to `200g Tub`, price left at R65 pending her word on whether
 that was per tub or per box (R65 for 10 tubs would be under cost).
+
+### Turn 77 — `bd-citrus-gel`
+`public/images/bubbles/bubbles-citrus-gel-tub.png` — generated from her photograph. Same 200g
+tub mould as Pine Gel: clear body, green screw lid, orange gel, real label "BUBBLES Detergenta
+/ CITRUS GEL / CITRUS FRESH / Dishwashing" with the orange-and-lemon graphic.
+
+Size correction applied as with Pine Gel: `1kg Tub` + `5kg Bucket` → `200g Tub`. Price left at
+R65, still unresolved per-tub vs per-box (same question as Pine Gel).
+
+Note: her Citrus Gel label says "Dishwashing" on it. So the tub products do dishes as well as
+general cleaning — relevant to the site's separate, photo-less "Dishwashing Liquid" entry.

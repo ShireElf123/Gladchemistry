@@ -219,16 +219,16 @@ export const PRODUCTS: Product[] = [
   {
     id: 'bd-citrus-gel',
     preMessage: "Zesty Degreaser · Kitchen & Surface Power",
-    variants: ["1kg Tub", "5kg Bucket"],
+    variants: ["200g Tub"],
     notes: ["Sweet Orange", "Active Degreasers"],
     name: 'Bubbles Citrus Gel',
     brand: 'bubbles-detergents',
     category: 'Home Care',
     price: 65,
-    size: '1kg Tub',
+    size: '200g Tub',
     description:
-      'Zesty citrus-powered cleaning gel for kitchens, bathrooms, and high-traffic surfaces.',
-    image: '/images/bubbles-range-2.jpg',
+      'Citrus gel in a 200g clear tub with a green lid. Cuts through grease on kitchen and bathroom surfaces.',
+    image: '/images/bubbles/bubbles-citrus-gel-tub.png',
   },
   {
     id: 'bd-all-purpose',
