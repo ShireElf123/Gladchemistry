@@ -491,3 +491,71 @@
 @media (prefers-reduced-motion: reduce) {
   .marquee { animation: none !important; }
 }
+
+/* ------------------------------------------------------------------ hero
+   The hero was flat: a radial gradient, morphing blobs and a canvas. These add
+   depth and polish without touching a single animation — the blobs still morph,
+   the canvas still rises, the pack still floats and parallaxes. Everything here
+   is either static or an entrance tween, so "Pause motion" still stops it all.
+   ------------------------------------------------------------------ */
+
+/* Depth behind everything: a soft vignette so the centre pack reads forward and
+   the corners fall away. Pure CSS, no motion. */
+.hero-shell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(120% 85% at 50% 38%, #0000 42%, rgba(3, 18, 14, 0.5) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, #0000 22%);
+}
+
+/* A whisper of grain over the gradient. Flat digital gradients band on wide
+   screens; a 1px noise tile breaks the steps without reading as texture. */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The pack's stage ring: a thin lit edge that separates the product card from
+   the dark ground, plus a deeper contact shadow than the single blur it had. */
+.hero-can {
+  position: relative;
+  box-shadow:
+    0 34px 70px -20px rgba(0, 0, 0, 0.75),
+    0 10px 22px -10px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.16) inset;
+}
+
+/* Soft floor shadow under the pack, so it sits on a surface instead of floating
+   in a void. Static. */
+.hero-can-wrap::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  width: min(42%, 210px);
+  height: 26px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, #0000 70%);
+  filter: blur(6px);
+  z-index: 0;
+}
+
+/* Headline: a faint dark rim behind the letters lifts them off the gradient
+   without a heavy stroke. */
+.hero-word {
+  text-shadow: 0 2px 0 rgba(4, 24, 18, 0.25), 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grain { opacity: 0.04; }
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, ShoppingBag, Sparkles } from 'lucide-react';
 import type { Product } from '../data/products';
@@ -23,7 +24,13 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
     onClose();
   };
 
-  return (
+  /* Rendered at the document root. A `position: fixed` overlay is positioned
+     against the nearest ancestor that has a transform, and the Home page wraps
+     every card in a `.grid-anim` div that GSAP leaves a transform on. That made
+     this dialog lay itself out inside a single card on the home page while
+     behaving correctly on /shop, where no wrapper is transformed. A portal takes
+     the dialog out of that subtree entirely, so both pages behave the same. */
+  return createPortal(
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }}
@@ -153,6 +160,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
           </div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 };

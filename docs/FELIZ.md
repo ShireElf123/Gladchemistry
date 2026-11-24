@@ -1280,3 +1280,52 @@ Done exactly that:
 **Standing rule (added to Errors):** her browser can hold an image for up to a week. When changing an
 image, always ship it under a NEW filename and bump the `-vN` suffix. Never assume "pushed" means
 "visible to her"; compare her screenshot's composition against the repo before diagnosing a push.
+
+### Turn 102 — technical audit: the home pop-up bug, and a sharper hero
+
+Her report: **"the home items when i press the pop up sales menu looks weird not like the one on the shop
+pages"**, and: **"how can we enhance the hero to look more pro without taking the animation out"**.
+
+**1. The pop-up bug — a real layout defect, and the cause was found exactly.**
+
+`ProductCard` wraps itself in a framer-motion `motion.article`, and on the home page each card is ALSO
+wrapped in `<div className="grid-anim">`, which GSAP tweens. GSAP writes a `transform` on that div and a
+transform **stays in the inline style after the tween**. A `position: fixed` element is positioned
+against the nearest ancestor that has a transform, so `ProductModal`'s full-screen overlay resolved
+against that one card instead of the viewport. On `/shop` there is no `.grid-anim` wrapper, which is
+precisely why the same component behaved correctly there.
+
+Fix: `ProductModal` now renders through **`createPortal(…, document.body)`**. The dialog leaves the card
+subtree entirely, so ancestor transforms can no longer affect it, and both pages behave identically.
+This is the correct fix rather than removing the wrapper, because the card's own hover tween and the
+grid stagger both rely on transforms.
+
+**2. A second bug found while reading that code.** The home grid's filter effect used `gsap.from` and
+killed the tween in cleanup on every filter change. `gsap.from` applies its FROM values immediately, so
+a card could be left at `opacity: 0` — an invisible product that the filter still listed. Now the effect
+kills tweens, clears props, and tweens **to** the resting state, so a card is opaque whenever no tween is
+running. `clearProps: 'transform'` also stops stale transforms accumulating on the wrappers.
+
+**3. A fabricated claim removed.** The hero's glass stat card read **"99.9% Germ kill — Bubbles
+detergents"**. That figure appears on no label, in no test report and in none of her photographs — it was
+invented when the hero was ported from the soda template. Replaced with **"3 Houses — One standard"**,
+which is true of the catalogue.
+
+**4. Hero enhancement — with every animation kept.** She asked for more professional *without* losing the
+motion, so nothing animated was touched: the morphing blobs still morph, the bubble canvas still rises,
+the pack still floats and parallaxes, the headline still staggers in, "Pause motion" still stops it all.
+What was added is static depth and hierarchy:
+
+- **A vignette** (`.hero-shell::after`) pulling the corners down so the centre pack reads forward.
+- **Fine grain** (`.hero-grain`, a 140 px SVG turbulence tile at 5% opacity, overlay) because flat CSS
+  gradients band visibly on wide monitors and the noise breaks the steps.
+- **A lit edge and a real contact shadow on the pack** (inset 1px white ring + two-layer drop shadow),
+  plus a soft **floor shadow** beneath it so it sits on a surface rather than floating in a void.
+- **A restrained rim light on the headline** (two-layer text-shadow, not a stroke).
+- **A brand eyebrow pill** above the headline showing the current house with its colour dot. It reuses
+  the existing `.hero-side` class, so it joins the entrance tween already running and animates in with
+  the rest — no new animation was written.
+
+Verified in the production bundle: `createPortal` present, `.hero-shell:after`, `.hero-grain`,
+`.hero-can-wrap:after` and the vignette gradient all emitted into the built CSS, and `99.9% Germ kill`
+gone.

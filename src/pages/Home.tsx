@@ -92,21 +92,36 @@ export const Home: React.FC = () => {
   const visibleProducts =
     activeBrand === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.brand === activeBrand);
 
-  /* Re-stagger the grid whenever the filter changes, like the soda chips */
+  /* Re-stagger the grid whenever the filter changes, like the soda chips.
+
+     `gsap.from` writes the FROM values immediately and can leave an element at
+     `opacity: 0` if the tween is killed before it plays — and the cleanup below
+     killed it on every filter change, so a card could survive a re-filter
+     invisible. Clearing props first, and tweening TO the resting state, means the
+     element is at full opacity whenever no tween is running. */
   useEffect(() => {
     let killed = false;
     (async () => {
       const { default: gsap } = await import('gsap');
-      if (killed || !gridRef.current) return;
+      const grid = gridRef.current;
+      if (killed || !grid) return;
+      const cards = Array.from(grid.querySelectorAll<HTMLElement>('.grid-anim'));
+      gsap.killTweensOf(cards);
+      gsap.set(cards, { clearProps: 'all' });
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      gsap.from(gridRef.current.querySelectorAll('.grid-anim'), {
-        y: 40,
-        opacity: 0,
-        scale: 0.9,
-        duration: 0.5,
-        stagger: 0.06,
-        ease: 'back.out(1.8)',
-      });
+      gsap.fromTo(
+        cards,
+        { y: 40, opacity: 0, scale: 0.9 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          stagger: 0.06,
+          ease: 'back.out(1.8)',
+          clearProps: 'transform',
+        },
+      );
     })();
     return () => {
       killed = true;

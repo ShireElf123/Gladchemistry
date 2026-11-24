@@ -297,12 +297,41 @@ export const Hero: React.FC = () => {
       }}
       id="hero"
     >
+      {/* Static depth: vignette comes from .hero-shell::after, grain from here.
+          Both sit under the content and above the gradient, and neither animates. */}
+      <div aria-hidden className="hero-grain" />
+
       {/* Animated bubbles */}
       <canvas
         ref={canvasRef}
         aria-hidden
         className="absolute inset-0 w-full h-full pointer-events-none"
       />
+
+      {/* Eyebrow — names the house you are currently looking at, so the big
+          headline below is read in context rather than as a slogan. */}
+      <div
+        className="hero-side relative z-10 mb-3 flex items-center gap-2.5 rounded-full px-4 py-1.5"
+        style={{
+          background: 'rgba(255,255,255,.10)',
+          border: '1px solid rgba(255,255,255,.20)',
+          backdropFilter: 'blur(6px)',
+        }}
+      >
+        <span
+          aria-hidden
+          style={{
+            width: 7,
+            height: 7,
+            borderRadius: 99,
+            background: brand.primaryColor,
+            boxShadow: `0 0 0 4px ${brand.primaryColor}33`,
+          }}
+        />
+        <span className="text-[11px] font-black uppercase tracking-[0.16em] text-white/85">
+          {brand.name}
+        </span>
+      </div>
 
       {/* Oversized headline */}
       <h1
@@ -529,7 +558,7 @@ export const Hero: React.FC = () => {
       <div className="hero-side absolute right-5 bottom-14 z-10 hidden lg:grid gap-2.5 justify-items-end">
         {[
           { k: String(PRODUCTS.length), label: 'Products', sub: 'Across 3 houses', color: '#7ee59f' },
-          { k: '99.9%', label: 'Germ kill', sub: 'Bubbles detergents', color: '#46dcf5' },
+          { k: '3', label: 'Houses', sub: 'One standard', color: '#46dcf5' },
         ].map((s) => (
           <div key={s.label} className="gl-card">
             <span style={{ color: s.color }}>{s.k}</span>
