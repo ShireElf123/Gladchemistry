@@ -1414,3 +1414,41 @@ Nothing new animates. All three placements are static decoration, so "Pause moti
 existing entrance tweens still fire as before.
 
 Build clean; all nine gallery paths referenced from the home page resolve in `dist/`.
+
+### Turn 105 — the hero becomes a showreel
+
+Her instruction: **"the hero needs to swap between the items it has n pro level like how agency would let
+it"**.
+
+**Before:** the hero showed exactly one product per house — `PRODUCTS.find(p => p.brand === brandId)` — and
+never changed. Four of the sixteen products were unreachable from the hero, and nothing about it suggested
+a range.
+
+**Now it rotates**, and the whole control surface is driven by one ordered list:
+
+- `showreel = PRODUCTS.filter(p => p.brand === brandId)`; `slide` indexes it. **Every** product in the
+  selected house gets its turn — 4 for Gladchemistry, 5 for Feliz be Glad, 7 for Bubbles. Verified against
+  the real data: full loop is 18.4 s, 23.0 s and 32.2 s respectively at 4.6 s a slide.
+- **Crossfade** rather than a swap: the outgoing pack slides up and fades over 0.42 s, the incoming one
+  rises in. A long dissolve makes a shop hero feel broken; a flat swap makes it feel cheap.
+- **A product caption under the pack** — house, product name, price and size, all crossfading with the
+  image. This is what turns a floating picture into a product. Its box is a **fixed 86 px** because the
+  longest name in the range is *"Household Hygiene Black Dip Cleaning Liquid"* (43 characters) which wraps
+  to two lines; without the reserved height the caption would grow and shove the pack upward on every
+  rotation.
+- **Hover arrows** appear only when the pointer is over the stage (visible by default on touch, where
+  there is no hover), so the hero stays clean at rest and is obviously interactive the moment you approach.
+- **A two-tier control strip**: row one picks the house, row two picks the pack inside it and doubles as
+  the rotation progress — 4 to 7 short pills that widen when active. The visitor can see the rotation
+  rather than being surprised by it, and can pin any slide.
+
+**Autoplay is careful about when NOT to run.** It stops on the existing **Pause motion** button, while the
+pointer hovers the stage, while keyboard focus is inside it, and under `prefers-reduced-motion`; the
+interval is cleared on every dependency change so rotations cannot stack. The house handler resets `slide`
+inside the same click, so the pack never renders one frame of the previous house's product.
+
+**Kept intact:** the intro tween, blob morph, bubble canvas, floating pack, pointer parallax on the
+"fruit", the headline stagger and the pause control all behave exactly as before. The rotation is additive.
+
+Verified in the built bundle: the 4600 ms interval, the arrow styles (7 selectors), the fixed caption box,
+the arrow `aria-label`s, and the house/pack dot roles.

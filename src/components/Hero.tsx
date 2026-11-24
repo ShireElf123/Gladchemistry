@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BRANDS, BRAND_LIST } from '../data/brands';
 import type { BrandId } from '../data/brands';
@@ -40,8 +42,35 @@ export const Hero: React.FC = () => {
   const visibleRef = useRef(true);
 
   const brand = BRANDS[brandId];
-  const heroProduct = PRODUCTS.find((p) => p.brand === brandId) ?? PRODUCTS[0];
   const accent = ACCENTS[brandId];
+
+  /* ------------------------------------------------------- hero rotation
+     The hero cycles through the range on its own, the way an agency showreel
+     does, and any of the dots below can pin it to one house. `showreel` is the
+     ordered set of products the hero is allowed to show; `slide` indexes it.
+     When the house changes the index is reset inside the same handler, so the
+     pack never renders one frame of the previous brand's product. */
+  const showreel = PRODUCTS.filter((p) => p.brand === brandId);
+  const [slide, setSlide] = useState(0);
+  const heroProduct = showreel[slide % showreel.length] ?? PRODUCTS[0];
+
+  const pickBrand = (id: BrandId) => {
+    setBrandId(id);
+    setSlide(0);
+  };
+  const advance = (dir: number) =>
+    setSlide((i) => (i + dir + showreel.length) % showreel.length);
+
+  /* Autoplay. Paused by the existing "Pause motion" button, by hovering the
+     stage, by keyboard focus inside it, and whenever the hero is scrolled out of
+     view — a rotating hero should never burn battery off-screen. Off entirely
+     under prefers-reduced-motion. */
+  const [hovered, setHovered] = useState(false);
+  useEffect(() => {
+    if (paused || hovered || reduceMotion() || showreel.length < 2) return;
+    const id = window.setInterval(() => setSlide((i) => (i + 1) % showreel.length), 4600);
+    return () => window.clearInterval(id);
+  }, [paused, hovered, showreel.length, brandId]);
 
   const reduceMotion = () =>
     typeof window !== 'undefined' &&
@@ -356,6 +385,10 @@ export const Hero: React.FC = () => {
       {/* Stage: blobs + fruit + product + splash */}
       <div
         ref={stageRef}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onFocusCapture={() => setHovered(true)}
+        onBlurCapture={() => setHovered(false)}
         className="relative z-[2]"
         style={{
           width: 'min(92vw, 720px)',
@@ -453,7 +486,11 @@ export const Hero: React.FC = () => {
           </div>
         ))}
 
-        {/* The product itself, centred and floating */}
+        {/* The product itself, centred and floating.
+
+            The crossfade is deliberately short and vertical: the outgoing pack
+            slides up and fades, the incoming one rises into place. A long dissolve
+            makes a shop hero feel broken, and a flat swap makes it feel cheap. */}
         <div
           ref={canRef}
           className="hero-can-wrap absolute inset-0 grid place-items-center z-[4]"
@@ -468,12 +505,70 @@ export const Hero: React.FC = () => {
               boxShadow: '0 30px 60px -18px rgba(0,0,0,.7), 0 0 0 6px rgba(255,255,255,.14)',
             }}
           >
-            <img
-              src={heroProduct.image}
-              alt={heroProduct.name}
-              className="w-full h-full object-cover"
-            />
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.img
+                key={heroProduct.id}
+                src={heroProduct.image}
+                alt={heroProduct.name}
+                initial={{ opacity: 0, y: 26, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -22, scale: 0.97, position: 'absolute' }}
+                transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            </AnimatePresence>
           </div>
+
+          {/* Caption + hover arrows, directly under the pack. This is what turns a
+              floating picture into a product: it names it and prices it. */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-[1%] z-[6] flex flex-col items-center gap-2">
+            {/* Fixed height, centred content: the longest name in the range is
+                "Household Hygiene Black Dip Cleaning Liquid" at 43 characters,
+                which wraps to two lines. Without a reserved box the caption would
+                grow and shove the pack upward on every rotation. */}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={heroProduct.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.28 }}
+                className="flex h-[86px] w-[min(86vw,340px)] flex-col items-center justify-center text-center"
+              >
+                <p className="text-[12px] font-black uppercase tracking-[0.14em] text-white/60">
+                  {brand.name}
+                </p>
+                <p className="mt-0.5 line-clamp-2 font-display text-[15px] font-extrabold leading-tight text-white sm:text-[17px]">
+                  {heroProduct.name}
+                </p>
+                <p className="mt-0.5 text-[13px] font-bold" style={{ color: 'var(--lime)' }}>
+                  R{heroProduct.price}
+                  {heroProduct.size ? ` · ${heroProduct.size}` : ''}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {showreel.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={() => advance(-1)}
+                aria-label="Previous product"
+                className="hero-arrow left-[6%]"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => advance(1)}
+                aria-label="Next product"
+                className="hero-arrow right-[6%]"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </>
+          )}
         </div>
 
         {/* Sparkles */}
@@ -499,24 +594,50 @@ export const Hero: React.FC = () => {
         ))}
       </div>
 
-      {/* Brand switches (the soda "dots") */}
-      <div className="relative z-10 flex gap-2 mt-1 mb-5">
-        {BRAND_LIST.map((b) => {
-          const on = b.id === brandId;
-          return (
-            <button
-              key={b.id}
-              onClick={() => setBrandId(b.id)}
-              aria-label={`Show ${b.name}`}
-              aria-pressed={on}
-              className="rounded-full transition-all duration-300 h-3"
-              style={{
-                width: on ? 46 : 12,
-                background: on ? b.primaryColor : 'rgba(255,255,255,.28)',
-              }}
-            />
-          );
-        })}
+      {/* Showreel controls. Row one picks the house; row two picks the pack inside
+          it and doubles as the progress indicator, so the visitor can see the
+          rotation rather than being surprised by it. */}
+      <div className="relative z-10 mt-1 mb-5 flex flex-col items-center gap-2.5">
+        <div className="flex gap-2" role="tablist" aria-label="Houses">
+          {BRAND_LIST.map((b) => {
+            const on = b.id === brandId;
+            return (
+              <button
+                key={b.id}
+                onClick={() => pickBrand(b.id)}
+                role="tab"
+                aria-selected={on}
+                aria-label={`Show ${b.name}`}
+                className="rounded-full transition-all duration-300 h-3 cursor-pointer"
+                style={{
+                  width: on ? 46 : 12,
+                  background: on ? b.primaryColor : 'rgba(255,255,255,.28)',
+                }}
+              />
+            );
+          })}
+        </div>
+
+        {showreel.length > 1 && (
+          <div className="flex items-center gap-1.5">
+            {showreel.map((p, i) => {
+              const on = i === slide % showreel.length;
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => setSlide(i)}
+                  aria-label={`Show ${p.name}`}
+                  aria-current={on}
+                  className="h-1.5 rounded-full transition-all duration-300 cursor-pointer"
+                  style={{
+                    width: on ? 26 : 8,
+                    background: on ? '#fff' : 'rgba(255,255,255,.30)',
+                  }}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Copy + CTAs */}

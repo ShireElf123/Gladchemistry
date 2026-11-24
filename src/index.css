@@ -559,3 +559,48 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-grain { opacity: 0.04; }
 }
+
+/* ------------------------------------------------------------------ hero showreel
+   Arrows that only appear when the pointer is over the stage, so the hero stays
+   clean at rest but is obviously interactive the moment you approach it. */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 7;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.25s ease, background 0.2s ease, transform 0.2s ease;
+}
+.hero-can-wrap:hover .hero-arrow,
+.hero-arrow:focus-visible {
+  opacity: 1;
+}
+.hero-arrow:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.hero-arrow:active {
+  transform: translateY(-50%) scale(0.94);
+}
+
+/* Touch devices have no hover, so the arrows must be visible from the start. */
+@media (hover: none) {
+  .hero-arrow {
+    opacity: 0.85;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-arrow {
+    transition: none;
+  }
+}
