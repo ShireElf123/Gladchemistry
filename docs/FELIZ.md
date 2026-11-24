@@ -419,3 +419,38 @@ rectangle. Width, not height, is the constraint on wide products. And **a light 
 it smudges text into something that still reads as words at 2x.**
 
 Pine Gel description corrected to match her pack (translucent green tub, recessed lid, clear collar).
+
+### Turn 84 (Pine Gel, third pass) — she asked whether the tub was too zoomed
+
+She asked: "is this tub not too zoomed remember we zooming out again on the items". Measured before
+answering, using a green-plastic mask rather than a corner-sampled backdrop — the corner sampler was
+catching the faint mint circle and the contact shadow, which is why the first numbers looked wrong.
+
+**Pine Gel, before -> after this pass:**
+
+| measure | before | after |
+|---|---|---|
+| tub width in frame | 75.4% | **73.1%** |
+| tub height in frame | 74.0% | **70.9%** |
+| left / right margin | 103 / 124 px | **127 / 122 px** |
+| top / bottom margin | 217 / 81 px | **218 / 116 px** |
+
+The bottom margin was only 81px — the tub was nearly standing on the frame edge, which is a large part
+of why it felt crowded. It now has 116px to sit on.
+
+**Method note.** The image model will not honour margin instructions reliably: two generations in a row
+put the tub flush to the right edge and near the bottom regardless of "leave generous empty background"
+and "the tub must not touch any edge", even though the same prompt produced correct construction. So
+the reliable way to control composition is to **measure the subject with a colour mask and verify**, not
+to trust the wording. Green-plastic mask: `g > r*1.10 and g > b*1.05 and mean < 200`, then keep columns
+and rows whose coverage exceeds 6% of the frame.
+
+**Deterministic re-staging was tried and is a dead end.** Scaling the render down 0.79 and padding with
+a blur-and-reflect fill smeared the dark tub body into the margins, because `reflect` on a 928px image
+with a 70px pad samples the subject itself. A soft feathered paste also left the tub visibly soft against
+a sharp background. Regenerating and measuring is cleaner than compositing.
+
+**Fine print, again.** It came back legible on every generation. The fix stays
+`tools/soften-fineprint.py`, but the lesson is that the region must cover the WHOLE print column to the
+label's outer edge — my first two attempts started ~40px too far right and left the first words of each
+line readable. Correct regions for this tub: left `150,414 -> 392,792`, right `600,414 -> 820,796`.
