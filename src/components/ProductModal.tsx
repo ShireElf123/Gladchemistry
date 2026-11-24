@@ -45,7 +45,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
           exit={{ opacity: 0, scale: 0.94, y: 12 }}
           transition={{ type: 'spring', damping: 25, stiffness: 280 }}
           onClick={(e) => e.stopPropagation()}
-          className="relative w-full max-w-3xl rounded-[2rem] bg-white shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2"
+          className="relative w-full max-w-3xl rounded-[2rem] bg-white shadow-2xl overflow-y-auto max-h-[92dvh] grid grid-cols-1 content-start md:grid-cols-2 md:overflow-hidden"
         >
           <button
             onClick={onClose}
@@ -54,11 +54,21 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
             <X className="h-5 w-5" />
           </button>
 
-          <div className="bg-slate-100 relative min-h-[280px]">
+          {/* A phone gets ONE column, so this picture sits in a short box and
+              `object-cover` used to slice the top off every 4:5 package: the
+              bicarb sachet lost its crimp, its red line and half its type, so it
+              read as a different package from the desktop one. From `md` the card
+              is two columns and the picture's box is tall enough that cover crops
+              nothing worth keeping, so the desktop framing is untouched.
+
+              On a phone the frame is a fixed height and the picture is CONTAINED,
+              which means the phone shows the same photograph as the desktop —
+              whole, smaller, with the stage tint filling either side. */}
+          <div className="bg-slate-100 relative h-[280px] md:h-auto md:min-h-[280px]">
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain p-3 md:p-0 md:object-cover"
             />
             <span
               className="absolute top-4 left-4 text-[11px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full"

@@ -1760,3 +1760,25 @@ comparison, not a loss. Left alone.
 A 21:9 band with body copy set over its left third collapses on a 375 px screen — the copy would cover
 the photograph and the type would run to one word a line. So the phone gets a taller crop and puts the
 copy underneath. That reasoning is now written into the component instead of only living in my head.
+
+## Turn 113 — the phone was showing a different package
+
+She said the bicarb, the foam bath and the pine gel look wrong on a phone, and that the phone should
+just show the same picture as the PC. She was right, and here is the exact cause.
+
+**The package pictures were never different.** One file, `928×1152` (4:5), served to both. What differed
+was the **frame**. The product dialog is one column on a phone, so the picture sits in a **280 px** box
+and `object-fit: cover` scaled the picture to fill the width — which made it **426 px tall** and cut
+**34% off the top**. From `md` the dialog is two columns and the picture's box is tall enough that cover
+crops nothing, so the desktop always looked right. Same file, two different pictures.
+
+What the 34% took: the bicarb's **crimped weld, its red printed line and the top half of "Bicarbonate of
+Soda"**; the foam bath's **white cap**; the pine gel's **lid and its green collar**. Three different-looking
+packages, none of them hers.
+
+**Fix:** on a phone the frame is a fixed height and the picture is **contained**, so the phone renders the
+same photograph as the desktop — whole, smaller, stage tint filling either side. From `md` nothing
+changes: still full-bleed cover. The dialog also scrolls inside a `92dvh` cap now, so the taller stack of
+text still fits a short phone screen.
+
+No image was edited, regenerated or replaced. One CSS change and one class on the frame.
