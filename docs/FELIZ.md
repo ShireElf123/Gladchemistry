@@ -1646,3 +1646,54 @@ which is the bug that started the whole substitution in the first place.
 - the wordmark's cap height is **0.37×** the leaf's height
 
 The favicon is now cropped from her leaf, so the tab, the header and the footer are all the same mark.
+
+---
+
+## Turn 110 — the price book
+
+She asked for "a book like with the names n prices ... animated book when u click the pages moves to
+the next one, no pics in it just pricelist".
+
+### Where the prices come from
+Her **WhatsApp business catalogue** — the screenshots she sent — read at full resolution. Transcribed
+verbatim into `src/data/pricelist.ts`. Nothing estimated, nothing rounded, and where she lists a range
+(`R95,00 – R145,00`) or two sizes on one line (`5 kg R140 20 kg R380`) the string is reproduced as she
+wrote it. The fragrance list is her WhatsApp message text, names spelled as she spells them
+(*lavie estabelle*, *Sausage*, *coppelia*), because those are the words her customers search for.
+
+### The book
+`/price-list` — thirteen pages, one leaf at a time:
+
+| page | content |
+|---|---|
+| cover | Price list |
+| 1 | Gladchemistry · Skin — shea, skin moist, charcoal bar, deobloks |
+| 2 | Gladchemistry · Hair — oils, hairfood, sheacoco, castor |
+| 3 | Feliz be Glad · Fine fragrance — 20 ml R80, sizes 10–100 ml |
+| 4 | The fragrance shelf — the female and male lists, as a note page |
+| 5–7 | Bubbles · Household, Floor & bulk, Car care |
+| 8 | Combos & start-ups — Combo R95, 137 combo, the three business packs |
+| 9–11 | The shop range — the sixteen site products at site prices, 5 / 5 / 6 |
+| 12 | How to order |
+
+**The turn** is a two-stage transform on one leaf: it rotates out on its right edge with a shadow
+sweeping across the gutter, and the next leaf comes in from the other side, both sharing one
+`perspective` on the spread so the spine behaves like a spine. Arrow keys work; the footer dots are
+clickable; `prefers-reduced-motion` drops the rotation and keeps a fade.
+
+**No photographs anywhere.** Set as printed type: running head, hairline rule, rows aligned on a
+right-hand price column with dot leaders, folio at the foot.
+
+### The thing I did not paper over
+Her catalogue and the site **disagree on six lines** — e.g. car wash & wax is R155 in her catalogue and
+R165 on the site; citrus & pine gel is R52 vs R65; all-purpose cleaner is R95–R145 vs R44. That is a
+pricing decision, not a design one, so the book shows the shop's prices on the shop pages, her prices on
+the catalogue pages, and a collapsible table beneath lists every difference. **She has to choose which
+list is current** — I will not silently overwrite either.
+
+### Verified
+- Every leaf measured at 560 px and at 375 px: all pages ≤ 615 px inside a fixed 640 px page, so the
+  book never changes height mid-turn. (An earlier 8-row split overflowed at 375 px and was caught by
+  the measurement, not by eye.)
+- `npm run build` clean, no TS6133 orphans.
+- Offline render of a leaf checked before shipping.

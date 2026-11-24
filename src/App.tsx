@@ -8,6 +8,7 @@ import { Shop } from './pages/Shop';
 import { Brands } from './pages/Brands';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
+import { PriceList } from './pages/PriceList';
 import { NotFound } from './pages/NotFound';
 
 export function App() {
@@ -23,6 +24,7 @@ export function App() {
               <Route path="/shop" element={<Shop />} />
               <Route path="/brands" element={<Brands />} />
               <Route path="/about" element={<About />} />
+              <Route path="/price-list" element={<PriceList />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
