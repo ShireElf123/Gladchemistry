@@ -167,12 +167,11 @@
   overflow: hidden;
   border-radius: 22px;
   background: #eceae6;
-  /* Every studio render is normalised to a 1:1 stage by
-     `tools/normalise-stage.py`, with the product at 82% of the frame height and
-     centred. Matching the ratio here means `object-fit: cover` never crops, so
-     the picture is shown whole — caps, pumps and handles included — and every
-     product occupies the same visual weight in the grid. */
-  aspect-ratio: 1 / 1;
+  /* Every studio render is shot 4:5. The frame must match that ratio or
+     `object-fit: cover` decapitates the products — the caps, pumps and handles
+     live in the top of the frame and were being sliced off. Match the ratio and
+     the picture is shown whole, exactly as it was composed. */
+  aspect-ratio: 4 / 5;
 }
 
 .stage-photo > img {
