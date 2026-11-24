@@ -37,23 +37,23 @@ export const PRODUCTS: Product[] = [
   {
     id: 'gc-foam-bath',
     preMessage: "Velvet Hydration · pH-Balanced Botanical Foam",
-    variants: ["1.5L Family", "500ml Travel"],
-    notes: ["Organic Rose", "Aloe Vera", "Vegetable Glycerine"],
-    name: 'Organic Rose & Aloe Foam Bath',
+    variants: ["1.5L"],
+    notes: ["Moisturiser", "Essential Oil", "Rose"],
+    name: 'Foam Bath with Moisturiser & Essential Oil',
     brand: 'gladchemistry',
     category: 'Bath & Body',
     price: 125,
     size: '1.5L',
     description:
-      'Rich, velvety foaming bath elixir enriched with glycerine and natural botanicals for deep hydration.',
-    image: '/images/bubbles-range-2.jpg',
+      'Moisturising foam bath with essential oil, in a 1.5 litre bottle. Green Gladchemistry label with the leaf mark.',
+    image: '/images/gladchemistry/gc-foam-bath-1-5l.png',
     badge: 'Organic',
     featured: true,
   },
   {
     id: 'gc-bicarb',
     preMessage: "Pure Mineral Detox · Multi-Use Natural Care",
-    variants: ["500g Pouch", "1kg Tub"],
+    variants: ["500g Sachet"],
     notes: ["100% Pure Sodium Bicarbonate", "Zero Additives"],
     name: 'Pure Bicarbonate of Soda',
     brand: 'gladchemistry',
@@ -61,7 +61,7 @@ export const PRODUCTS: Product[] = [
     price: 55,
     size: '500g',
     description:
-      'Pharmaceutical-grade multipurpose bicarbonate of soda for natural exfoliation, bath soaks, and eco-friendly care.',
+      'Pure bicarbonate of soda in a sealed sachet for exfoliation, bath soaks, cleaning and deodorising.',
     image: '/images/bubbles-range-2.jpg',
   },
   {

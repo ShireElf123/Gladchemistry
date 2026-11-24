@@ -104,3 +104,35 @@ perfume. Same key light, same rim, same cream label with the horizontal red seri
 | `fbg-reed-diffuser` | `feliz/feliz-reed-diffuser-100ml.png` |
 
 Remaining on generic range shots: 4 Gladchemistry products and 7 Bubbles products.
+
+## The real products — from her photographs (turn 71)
+
+Her uploads in `/tmp/arena-coding-uploads/` include genuine phone photographs of the
+actual range, now copied to `public/images/reference/`:
+`IMG-20261118-WA0031.jpg` (the full line-up on white) and `WA0029`, `WA0030`, `WA0032`.
+
+These are the provenance record. Every future Gladchemistry / Bubbles picture should be
+generated **from these**, not from a description, so packaging is real rather than invented.
+
+### What the real photograph establishes
+- **Foam Bath** is NOT rose & aloe. The label says **"Foam Bath with moisturiser and
+  essential oil"**, 1.5 l, translucent **pink** liquid, clear contoured bottle, white flip cap.
+  Catalogue corrected: name, notes, variants (1.5L only), description, image.
+- **Bicarbonate of Soda** ships as a plain **sealed sachet** with the words printed straight
+  on the white foil — no tub, no label art. Variants narrowed to `500g Sachet`.
+- **Thick Bleach** — white squat bottle, green neck, blue/yellow radial burst label, 750ml.
+- **All-Purpose Cleaner** — white bottle, green screw cap, 750ml.
+- **Multi-Purpose Cleaning Liquid** — white bottle, **green trigger spray**, yellow liquid,
+  "Fresh Pine". The site calls this "Bubbles Pine Gel" — a mismatch still to fix.
+- **Pine Gel / Citrus Gel** — small clear tubs with green lids, not bottles.
+- **Bubbles Bath Fizzies** — big round tubs of pastel balls (listed under Gladchemistry).
+
+### Still wrong on the site, needs her confirmation
+`bd-dishwashing` ("Hygiene Dishwashing Liquid"), `bd-black-dip` ("Household Hygiene Black
+Dip") and `bd-citrus-gel` have no counterpart I can see in the photographs. A blue "CAR" 5L
+jerry can is visible in another upload (`WA0026`), which probably is the car wash.
+
+### Turn 71 — `gc-foam-bath`
+`public/images/gladchemistry/gc-foam-bath-1-5l.png` — generated FROM her photograph as
+reference. Real bottle contour, real white flip cap, real pink liquid, real green label with
+the leaf mark and "Gladchemistry produces". Soft warm-grey sweep with a pale blush circle.
