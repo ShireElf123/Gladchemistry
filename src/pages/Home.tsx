@@ -110,8 +110,33 @@ export const Home: React.FC = () => {
   const [activeBrand, setActiveBrand] = useState<BrandId | 'all'>('all');
   const gridRef = useRef<HTMLDivElement>(null);
 
-  const visibleProducts =
-    activeBrand === 'all' ? PRODUCTS : PRODUCTS.filter((p) => p.brand === activeBrand);
+  /* The home page shows a SELECTION, not the catalogue. Twelve cards is a wall on
+     a phone; six is a showcase. Featured products lead, then the rest fill up to
+     six, so every house shows the same number and the row always ends cleanly. */
+  const HOME_LIMIT = 6;
+  const ordered = (list: typeof PRODUCTS) => [
+    ...list.filter((p) => p.featured),
+    ...list.filter((p) => !p.featured),
+  ];
+
+  const forHouse = (id: BrandId | 'all') => {
+    if (id !== 'all') return ordered(PRODUCTS.filter((p) => p.brand === id)).slice(0, HOME_LIMIT);
+    /* Taken house by house in turn, so the default view always shows all three
+       houses instead of the first six products in file order — which were all
+       Gladchemistry and Feliz and made the range look like two brands, not three. */
+    const lanes = BRAND_LIST.map((b) => ordered(PRODUCTS.filter((p) => p.brand === b.id)));
+    const out: typeof PRODUCTS = [];
+    for (let round = 0; out.length < HOME_LIMIT; round++) {
+      const before = out.length;
+      lanes.forEach((lane) => {
+        if (lane[round] && out.length < HOME_LIMIT) out.push(lane[round]);
+      });
+      if (out.length === before) break; // every lane exhausted
+    }
+    return out;
+  };
+
+  const visibleProducts = forHouse(activeBrand);
 
   /* Re-stagger the grid whenever the filter changes, like the soda chips.
 
@@ -149,7 +174,6 @@ export const Home: React.FC = () => {
     };
   }, [activeBrand]);
 
-  const featured = PRODUCTS.filter((p) => p.featured);
   const storyRef = useReveal();
   const howRef = useReveal();
 
@@ -175,8 +199,7 @@ export const Home: React.FC = () => {
             Pick your <em className="u-mark not-italic" style={{ color: 'var(--fern)' }}>range</em>
           </h2>
           <p className="mt-4 max-w-[520px] text-[16px] leading-relaxed text-slate-500">
-            {PRODUCTS.length} products across three houses, one very easy decision.
-            Filter by house to narrow it down.
+            A short selection from each house — the full catalogue of {PRODUCTS.length} lives in the shop.
           </p>
 
           {/* Filter chips */}
@@ -214,7 +237,7 @@ export const Home: React.FC = () => {
 
           <div className="mt-12 text-center">
             <Link to="/shop" className="btn btn-ink">
-              Shop all {PRODUCTS.length} products →
+              See all {PRODUCTS.length} in the shop →
             </Link>
           </div>
         </div>
@@ -288,16 +311,21 @@ export const Home: React.FC = () => {
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[78%] aspect-square rounded-full"
               style={{ background: 'rgba(255,255,255,.14)' }}
             />
+            {/* Her own fragrance photography, on the dark plinth it was shot on.
+                It replaces two older template shots that were cropped to a 3:4
+                frame; these carry the same lighting as the section behind them. */}
             <img
-              src="/images/reed-diffuser.jpg"
-              alt="Signature Amber Reed Diffuser"
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[58%] rounded-[28px] object-cover shadow-2xl -rotate-6"
-              style={{ aspectRatio: '3 / 4' }}
+              src="/images/gallery/fragrance-collection-dark.jpg"
+              alt="The Feliz be Glad fragrance collection"
+              loading="lazy"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[92%] rounded-[26px] object-cover shadow-2xl -rotate-3"
+              style={{}}
             />
             <img
-              src="/images/felis-fragrances.jpg"
-              alt="Feliz be Glad fragrance"
-              className="absolute right-[2%] bottom-[4%] w-[42%] rounded-[22px] object-cover shadow-2xl rotate-6"
+              src="/images/gallery/scandal-ladies-dark.jpg"
+              alt="Inspired by Scandal, Ladies"
+              loading="lazy"
+              className="absolute right-[-2%] bottom-[-6%] w-[34%] rounded-[18px] object-cover shadow-2xl rotate-6"
               style={{ aspectRatio: '3 / 4' }}
             />
           </div>
@@ -437,40 +465,84 @@ export const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Product cluster */}
-        <div className="relative h-[340px] grid place-items-center">
+        {/* Photography cluster. These are her own Gladchemistry personal-care
+            shots, used as decoration rather than as catalogue cards: two overlap
+            behind, the third sits forward as the subject. */}
+        <div className="relative h-[380px] sm:h-[440px] grid place-items-center">
           <div
             className="absolute w-[86%] aspect-square rounded-full"
             style={{ background: 'rgba(255,255,255,.06)' }}
           />
-          {featured.slice(0, 2).map((p, i) => (
-            <img
-              key={p.id}
-              src={p.image}
-              alt={p.name}
-              className="absolute rounded-[24px] object-cover shadow-2xl"
-              style={{
-                height: '76%',
-                aspectRatio: '3 / 4',
-                left: i === 0 ? '14%' : 'auto',
-                right: i === 1 ? '14%' : 'auto',
-                transform: `rotate(${i === 0 ? -7 : 7}deg)`,
-                zIndex: 2 - i,
-              }}
-            />
-          ))}
+          <img
+            src="/images/gallery/hair-food.jpg"
+            alt="Gladchemistry Hair Food jar"
+            loading="lazy"
+            className="absolute rounded-[22px] object-cover shadow-2xl"
+            style={{
+              height: '62%',
+              aspectRatio: '4 / 5',
+              left: '2%',
+              top: '8%',
+              transform: 'rotate(-9deg)',
+              zIndex: 1,
+            }}
+          />
+          <img
+            src="/images/gallery/sheacoco-hair-care.jpg"
+            alt="Gladchemistry SheaCoco Hair Care jar"
+            loading="lazy"
+            className="absolute rounded-[22px] object-cover shadow-2xl"
+            style={{
+              height: '58%',
+              aspectRatio: '4 / 5',
+              right: '1%',
+              bottom: '4%',
+              transform: 'rotate(10deg)',
+              zIndex: 1,
+            }}
+          />
+          <img
+            src="/images/gallery/raw-shea-butter.jpg"
+            alt="Raw Shea Butter in a white bowl"
+            loading="lazy"
+            className="absolute rounded-[26px] object-cover shadow-2xl"
+            style={{
+              height: '74%',
+              aspectRatio: '4 / 5',
+              transform: 'rotate(-2deg)',
+              zIndex: 2,
+              boxShadow: '0 34px 70px -22px rgba(0,0,0,.85)',
+            }}
+          />
         </div>
       </section>
 
       {/* ============================================== 7. CLOSER */}
-      <section className="px-[5vw] py-[100px] text-center" style={{ background: 'var(--cream)' }}>
+      <section
+        className="relative overflow-hidden px-[5vw] py-[100px] text-center"
+        style={{ background: 'var(--cream)' }}
+      >
+        {/* Faint photograph behind the close, bled to the top edge and faded out.
+            Decoration only — aria-hidden, and quiet enough that the copy stays first. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 top-0 h-[220px]"
+          style={{
+            backgroundImage: 'url(/images/gallery/skin-moist.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center 40%',
+            opacity: 0.10,
+            maskImage: 'linear-gradient(180deg,#000 0%,#0000 88%)',
+            WebkitMaskImage: 'linear-gradient(180deg,#000 0%,#0000 88%)',
+          }}
+        />
         <span
-          className="inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em]"
+          className="relative z-10 inline-block rounded-full px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.14em]"
           style={{ background: 'rgba(16,35,28,.07)', color: 'var(--ink)' }}
         >
           Ready when you are
         </span>
-        <h2 className="display-lg mt-4" style={{ color: 'var(--ink)' }}>
+        <h2 className="relative z-10 display-lg mt-4" style={{ color: 'var(--ink)' }}>
           Get your <em className="u-mark not-italic" style={{ color: 'var(--fern)' }}>care</em> sorted.
         </h2>
         <p className="mt-4 mx-auto max-w-[44ch] text-[16px] leading-relaxed text-slate-500">

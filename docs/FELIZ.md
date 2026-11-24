@@ -1374,3 +1374,43 @@ progressive. Committed to git this time.
 Verified: all ten files return 200 from the built site, all ten paths are present in the production
 bundle, and the Skin Moist label was zoomed to full resolution to confirm no invented claim is legible in
 the new close-up tile.
+
+### Turn 104 — shorter home grid, and the skincare photography as decoration
+
+Her instruction: **"lets cut the items short on home page n also use some the hair food n stuff on the home
+to decorate it n make it more elegant"**.
+
+**1. The home grid is now a selection, not the catalogue.** `(a) cut short — what she asked for`:
+`HOME_LIMIT = 6`. Featured products lead within each house, then the rest fill up to six.
+
+The default "All" view was broken by the obvious implementation and is now interleaved by house: taking
+the first six products in file order gave four Gladchemistry and two Feliz and **no Bubbles at all**, so
+the range looked like it had two houses. The lanes are now taken in turn — one from each house, then a
+second round, and so on — so the default view always shows all three. Verified against the real data:
+
+| view | shows |
+|---|---|
+| All | Bath Fizzies (GC), Reed Diffuser (FBG), Car Wash & Wax (BD), Foam Bath (GC), Scandal (FBG), Thick Bleach (BD) |
+| Gladchemistry | 4 of 4 |
+| Feliz be Glad | 5 of 5 |
+| Bubbles | 6 of 7 — Black Dip drops off |
+
+Copy corrected with it: the line under the heading said *"16 products across three houses… filter by
+house to narrow it down"*, which no longer described a six-card grid. It now reads *"A short selection from
+each house — the full catalogue of 16 lives in the shop."* and the button says *"See all 16 in the shop"*.
+
+**2. The skincare photography now decorates, rather than only sitting in the gallery band.**
+- **Promo section ("Order by the case")**: the two tilted product cards were replaced with three of her
+  own shots — Hair Food and SheaCoco behind at −9° and +10°, Raw Shea Butter forward at −2° with a deeper
+  shadow. Overlapping depth, not a row of cards.
+- **Feliz be Glad story section**: the two older template shots (`/images/reed-diffuser.jpg`,
+  `/images/felis-fragrances.jpg`, both cropped to 3:4) were replaced with the dark fragrance line-up and the
+  Scandal bottle. Those two carry the same dark-plinth lighting as the section behind them, so the cluster
+  stops looking pasted on.
+- **Closing section**: a faint Skin Moist photograph bled across the top edge at 10% opacity, masked to fade
+  out, `aria-hidden` and behind the copy — texture rather than a picture.
+
+Nothing new animates. All three placements are static decoration, so "Pause motion" is unaffected and the
+existing entrance tweens still fire as before.
+
+Build clean; all nine gallery paths referenced from the home page resolve in `dist/`.
