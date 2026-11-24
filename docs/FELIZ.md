@@ -1048,3 +1048,57 @@ Description in `products.ts` corrected: her pouch is foil with a red line and on
 not "a plain sealed foil sachet" — no weight, no ingredients, no other print exists on it.
 
 **15 of 16 rebuilt.** Remaining: Foam Bath.
+
+### Turn 99 — `gc-foam-bath` rebuilt from her photograph — 16 of 16
+
+Reference: `IMG-20261118-WA0031.jpg`. **Measured silhouette** (walking contiguous non-background width
+from the bottle axis, per row, over 530 rows): total **H 526px**, **widest 229px at 70% of the way
+down**, **waist 133px at 40% (0.58 of widest)**, **upper bulb 181px (0.79 of widest)**, giving a
+**height:width of 2.30**.
+
+**Faults in my old render** (turn 71): a squat, gentle-waisted flask (H/W ~1.45) with **pink** juice,
+which is what "1.5 l foam bath" had led me to invent. Her bottle is tall and emphatically
+hourglass — a broad lower body with the widest point low down, a hard pinch at 40%, then a narrower
+bulbous shoulder carrying a big moulded oval medallion, and a plain stubby white screw cap.
+
+**What her bottle actually is:**
+1. **Bright, light cherry red** — a translucent cherryade red, almost luminous through the wide parts,
+   roughly **#C71726** in the body deepening only moderately at the edges. Not pink, not burgundy.
+2. **Measured hourglass**: widest at 70% down, waist at 40%, upper bulb at 79% of the body width.
+3. **Plain white cylindrical screw cap**, ~40% of the bottle width, ~11% of its height. No flip-top.
+4. **Large recessed oval medallion** moulded into the upper bulb — a shallow oval dish with a
+   concentric raised ridge.
+5. **Label in the lower third**: top three quarters a **pale lilac panel** (leaf mark, "Gladchemistry
+   products", big white "Foam Bath", italic ingredient line), bottom quarter a **dark green band**
+   with the pink flower rising across it, two blocks of fine print, the striped triangle mark and
+   "1.5L" boxed.
+
+**Accepted render measures H/W 2.19 against 2.30**, widest low in the body, waist visible.
+**One honest deviation:** the upper bulb came out nearly as wide as the lower body (ratio ≈ 0.9
+against her 0.79), so the waist is less dramatic than the real bottle. Recorded rather than hidden.
+
+**A long fight with invented fine print, worth writing up.** The model kept rendering crisp,
+readable lorem-ipsum in the green band. Everything I tried to erase it made things worse before it
+got better:
+- `tools/soften-fineprint.py` at feather 14/10/5 → softened **rectangles** with readable glyph
+  fragments surviving at the box edges.
+- Blur radius 30 → an obvious pale smudge; radius 9 → still-glyph fuzzy lumps, and blur **lifts
+  luminance**, so the block read *lighter* than the band and announced itself as a rectangle.
+- Per-row flat-fill from the band's own green → cleaned, but left hard rectangular seams.
+- "Protect the artwork" masks built on **saturation** or on **brightness > 186** both backfired: the
+  pale type is itself bright and desaturated, so the mask shielded the text it was meant to remove,
+  and the red bottle flanks blew through the saturation test.
+- What finally worked was **geometry, not colour**: three rectangles laid out to stop short of the
+  stem (x<422) and of the size graphics (x<618), per-row flat fill from unprinted green, a feathered
+  4px mask, a small tonal smoothing pass to kill the rectangle edges, then fine print rows at 28%
+  opacity. Illegible at 3×, artwork intact.
+
+**Lesson to carry:** when an eraser keeps failing, stop tuning it and **place the region by
+measured geometry**. Colour-based protection masks cannot separate pale print from pale artwork.
+
+Also worth noting: 5 generations were spent on this one label band, which is far more than any other
+item. The next item with fine print should go straight to geometry.
+
+**16 of 16 rebuilt.** The whole catalogue — three Bubbles gels/sprays plus five Feliz perfumes and
+all eight Gladchemistry lines — is now drawn from her own photographs rather than from catalogue
+copy.
