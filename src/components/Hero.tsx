@@ -316,8 +316,11 @@ export const Hero: React.FC = () => {
       className="hero-shell relative overflow-hidden"
       style={{
         minHeight: '100svh',
-        background:
-          'radial-gradient(ellipse at 50% 70%, #0e6a72 0%, var(--ink) 65%)',
+        /* The ground is now the house's own photographic sweep. It is shot dark at
+           the edges on purpose so it can sit UNDER the flat brand gradient: the
+           gradient covers any seam at any aspect ratio, and the photograph supplies
+           the grain, the light pool and the falloff a CSS gradient cannot fake. */
+        background: `radial-gradient(ellipse at 50% 70%, rgba(14,106,114,.55) 0%, rgba(8,30,24,.86) 62%, var(--ink) 100%), url(${brand.heroImage}) center/cover no-repeat, var(--ink)`,
         padding: '24px 5vw 40px',
         display: 'flex',
         flexDirection: 'column',
@@ -433,24 +436,23 @@ export const Hero: React.FC = () => {
           }}
         />
 
-        {/* Splash behind the pack */}
+        {/* Light pool behind the pack.
+
+            This used to be the house photograph at blur(2px), masked to fade out.
+            It was the third bad picture she spotted on Bubbles — and on any house it
+            put a second set of products behind the product being sold. Replaced with
+            a soft glow in the house colour: it does the same job of separating the
+            pack from the ground, without adding pictures that are not hers. */}
         <div
           ref={splashRef}
           aria-hidden
-          className="absolute left-1/2 top-[-17%] w-[126%] -translate-x-1/2 z-[1] pointer-events-none"
+          className="absolute inset-x-0 top-[-6%] bottom-0 z-[1] pointer-events-none"
           style={{
             opacity: 0,
-            maskImage: 'linear-gradient(180deg,#000 52%,#0000 88%)',
-            WebkitMaskImage: 'linear-gradient(180deg,#000 52%,#0000 88%)',
+            background: `radial-gradient(ellipse 52% 46% at 50% 52%, ${accent[0]}2e 0%, ${accent[1]}14 46%, transparent 72%)`,
+            filter: 'blur(18px)',
           }}
-        >
-          <img
-            src={brand.heroImage}
-            alt=""
-            className="w-full h-auto opacity-60"
-            style={{ filter: 'blur(2px) saturate(1.2)' }}
-          />
-        </div>
+        />
 
         {/* Floating "fruit" — here, the range's hero packs */}
         {FRUIT_POS.map((pos, i) => (

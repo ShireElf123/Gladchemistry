@@ -1452,3 +1452,57 @@ inside the same click, so the pack never renders one frame of the previous house
 
 Verified in the built bundle: the 4600 ms interval, the arrow styles (7 selectors), the fixed caption box,
 the arrow `aria-label`s, and the house/pack dot roles.
+
+### Turn 106 — the third hero picture, and an honest verdict on how pro the hero is
+
+Her observation: **"the third background pic is a bad pic"** and a question: **"how pro is the hero now?"**
+
+**She was right about the third one, and the problem was worse than one picture.**
+`brands.ts` pointed the three houses at `hero-organic.png`, `hero-fragrance.png` and
+`bubbles-range-1.jpg`. Measured:
+
+| file | what it actually is | source |
+|---|---|---|
+| `hero-organic.png` | amber pump bottles with blank labels among eucalyptus and a bath bomb — **not her products** | 1408×768 stock render |
+| `hero-fragrance.png` | perfume bottles on a travertine plinth — **not her bottles** | 1408×768 stock render |
+| `bubbles-range-1.jpg` | her own kitchen counter: Dishwashing, Thick Bleach, Pine Gel on black granite, phone snap | **720×1280** |
+
+So the first two were stock images standing in for products she does not sell, and the third was a phone
+photo of her counter being stretched to **907 px wide** — a 1.26× upscale, which is why it looked soft and
+cluttered. All three are gone from the hero.
+
+**Replaced with three purpose-shot studio sweeps**, 1376×768, 45–53 KB each: empty seamless cycloramas in
+each house's own colour (sage for Gladchemistry, bronze for Feliz be Glad, teal for Bubbles), lit from the
+upper left, grain included to stop banding. Rejected first attempts are kept in `.work/t106/`: one grew dark
+blobs at the frame edges, one had visible wall panels and a hard corner.
+
+**Two structural changes so they actually work:**
+1. The hero ground is now `radial-gradient(…) , url(sweep) center/cover, var(--ink)` — the photograph is
+   *under* the flat brand gradient rather than replacing it. The sweeps are shot dark at the edges for
+   exactly this reason, so the gradient covers any seam at any aspect ratio while the photograph supplies
+   the grain, the light pool and the falloff CSS cannot fake.
+2. The in-stage "splash" was the house photograph at `blur(2px)` — which put **a second set of products
+   behind the product being sold**, and was the thing she was actually seeing as the bad third picture.
+   Replaced with a soft house-coloured glow: same job of separating the pack from the ground, no
+   duplicate imagery.
+
+**Her question — how pro is the hero now? An honest answer, in three parts.**
+
+*Genuinely agency-level now:* it rotates every product in the house with a proper crossfade, names and
+prices each one, shows the rotation as a progress bar, reveals arrows only on approach, stops itself on
+hover, focus, Pause motion and reduced-motion, and sits on a real photographic ground instead of a CSS
+gradient. That is more than most small-brand storefronts do.
+
+*Still short of agency standard, in order of impact:*
+1. **The floating "fruit" tiles** — six small rounded squares of product shots drifting around the pack.
+   That is a 2021 DTC device. An agency hero would drop them and let the pack breathe.
+2. **The headline is a slogan, not a proposition.** "Pure care, properly made." says nothing a competitor
+   could not say. It should name what she does and for whom.
+3. **Two headings compete.** The H1 and the brand tagline below the pack both try to lead the section.
+4. **The stat cards** (16 Products / 3 Houses) are the weakest element on the screen; a visitor learns
+   both facts elsewhere within a second of scrolling.
+5. **The pack is a photograph in a rounded rectangle.** An agency hero usually has the product cut out
+   with no frame at all, so it sits on the sweep as an object.
+6. **No scroll cue.** On a 100svh hero with nothing below the fold, visitors do not know there is more.
+
+Not changed without her say-so — these are design decisions, not defects.
