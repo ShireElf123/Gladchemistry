@@ -107,8 +107,8 @@ export const PRODUCTS: Product[] = [
     price: 195,
     size: '10ml (oil-based)',
     description:
-      'Captivating honey, gardenia, and blood orange notes in a sleek sculpted teal glass flacon.',
-    image: '/images/felis-fragrances.jpg',
+      'Captivating honey, gardenia, and blood orange notes in a tall clear glass flacon with a matte black cap.',
+    image: '/images/feliz/feliz-scandal-ladies-50ml.png',
     badge: 'Top Pick',
     featured: true,
   },

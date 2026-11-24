@@ -43,3 +43,28 @@ sweep. Reference: `public/images/pilot/feliz-hugo-men-50ml.png`.
 - Prices per fragrance, per size. The catalogue has a flat R195; needs her
   numbers before it ships.
 - Which scents ship in which sizes.
+
+## Product imagery — the pipeline
+
+User's instruction, turn 67: **one image per turn, one at a time, each cloned from the
+approved pilot.** Do not batch. Do not run ahead.
+
+- Approved reference: `public/images/pilot/feliz-hugo-men-50ml.png` (option 1, turn 66).
+- Method: `generate_image` with `images: [pilot]` and a prompt that says *clone this exact
+  photograph, change only X*. This keeps bottle, cap, label, light and sweep identical.
+- Then: save to `public/images/feliz/`, point that one product's `image` field at it,
+  show the user, commit + push.
+
+### Turn 67 — `fbg-scandal-ladies`
+`public/images/feliz/feliz-scandal-ladies-50ml.png` — cloned from pilot, oil warmed to
+rose-amber with a blush rim light. Live on the Scandal card.
+
+Straightened the Scandal description at the same time: it claimed "sleek sculpted teal
+glass flacon", which matched neither the pilot nor her real range. Now reads "tall clear
+glass flacon with a matte black cap".
+
+### Rejected / not used
+Four images generated in one burst before the user's one-per-turn instruction was clear
+were pulled off the site and parked in `.work/unapproved/` (gitignored):
+`feliz-floral-women-50ml.png`, `feliz-cool-water-men-50ml.png`,
+`gc-foam-bath-1-5l.png`, `gc-bicarbonate-soda.png`.
