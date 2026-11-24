@@ -811,3 +811,42 @@ across the full frame, matching the reference. That is intended here, not a crop
 itself sits in the lower left with generous air, exactly as in her photograph.
 
 **9 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, and four Feliz perfumes.
+
+### Turn 93 — Inspired by Scandal Ladies, 50ml
+
+Reference: `IMG-20261118-WA0028.jpg`, the leftmost of the four Feliz perfumes lined up on white.
+I isolated this bottle: teal extent x 415-545, full bottle incl. cap y 177-681 (h 505), body width 116,
+cap width 88 — so **cap/body = 0.76** and **body width / total height = 0.23**. Slender, roughly 4:1.
+
+**My old render was again a different product** — the same class of error as the reed diffuser. I had:
+- a tall, plain rectangular bottle with parallel sides and a small black cylindrical cap
+- rosy-pink juice
+- a cream "Feliz be Glad" label on the front
+- a dark charcoal background
+
+Hers:
+1. **An angular flask that FLARES OUT toward the base** — narrow at the top, widest at the bottom, with a
+   stepped flared glass plinth kicking outward. The silhouette is a chisel, not a slab. This is the entire
+   character of the bottle.
+2. **Vivid TEAL glass** on the edges and especially the flared base, with **pale chartreuse / yellow-green**
+   juice inside. The teal-to-chartreuse contrast IS the product's look.
+3. **A tall metallic TEAL cap with fine vertical fluting**, about 75% of the body width, sitting on two thin
+   polished chrome bands.
+4. **A small brushed-silver name plate low on the flared base**, angled slightly, reading "Inspired by /
+   SCANDAL / Ladies" in three lines.
+5. Thick heavy glass with diagonal facet edges across the front and a long pale streak of reflected light.
+
+**Same root cause as turn 92, and worth naming plainly: I built these Feliz items early on from the
+catalogue name, not from her photographs.** "Inspired by Scandal Ladies" is a name, and I dressed it in a
+plausible generic flacon with a house label. Plausible is exactly what makes that failure survive review —
+nothing about the old image looked broken, it simply was not her product.
+
+Generated clean on the first pass, because the shape instruction was structural rather than decorative:
+"narrow at the top and FLARES OUT toward the base... the widest point is at the very bottom... the glass
+kicks outward into a wide flat plinth." Naming the silhouette — *a chisel, not a slab* — did more than
+listing the colours would have.
+
+Plate text verified at 3x: "Inspired by / SCANDAL / Ladies" exactly, nothing invented, blank elsewhere.
+
+**10 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, and three Feliz perfumes
+(Hugo Men, Diesel Men, Ted Lapidus car & roll-on).
