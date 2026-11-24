@@ -731,3 +731,38 @@ Three lessons, all worth keeping:
   silhouette that's partly hidden — measure only the free side.
 
 Final: wFill 52.8% / hFill 87.0% (bottle h/w 2.35). 7 of 16 rebuilt.
+
+### Turn 91 — Car Wash & Wax 5L
+
+Reference: `IMG-20261118-WA0026.jpg` — and this one is a gift: the can sits alone on white, no neighbours,
+no occlusion. First reference in this whole exercise I could measure without having to work around
+something. (Backup tag `backup-turn90-hand-sanitizer` pushed at `b54484e` as a restore point before starting.)
+
+**This was the item I had been calling "already solid". It wasn't.** Reading it properly at 4–10x found
+three elements I had simply omitted, all of them prominent:
+
+1. **The "NEW" badge** — a small tilted maroon-red oval, white lettering, overlapping the BUBBLES badge's
+   rim on the upper right. Completely absent from my render.
+2. **The thin olive-green leafy wreath** arcing around the right side of the white ellipse, carrying small
+   lavender-purple bell flowers and round berries. I had a few scattered purple bubbles and no wreath —
+   the wreath is what ties the label together.
+3. **The label's vertical placement.** In her photo the label's top edge is at **40%** of the can's height
+   and its bottom at **80%**, leaving a tall plain band of cobalt below it. Mine sat high with the label
+   running nearly to the base. This was the biggest single difference and the most obvious at card size.
+
+Also corrected: the can is **h/w 1.44** (mine was 1.24 — too square), and the white handle is chunkier and
+spans more of the top than I had it.
+
+**Label size is the model's least stable dimension.** Across three passes the label width measured 0.87,
+then 0.65, then 0.75 of the can width, against a reference of 0.62. It also drifted upward twice. What
+finally worked was stating the placement as a **percentage of the can's height** ("top edge at 40% down the
+can, bottom at 80%") and adding the consequence in plain words: *"Above the label there is blue; below the
+label there is blue."* Prose like "the label sits low" did nothing at all.
+
+**A measurement trap worth recording:** cream/ivory label masks keep catching the off-white studio
+background, so `cream.sum()` returns the whole frame. I wasted three attempts chasing that. The fix is to
+sample the label's actual RGB first and threshold tightly around it (here 244,239,218 — the blue channel
+sits clearly below red and green), rather than using a generic "bright and low-saturation" rule.
+
+Final: can h/w 1.51 vs 1.44 reference; label top 36% / bottom 76% vs 40% / 80%; wFill 71.7% / hFill 86.9%.
+**8 of 16 rebuilt.** Remaining: Bath Fizzies, Bicarb Sachet, Foam Bath, four Feliz perfumes, reed diffuser.
