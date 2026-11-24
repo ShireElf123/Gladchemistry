@@ -17,7 +17,7 @@ Products whose native resolution cannot carry a 4:5 card without being
 enlarged on screen are reported `weak` and handled by the typographic plate.
 """
 import sys, os, json
-sys.path.insert(0, os.path.dirname(__file__) + '/../p7')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from segment import bbox
 from PIL import Image
 import numpy as np
@@ -118,14 +118,14 @@ def main(which):
         if not r:
             print(f'{pid:30} FAILED'); continue
         img, meta = r
-        os.makedirs('.work/p9/f3', exist_ok=True)
-        f = f'.work/p9/f3/{pid}.jpg'
+        os.makedirs('.work/frames', exist_ok=True)
+        f = f'.work/frames/{pid}.jpg'
         img.save(f, quality=90, optimize=True, progressive=True)
         meta['kb'] = round(os.path.getsize(f) / 1024)
         report[pid] = meta
         print(f"{pid:30} {meta['src']:>10} {meta['out']:>10} bar {meta['bar']:.2f} "
               f"up {meta['up']:4.2f} {meta['kb']:>4}KB  {'PLATE' if meta['weak'] else 'photo'}")
-    json.dump(report, open('.work/p9/f3.json', 'w'), indent=1)
+    json.dump(report, open('.work/frames.json', 'w'), indent=1)
     w = [k for k, v in report.items() if v['weak']]
     print(f"\n{len(report)} frames · {len(report)-len(w)} photo · {len(w)} plate")
     print('plate:', ', '.join(w))

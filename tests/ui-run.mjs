@@ -161,13 +161,30 @@ await app.destroy();
 
 /* ------------------------------------------------------------------ C */
 
-console.log('=== C. A WEAK PHOTOGRAPH IS TYPESET, NEVER UPSCALED ===');
-app = await mount({ page: 'card', productId: 'bubbles-citrus-gel' });
+console.log('=== C. ARTWORK WHOSE LABEL IS NOT HERS IS TYPESET, NEVER SHOWN ===');
+
+/* The car interior cleaner is the one product with no photograph of it in the
+   repo at all. The frame that used to ship invented a white jerrycan and a
+   paw-print mark that is not her brand, so the picture was withdrawn. The tile
+   must still sell the product: name, size, price, enquiry. */
+app = await mount({ page: 'card', productId: 'bubbles-car-interior' });
 check('no image element at all', !dom.window.document.querySelector('.stage img'));
-check('the name is still listed', /Citrus Gel/i.test(bodyText()));
-check('the price is still listed', /R65/.test(bodyText()));
-check('the size is still listed', /1kg Tub/i.test(bodyText()));
+check('the name is still listed', /Car Tyre/i.test(bodyText()));
+check('the price is still listed', /R50/.test(bodyText()));
+check('the size is still listed', /1L/i.test(bodyText()));
 check('a typographic plate is used', Boolean(dom.window.document.querySelector('.plate')));
+check('the plate says why, not "coming soon"', /reshot/i.test(bodyText()));
+check('the enquiry link survives', Boolean(dom.window.document.querySelector('a[href*="wa.me"]')));
+await app.destroy();
+
+/* And the products that DID get her real photograph back must actually show it,
+   otherwise the withdrawal has quietly emptied the catalogue instead of fixing
+   it. */
+app = await mount({ page: 'card', productId: 'gc-foam-bath-15l' });
+const fb = dom.window.document.querySelector('.stage img');
+check('reinstated photo is rendered', Boolean(fb), fb?.getAttribute('src'));
+check('it is her photograph, not a generated frame', /c85579b9/.test(fb?.getAttribute('src') ?? ''));
+check('the plate is NOT used', !dom.window.document.querySelector('.plate'));
 await app.destroy();
 
 /* ------------------------------------------------------------------ D */

@@ -41,6 +41,20 @@ export interface Product {
    * hiding a soft photo is honest, upscaling it is not.
    */
   photoGrade?: 'strong' | 'weak';
+  /**
+   * Why the artwork was withdrawn, when it was.
+   *
+   * The frames in this catalogue were generated, and the generator laid out
+   * white label fields with typeset words wherever it could not read her real
+   * printed artwork. A white label is not a neutral placeholder on a page that
+   * sells her products -- it says "this is what you will receive", in a brand
+   * that is not hers. Those frames are withheld and the tile is typeset from
+   * the product's own name, size and price instead.
+   *
+   * Set this only to record a real finding. Never use it to hide a picture
+   * that is merely soft: softness is `photoGrade: 'weak'`.
+   */
+  artworkWithheld?: string;
 }
 
 type P = Omit<Product, 'preMessage' | 'notes'> & { preMessage?: string; notes?: string[] };
@@ -66,7 +80,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 96,
     size: '125g Tub',
-    image: '/images/frames/gc-skin-moist-125g.af6e1f45.jpg',
+    image: '/images/frames/gc-skin-moist-125g.50a3ae63.jpg',
     imageRole: 'photo',
     badge: 'Bestseller',
     featured: true,
@@ -82,7 +96,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 150,
     size: 'Large Tub',
-    image: '/images/frames/gc-skin-moist-family.916315ba.jpg',
+    image: '/images/frames/gc-skin-moist-family.5775d2c7.jpg',
     imageRole: 'photo',
     featured: true,
     preMessage: 'Family size · Same formula, bigger tub',
@@ -110,7 +124,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair Care',
     price: 120,
     size: '125g Tub',
-    image: '/images/frames/gc-sheacoco-hair-care.9b843d62.jpg',
+    image: '/images/frames/gc-sheacoco-hair-care.2ed1845d.jpg',
     imageRole: 'photo',
     preMessage: 'Shea + coconut · For receding hairlines',
     description:
@@ -123,7 +137,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair Care',
     price: 45,
     size: '125g Tub',
-    image: '/images/frames/gc-hair-food.24ffa9f6.jpg',
+    image: '/images/frames/gc-hair-food.0761069c.jpg',
     imageRole: 'photo',
     preMessage: 'Petroleum jelly base · Softens and seals',
     description:
@@ -136,7 +150,7 @@ export const PRODUCTS: Product[] = [
     category: 'Hair Care',
     price: 55,
     size: '100ml',
-    image: '/images/frames/gc-hair-oil.66618eb7.jpg',
+    image: '/images/frames/gc-hair-oil.4a05012c.jpg',
     imageRole: 'photo',
     preMessage: 'Organic blend · For beard growth and scalp health',
     description:
@@ -175,7 +189,7 @@ export const PRODUCTS: Product[] = [
     category: 'Skin Care',
     price: 125,
     size: 'Tub + 100g Bar',
-    image: '/images/frames/gc-skin-moist-charcoal.22ad6024.jpg',
+    image: '/images/frames/gc-skin-moist-charcoal.178238db.jpg',
     imageRole: 'photo',
     preMessage: 'Combo · Acne and dark spots',
     description:
@@ -188,7 +202,7 @@ export const PRODUCTS: Product[] = [
     category: 'Bath & Body',
     price: 110,
     size: '1.5L + 100g',
-    image: '/images/frames/gc-foam-bath-15l.ade87366.jpg',
+    image: '/images/frames/gc-foam-bath-15l.c85579b9.jpg',
     imageRole: 'photo',
     preMessage: 'Combo · Any foam bath, any bar',
     description:
@@ -201,7 +215,7 @@ export const PRODUCTS: Product[] = [
     category: 'Bath & Body',
     price: 220,
     size: '5L + 125g',
-    image: '/images/frames/gc-bubble-bath-combo.e5e15286.jpg',
+    image: '/images/frames/gc-bubble-bath-combo.76142be9.jpg',
     imageRole: 'photo',
     preMessage: 'Combo · The full bath routine',
     description:
@@ -227,12 +241,12 @@ export const PRODUCTS: Product[] = [
     category: 'Personal Care',
     price: 55,
     size: '500g',
-    image: '/images/frames/gc-bicarb.0408bf2c.jpg',
+    image: '/images/frames/gc-bicarb.a535e050.jpg',
     imageRole: 'photo',
     preMessage: 'Pharmaceutical grade · Multipurpose',
     description:
       'Pharmaceutical-grade bicarbonate of soda for exfoliation, bath soaks and general eco-friendly cleaning.',
-    }),
+  }),
   p({
     id: 'gc-personal-care-startup',
     name: 'Personal Care Start Up',
@@ -240,7 +254,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 2600,
     size: '10 + 12 Pack',
-    image: '/images/frames/gc-personal-care-startup.830045e9.jpg',
+    image: '/images/frames/gc-personal-care-startup.53821ce2.jpg',
     imageRole: 'photo',
     
     badge: 'Wholesale',
@@ -327,7 +341,7 @@ export const PRODUCTS: Product[] = [
     category: 'Fine Fragrances',
     price: 80,
     size: '20ml Eau de Parfum',
-    image: '/images/frames/felis-fragrance-edp-20ml.cae2321c.jpg',
+    image: '/images/frames/felis-fragrance-edp-20ml.1a10d07d.jpg',
     imageRole: 'photo',
     preMessage: 'Your choice of 20 generics',
     description:
@@ -340,7 +354,7 @@ export const PRODUCTS: Product[] = [
     category: 'Starter Packs',
     price: 1250,
     size: '20 Piece Collection',
-    image: '/images/frames/felis-fragrances-startup.531391a6.jpg',
+    image: '/images/frames/felis-fragrances-startup.1a10d07d.jpg',
     imageRole: 'photo',
     badge: 'Wholesale',
     preMessage: 'For resellers · 20-piece set',
@@ -414,8 +428,7 @@ export const PRODUCTS: Product[] = [
     preMessage: 'Zesty citrus · 500g from R52',
     description:
       'A zesty citrus cleaning gel for kitchens, bathrooms and high-traffic surfaces. Also available in 500g.',
-    photoGrade: 'weak',
-}),
+  }),
   p({
     id: 'bubbles-citrus-pine-gel',
     name: 'Citrus and Pine Gel Combo',
@@ -541,11 +554,13 @@ export const PRODUCTS: Product[] = [
     category: 'Car Care',
     price: 50,
     size: '1L',
-    image: '/images/frames/bubbles-car-interior.52dbd574.jpg',
+    image: '/images/hero-bubbles.webp',
     imageRole: 'photo',
     preMessage: 'Tyre · leather · plastic',
     description:
       'For leather polishing, plastic polishing and tyre dressing in one bottle.',
+    photoGrade: 'weak',
+    artworkWithheld: 'label-not-hers',
   }),
   p({
     id: 'bubbles-detergents-startup',

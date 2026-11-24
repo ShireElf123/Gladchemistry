@@ -3,19 +3,32 @@ import type { Product } from '../data/products';
 import { BRANDS } from '../data/brands';
 
 /**
- * A product whose photograph is too soft to publish.
+ * A product whose photograph cannot be published.
  *
- * The temptation is to upscale the picture until it fills the tile. That is how
- * a 200-pixel source becomes a smeared bottle with invented-looking label text
- * — a lie dressed as a photo. So a weak product is typeset instead: the mark,
- * the strength, the size. It is honest, it holds its weight next to a real
- * photograph, and it reads as a deliberate part of the system rather than a
- * missing file.
+ * Two different reasons land a product here, and the tile says which:
+ *
+ *   artworkWithheld — the picture carried a label that is not hers. Those
+ *     frames were generated, and where the generator could not read her real
+ *     printed artwork it laid out a blank white field with typeset words
+ *     instead. On a page that sells her products a white label is not a
+ *     neutral placeholder; it is a claim about what the customer will receive,
+ *     made in a brand that is not hers. Withdrawing the picture is the only
+ *     honest response, because no amount of sharpening makes an invented label
+ *     true.
+ *
+ *   photoGrade: 'weak' — the photograph is hers but too small to enlarge.
+ *     Upscaling it would smear the very artwork that makes it hers, so it is
+ *     typeset instead: the mark, the strength, the size.
+ *
+ * Either way the reader still gets the name, the size, the price and a
+ * WhatsApp enquiry from the card, so nothing has actually been taken away from
+ * the catalogue — only the misleading picture.
  *
  * The layout is derived from the product itself, so no two tiles are identical.
  */
 export const ProductPlate: React.FC<{ product: Product }> = ({ product }) => {
   const brand = BRANDS[product.brand];
+  const withheld = Boolean(product.artworkWithheld);
 
   /* A quiet, stable per-product variation — deterministic, so the catalogue
      never shuffles between renders. */
@@ -53,7 +66,9 @@ export const ProductPlate: React.FC<{ product: Product }> = ({ product }) => {
         <p className="plate-size">{product.size}</p>
       </div>
 
-      <p className="plate-strength">{strength}</p>
+      <p className="plate-strength">
+        {withheld ? 'Photo being reshot · ask us for a picture' : strength}
+      </p>
     </div>
   );
 };

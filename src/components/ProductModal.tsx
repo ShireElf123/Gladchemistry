@@ -17,7 +17,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
 
   if (!product) return null;
   const brand = BRANDS[product.brand];
-  const weak = product.photoGrade === 'weak';
+  /* Same rule as the card: a picture whose label is not hers is never shown,
+     at any size. There is no "big enough to be safe" version of a false label. */
+  const weak = product.photoGrade === 'weak' || Boolean(product.artworkWithheld);
 
   return (
     <AnimatePresence>

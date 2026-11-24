@@ -30,7 +30,9 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, tall = false }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const brand = BRANDS[product.brand];
-  const weak = product.photoGrade === 'weak';
+  /* Belt and braces: the flag already sets photoGrade, but a picture whose
+     label is not hers must never render even if the two ever disagree. */
+  const weak = product.photoGrade === 'weak' || Boolean(product.artworkWithheld);
   const zoom = photoZoom(product.id);
 
   return (
