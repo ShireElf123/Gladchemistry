@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
           {/* Brand */}
           <div className="md:col-span-5">
             <Link to="/" aria-label="Gladchemistry home" className="inline-flex">
-              <BrandLogo brand="gladchemistry" size="lg" onDark />
+              <BrandLogo brand="gladchemistry" size="xl" onDark />
             </Link>
             <p className="mt-4 text-[14px] leading-relaxed text-white/60 max-w-[42ch]">
               One South African house, three brands: organic personal care, fine fragrance,

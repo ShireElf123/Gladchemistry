@@ -3,34 +3,26 @@ import type { BrandId } from '../data/brands';
 
 /* ------------------------------------------------------------------ */
 /*  Brand logos                                                       */
-/*                                                                    */
-/*  Senior-dev detail: a logo is never a JPEG in a white box. The      */
-/*  Gladchemistry mark is the leaf lifted out of her artwork as a      */
-/*  transparent PNG, set beside the name in live type — crisp at any   */
-/*  density, and it recolours to sit on the dark header or the cream   */
-/*  page without a plate behind it.                                   */
 /* ------------------------------------------------------------------ */
 
 interface BrandLogoProps {
   brand: BrandId;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
-  /** Renders the Gladchemistry name in white for use on the dark header. */
+  /** Uses the reversed lock-up for dark grounds. */
   onDark?: boolean;
-  /** Hides the wordmark and shows the mark alone (favicons, tight spaces). */
+  /** Hides the wordmark and shows the mark alone (tight spaces). */
   markOnly?: boolean;
 }
 
-const MARK_H = { sm: 'h-7', md: 'h-9', lg: 'h-14' } as const;
-/* The Feliz wordmark is wider than it is tall, so it is sized by height on a
-   different scale — matching cap-height to the Gladchemistry mark instead. */
-const WORDMARK_H = { sm: 'h-5', md: 'h-7', lg: 'h-[42px]' } as const;
-const NAME_SIZE = { sm: 'text-[15px]', md: 'text-[19px]', lg: 'text-[28px]' } as const;
-/* The gap scales with the mark. A fixed 8px gap is right at 36px and visibly
-   tight at 56px — this is the kind of thing that makes a lock-up look assembled
-   rather than drawn. */
-const GAP = { sm: 'gap-[7px]', md: 'gap-[9px]', lg: 'gap-[13px]' } as const;
-const SUB_SIZE = { sm: 'text-[7px]', md: 'text-[8px]', lg: 'text-[10px]' } as const;
+const MARK_H = { sm: 'h-6', md: 'h-8', lg: 'h-11', xl: 'h-14' } as const;
+const WORD_H = { sm: 'h-[15px]', md: 'h-[19px]', lg: 'h-[26px]', xl: 'h-[34px]' } as const;
+const STACK_H = { sm: 'h-14', md: 'h-[74px]', lg: 'h-24', xl: 'h-32' } as const;
+const GAP = { sm: 'gap-[6px]', md: 'gap-2', lg: 'gap-[10px]', xl: 'gap-3' } as const;
+/* Her lock-up is built on a wide, generous mark: the leaf is 0.72 as wide as it
+   is tall, and the wordmark runs 3.2 line-heights long. Sized off her own
+   artwork rather than guessed from the type. */
+const WORDMARK_H = { sm: 'h-[13px]', md: 'h-[17px]', lg: 'h-[30px]', xl: 'h-[40px]' } as const;
 
 export const BrandLogo: React.FC<BrandLogoProps> = ({
   brand,
@@ -40,46 +32,70 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   markOnly = false,
 }) => {
   if (brand === 'gladchemistry') {
+    /* Her logo, exactly as she drew it.
+     *
+     * It is a CENTRED stack — the leaf, the wordmark and "products" all share one
+     * vertical axis — so it is never re-set in live type and never re-aligned.
+     * Both the artwork and its reversed variant were knocked out of her own JPEG
+     * on a luminance ramp (alpha preserved), so the leaf keeps its greens and the
+     * letterforms are hers to the curve. Nothing here is redrawn.
+     *
+     * Three forms:
+     *   stack      the full lock-up, centred — anywhere there is vertical room
+     *   horizontal the same pixels, rolled up — for the 72px header bar
+     *   markOnly   the leaf alone
+     */
+    if (markOnly) {
+      return (
+        <img
+          src={onDark ? '/images/logos/gc-mark-solid.png' : '/images/logos/gc-mark.png'}
+          alt="Gladchemistry"
+          className={`${MARK_H[size]} w-auto shrink-0 ${className}`}
+          width={267}
+          height={267}
+        />
+      );
+    }
+
+    if (size === 'lg' || size === 'xl') {
+      /* Stacked, as she composed it: leaf above, name beneath, one axis. */
+      return (
+        <img
+          src={onDark ? '/images/logos/gc-lockup-dark.png' : '/images/logos/gc-lockup.png'}
+          alt="Gladchemistry Products"
+          className={`${STACK_H[size]} w-auto ${className}`}
+          width={516}
+          height={388}
+        />
+      );
+    }
+
+    /* Header: leaf beside the name. Same artwork, rolled up so it survives a
+       72px bar without shrinking the name to nothing. */
     return (
-      <div className={`inline-flex items-center ${GAP[size]} ${className}`}>
+      <span className={`inline-flex items-center ${GAP[size]} ${className}`}>
         <img
           src={onDark ? '/images/logos/gc-mark-solid.png' : '/images/logos/gc-mark.png'}
           alt=""
           aria-hidden
-          className={`${MARK_H[size]} shrink-0`}
+          className={`${MARK_H[size]} w-auto shrink-0`}
           width={267}
           height={267}
-          /* On ink the white body of the leaf is kept solid, so the mark reads as
-             the printed emblem rather than dissolving into the header. */
-          style={{ filter: onDark ? 'none' : 'drop-shadow(0 1px 1px rgba(0,0,0,.16))' }}
         />
-        {!markOnly && (
-          <span className="flex flex-col leading-none" style={{ paddingTop: size === 'lg' ? 2 : 1 }}>
-            <span
-              className={`font-display font-extrabold ${NAME_SIZE[size]}`}
-              style={{ letterSpacing: '-0.035em', color: onDark ? '#fff' : '#2e3a30' }}
-            >
-              Glad<span style={{ color: onDark ? '#a9e07a' : '#3ea34a' }}>chemistry</span>
-            </span>
-            <span
-              className={`${SUB_SIZE[size]} font-extrabold uppercase`}
-              style={{
-                letterSpacing: '0.28em',
-                color: onDark ? 'rgba(255,255,255,.45)' : 'rgba(46,58,48,.45)',
-              }}
-            >
-              products
-            </span>
-          </span>
-        )}
-      </div>
+        <img
+          src={onDark ? '/images/logos/gc-wordmark-dark.png' : '/images/logos/gc-wordmark.png'}
+          alt="Gladchemistry"
+          className={`${WORD_H[size]} w-auto`}
+          width={516}
+          height={66}
+        />
+      </span>
     );
   }
 
   if (brand === 'felis-be-glad') {
-    /* Her own letterforms, untouched — but the white JPEG ground has been taken
-       out so the mark sits on the tinted stage instead of on a white sticker.
-       The type is her red, sampled from the artwork itself. */
+    /* Her own letterforms, untouched — the white JPEG ground has been taken out
+       so the mark sits on the tinted stage instead of on a white sticker. */
     return (
       <div className={`inline-flex items-center ${className}`}>
         <img
@@ -93,8 +109,8 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     );
   }
 
-  /* Bubbles: no supplied artwork, so the mark is drawn, and the name is live
-     type to match the Gladchemistry treatment instead of a second visual voice. */
+  /* Bubbles: no supplied artwork, so the mark is drawn and the name is set in
+     the display face. When she has a Bubbles logo it replaces this block. */
   return (
     <div className={`inline-flex items-center ${GAP[size]} ${className}`}>
       <svg
@@ -114,15 +130,16 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       {!markOnly && (
         <span className="flex flex-col leading-none">
           <span
-            className={`font-display font-extrabold ${NAME_SIZE[size]}`}
+            className={`font-display font-extrabold ${size === 'lg' || size === 'xl' ? 'text-[28px]' : 'text-[19px]'}`}
             style={{ letterSpacing: '-0.035em', color: onDark ? '#fff' : '#0c2b3a' }}
           >
             Bubbles
           </span>
           <span
-            className={`${SUB_SIZE[size]} font-extrabold uppercase`}
+            className={`${size === 'lg' || size === 'xl' ? 'text-[10px]' : 'text-[8px]'} font-extrabold uppercase`}
             style={{
               letterSpacing: '0.28em',
+              marginRight: '-0.28em',
               color: onDark ? 'rgba(56,189,248,.85)' : 'rgba(12,43,58,.45)',
             }}
           >

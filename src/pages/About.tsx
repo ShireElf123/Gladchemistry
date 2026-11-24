@@ -23,7 +23,7 @@ export const About: React.FC = () => {
           className="ui-card rounded-[2.5rem] p-8 sm:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
         >
           <div className="lg:col-span-7 space-y-5">
-            <BrandLogo brand="gladchemistry" size="md" />
+            <BrandLogo brand="gladchemistry" size="lg" />
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl text-slate-900 leading-tight">
               Formulated with Purpose, Crafted in South Africa
             </h1>

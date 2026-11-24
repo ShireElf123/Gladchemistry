@@ -1604,3 +1604,45 @@ She asked whether it was the best it could be, and said push it if so — withou
 - Bubbles still has no photograph of its own in the opening. Its bottles are in her kitchen-counter
   shot (`bubbles-range-1.jpg`), which is a phone snap at 720×1280 — not good enough for a band this
   size. A proper Bubbles studio shot would let this section become three houses, three frames.
+
+---
+
+## Turn 109 — the logo is her artwork again
+
+She sent her logo and asked what happened to it. Fair question. The answer is that I over-corrected.
+
+### What I got wrong in turn 107
+1. **I re-set her wordmark in live type.** "Glad" and "chemistry" in Outfit next to a knocked-out leaf is *not*
+   her logo — it is a lookalike. Her wordmark is her own drawing; it is not ours to retype.
+2. **I left-aligned it.** Her lock-up is **centred** — leaf, wordmark and `products` all share one vertical
+   axis (measured: leaf centre x 352.5, wordmark centre x 352.0 in her 705×705 file). The header version was
+   leaf-then-name in a row, which broke the composition she drew.
+3. **I dropped `products` from the header entirely** and replaced it with a tracked-out `PRODUCTS`.
+4. **Her `products` line is not tracked out.** It is set in the same open sans as the wordmark, word-spaced
+   normally, centred under it — I had invented a letter-spacing treatment.
+
+### What it is now
+Everything is cut from **her own JPEG**, knocked out on a luminance ramp with alpha preserved — so the leaf
+keeps its two greens and the letterforms are hers to the curve. Three forms, no retyping anywhere:
+
+| form | used at | source |
+|---|---|---|
+| stacked lock-up | footer, About page, Brands page | `gc-lockup.png` (516×388) |
+| leaf + wordmark in a row | the 72px header bar | `gc-mark-solid.png` + `gc-wordmark.png` |
+| leaf alone | favicon, apple-touch-icon, tight spaces | `gc-mark.png` / `gc-mark-solid.png` |
+
+The header rolls the same artwork into a row because a centred stack cannot be 60px tall in a 72px bar
+without shrinking the name to nothing — that is the one concession, and it uses her pixels, not new type.
+
+**The reverse variant** (`gc-lockup-dark.png`, `gc-wordmark-dark.png`) is the standard solution for the ink
+header: her leaf keeps its greens, her dark-green lettering goes to white. Built by recolouring her own
+pixels, so the curves and counters are untouched. Without it her dark lettering disappeared into `--ink`,
+which is the bug that started the whole substitution in the first place.
+
+### Measured from her file, not guessed
+- leaf is **0.72** as wide as it is tall
+- wordmark runs **3.1×** the leaf's width
+- the stack is centred, not ranged left
+- the wordmark's cap height is **0.37×** the leaf's height
+
+The favicon is now cropped from her leaf, so the tab, the header and the footer are all the same mark.
