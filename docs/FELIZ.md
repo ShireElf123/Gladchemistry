@@ -77,3 +77,13 @@ departing from the shoot.
 Also wired the **pilot itself** onto `fbg-hugo-men`, where it belongs — it is the Hugo Men
 bottle, and it had been sitting unused in `public/images/pilot/` while the card still
 showed the generic range shot.
+
+### Turn 69 — `fbg-car-perfume`
+`public/images/feliz/feliz-ted-lapidus-rollon-15ml.png` — the one product that should NOT be
+a straight clone: it is a 15ml roll-on, not a spray flacon. Cloned the light, the charcoal
+sweep, the label treatment and the framing; gave it its own body (slim clear glass vial,
+short black screw cap, golden oil).
+
+First attempt came back with the label typeset **vertically** up the bottle, which broke the
+set. Regenerated from both the bad frame and the pilot, explicitly demanding a horizontal
+label level with the horizon. Fixed.

@@ -152,7 +152,7 @@ export const PRODUCTS: Product[] = [
     size: '15ml',
     description:
       'Concentrated fine fragrance oil designed for effortless application and long-lasting cabin freshness.',
-    image: '/images/felis-fragrances.jpg',
+    image: '/images/feliz/feliz-ted-lapidus-rollon-15ml.png',
     badge: 'Auto & Travel',
   },
 
