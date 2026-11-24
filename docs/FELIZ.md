@@ -210,3 +210,18 @@ R65, still unresolved per-tub vs per-box (same question as Pine Gel).
 
 Note: her Citrus Gel label says "Dishwashing" on it. So the tub products do dishes as well as
 general cleaning — relevant to the site's separate, photo-less "Dishwashing Liquid" entry.
+
+### Turn 78 — `gc-bath-fizzies`
+`public/images/gladchemistry/gc-bath-fizzies-tub.png` — generated from `IMG-20261118-WA0032.jpg`.
+The real thing: a large **plain white plastic bucket, no lid, no label and no branding**, heaped
+with round pressed discs in hot pink, yellow and pale blue.
+
+Deliberately kept unbranded. Her actual tub has no label, so adding one would have invented
+packaging — the exact failure mode from earlier in this project. The prompt says so explicitly.
+
+Notes rewritten from invented botanicals ("Citrus Zest", "Sea Minerals", "Sweet Almond Oil") to
+what is actually visible: the three tablet colours. The description likewise no longer claims
+citrus/berry/ocean "blends" that nothing on the pack supports.
+
+Size left at 1kg Bucket; her photograph gives no weight, so this stays unverified rather than
+corrected in either direction.
