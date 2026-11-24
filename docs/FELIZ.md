@@ -533,3 +533,38 @@ product. The original render already clears the frame edge by 30px, so it was re
 as generated. **Do not composite a studio photo to nudge its framing — regenerate it with the framing
 asked for.** Compositing is only reliable for erasing text inside the product, which is what the tool
 is clipped to.
+
+### Turn 87 — Thick Bleach, rebuilt
+
+Reference `IMG-20261118-WA0029.jpg`, the tall white bottle centre-frame. Magnified the bottle 6x, the
+label 10x, the shoulder and cap 8x, and the base 8x.
+
+**This one was mostly right on the label and wrong on the bottle.** The label render was close; the
+moulding was not.
+
+1. **The neck is ASYMMETRICALLY ANGLED.** The bottle's top is cut on a diagonal, so the cap sits at a
+   tilt relative to the body. This is the bottle's signature and I had rendered a perfectly upright
+   symmetric shoulder.
+2. **The cap is plain WHITE** with fine vertical grip ribs — I had it green.
+3. **The body carries FOUR groups of THREE raised ring bands** moulded into the plastic, two high near
+   the shoulder and two low near the base, with smooth body between them. I had rendered a fluted
+   vertical-rib collar around the shoulder instead, which is a different bottle entirely.
+4. **The body bands around the shoulder are raised horizontal rings**, not vertical flutes.
+
+Label corrections, smaller but real:
+- **"BLEACH" is a two-tone**: deep navy at the top grading to magenta-pink at the bottom edge. I had it
+  flat blue.
+- **"THICK" is medium blue**, not navy.
+- **The NEW flash is GOLD/mustard**, not red. It also overlaps the badge's right edge on the real pack.
+- **Three dark-red claim lines each with a dark green tick**, below the blob — not two lines.
+- "750 ml" with a space, in bold dark red.
+
+**Composition:** 27.9% width / 88.8% height. The narrowest product in the set — it is a tall slim
+bottle, and that is correct.
+
+**Method note on the badge flash.** The model rendered the gold flash as a smeared blob with no readable
+word, so it was rebuilt as a flat rounded square with crisp vector text at the pack's own size and
+position (x 536-598, y 612-662). First attempt was both too large and placed 30px too far left, which
+covered the "S" of BUBBLES — the badge has to be checked after any overlay like this, not just the
+thing being drawn. Small flat graphic elements are the one case where compositing beats regenerating,
+because a redraw is exact and the model's attempt is not.
