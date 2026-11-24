@@ -1009,3 +1009,42 @@ Description in `products.ts` corrected from "round ... pale blue" to "chunky pre
 mustard yellow and dusty blue ... wide open white pail", matching what is actually in her tub.
 
 **14 of 16 rebuilt.** Remaining: Bicarb Sachet, Foam Bath.
+
+### Turn 98 — `gc-bicarb` rebuilt from her photograph
+
+Reference: `IMG-20261118-WA0031.jpg`, the sachet at the far right of the clean line-up. Measured:
+bag **y 283–557, x 1060–1253** → height **274px**, width **193px**, so **h/w 1.42**. Text block
+**y 351–553**, x 1150–1193: **74% of the bag height**, a narrow column only **22% of the bag width**,
+offset slightly right of centre. Red printed line at y≈292–301, about 4% below the top edge.
+
+**Faults in my old render** (turn 79): matte white paper, a flat heat-seal band with three fine
+horizontal ridges, straight vertical sides like a coffee bag, and no red line. It also had an
+invented pale mint disc in the background, a piece of set-dressing her photo has no counterpart for.
+
+**What her sachet actually is:**
+1. **Soft SATIN silver metallised foil**, not mirror chrome and not white paper — pale matte silver,
+   almost brushed pewter, with fine mostly-VERTICAL wrinkles and a grainy micro-texture, only
+   gentle gradation, no angular shard reflections. Measured mean RGB of her foil is **169,171,168**;
+   the accepted render is **167,166,165**, so the tint is within a couple of levels on all three
+   channels.
+2. A **glossy crimped seal band** across the top, faintly striated, top edge nearly level.
+3. The thin wavy **dark magenta-red printed line** just beneath the crimp — the single most
+   identifying detail, and the one I had missed entirely.
+4. A shallow **scalloped weld band** below that, where the two film layers meet.
+5. The type sits on a **faintly paler semi-transparent strip** of film, and runs vertically down the
+   LOWER part of the pouch with a lot of bare foil above it — not centred on the whole bag as I had
+   it.
+
+**Two passes.** Gen 1 got the structure and the red line but rendered the foil as hard chrome, with
+black wedge-shaped shards and blown white highlights — far glossier than a bag of bicarbonate. Gen 2
+was an *edit* instruction ("change the surface character, keep the pose, framing and lettering") and
+dulled it to the correct satin silver on the first try. Worth remembering: **describing a change to
+an existing render is more reliable than re-describing the whole object**, because nothing else drifts.
+
+Measured h/w of the accepted render: **1.34** against 1.42 in the reference — the bag is a shade
+broader than hers, acceptable at card size.
+
+Description in `products.ts` corrected: her pouch is foil with a red line and only those four words,
+not "a plain sealed foil sachet" — no weight, no ingredients, no other print exists on it.
+
+**15 of 16 rebuilt.** Remaining: Foam Bath.
