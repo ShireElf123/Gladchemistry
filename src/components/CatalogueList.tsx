@@ -23,6 +23,7 @@ import { rand } from '../lib/format';
  */
 const Line: React.FC<{ product: Product; forceOpen: boolean }> = ({ product, forceOpen }) => {
   return (
+    <div className="grid-anim">
     <details
       className="group border-b border-black/10 last:border-b-0"
       open={forceOpen || undefined}
@@ -127,6 +128,7 @@ const Line: React.FC<{ product: Product; forceOpen: boolean }> = ({ product, for
         </a>
       </div>
     </details>
+    </div>
   );
 };
 
