@@ -249,7 +249,7 @@ export const Gallery: React.FC<GalleryProps> = ({
                   aria-label={`Open image: ${tile.caption}`}
                 >
                   <img
-                    src={`${tile.src}.jpg`}
+                    src={`${tile.src}.webp`}
                     alt={tile.caption}
                     loading="lazy"
                     decoding="async"
@@ -355,7 +355,7 @@ export const Gallery: React.FC<GalleryProps> = ({
                 className="m-0 flex max-h-full max-w-[min(1100px,92vw)] flex-col items-center"
               >
                 <img
-                  src={`${tiles[open].src}.jpg`}
+                  src={`${tiles[open].src}.webp`}
                   alt={tiles[open].caption}
                   className="max-h-[78vh] w-auto max-w-full rounded-2xl object-contain shadow-2xl"
                 />

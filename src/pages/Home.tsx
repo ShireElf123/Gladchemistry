@@ -336,7 +336,7 @@ export const Home: React.FC = () => {
                 It replaces two older template shots that were cropped to a 3:4
                 frame; these carry the same lighting as the section behind them. */}
             <img
-              src="/images/gallery/fragrance-collection-dark.jpg"
+              src="/images/gallery/fragrance-collection-dark.webp"
               alt="The Feliz be Glad fragrance collection"
               loading="lazy"
               /* 88% not 92%: a 92%-wide plate rotated 3deg is 92·cos3 + h·sin3 wide,
@@ -345,7 +345,7 @@ export const Home: React.FC = () => {
               style={{}}
             />
             <img
-              src="/images/gallery/scandal-ladies-dark.jpg"
+              src="/images/gallery/scandal-ladies-dark.webp"
               alt="Inspired by Scandal, Ladies"
               loading="lazy"
               /* Sits inside the frame at 30% and right-0: at 34% with right-[-2%]
@@ -500,7 +500,7 @@ export const Home: React.FC = () => {
             style={{ background: 'rgba(255,255,255,.06)' }}
           />
           <img
-            src="/images/gallery/ed-hair-food-4x5.jpg"
+            src="/images/gallery/ed-hair-food-4x5.webp"
             alt="Gladchemistry Hair Food jar"
             loading="lazy"
             className="absolute rounded-[22px] object-cover shadow-2xl"
@@ -515,7 +515,7 @@ export const Home: React.FC = () => {
             }}
           />
           <img
-            src="/images/gallery/ed-sheacoco-4x5.jpg"
+            src="/images/gallery/ed-sheacoco-4x5.webp"
             alt="Gladchemistry SheaCoco Hair Care jar"
             loading="lazy"
             className="absolute rounded-[22px] object-cover shadow-2xl"
@@ -530,7 +530,7 @@ export const Home: React.FC = () => {
             }}
           />
           <img
-            src="/images/gallery/ed-shea-butter-4x5.jpg"
+            src="/images/gallery/ed-shea-butter-4x5.webp"
             alt="Raw Shea Butter in a white bowl"
             loading="lazy"
             className="absolute rounded-[26px] object-cover shadow-2xl"
@@ -557,7 +557,7 @@ export const Home: React.FC = () => {
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-[220px]"
           style={{
-            backgroundImage: 'url(/images/gallery/skin-moist.jpg)',
+            backgroundImage: 'url(/images/gallery/skin-moist.webp)',
             backgroundSize: 'cover',
             backgroundPosition: 'center 40%',
             opacity: 0.10,

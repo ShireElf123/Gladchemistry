@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { Navbar } from './components/Navbar';
 import { CartDrawer } from './components/CartDrawer';
@@ -11,9 +12,25 @@ import { Contact } from './pages/Contact';
 import { PriceList } from './pages/PriceList';
 import { NotFound } from './pages/NotFound';
 
+/* A browser does not scroll to the top on a client-side route change, and this
+   app never told it to. So if she was 4000px down the shop and tapped "Brands",
+   the new page opened at 4000px — landing on whatever was there, usually the
+   footer. Every page change starts at the top now.
+
+   `instant` matters: the stylesheet sets `scroll-behavior: smooth`, so a plain
+   scrollTo would animate the whole way up through the outgoing page. */
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+  }, [pathname]);
+  return null;
+};
+
 export function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <CartProvider>
         <div className="min-h-screen flex flex-col" style={{ background: 'var(--cream)' }}>
           <Navbar />

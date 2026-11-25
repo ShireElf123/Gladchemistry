@@ -45,7 +45,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, index = 0, ta
             ...(isStudioPhoto ? {} : { height: tall ? 340 : 290 }),
           }}
         >
-          <img src={product.image} alt={product.name} loading="lazy" />
+          {/* `loading="lazy"` was already here, but without width/height the
+              browser does not know a card's aspect until the file lands, so a
+              grid of 16 packs reflowed on every arrival. The intrinsic size lets
+              it reserve the box up front, which is what stops the page from
+              jumping while the pictures stream in. */}
+          <img
+            src={product.image}
+            alt={product.name}
+            loading="lazy"
+            decoding="async"
+            width={784}
+            height={973}
+          />
 
           {/* Flags sit on the stage, hard-edged like the soda store */}
           <div className="absolute top-3.5 left-3.5 flex flex-wrap gap-1.5 z-10">

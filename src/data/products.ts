@@ -30,7 +30,7 @@ export const PRODUCTS: Product[] = [
     size: '1kg Bucket',
     description:
       'Chunky pressed bath fizzies in deep pink, mustard yellow and dusty blue, heaped to the brim of a wide open white pail. Drop one in a warm bath and let it fizz.',
-    image: '/images/gladchemistry/gc-bath-fizzies-tub.30f882b4.png',
+    image: '/images/gladchemistry/gc-bath-fizzies-tub.webp',
     badge: 'Bestseller',
     featured: true,
   },
@@ -46,7 +46,7 @@ export const PRODUCTS: Product[] = [
     size: '1.5L',
     description:
       'Moisturising foam bath with essential oil, in a 1.5 litre bottle. Green Gladchemistry label with the leaf mark.',
-    image: '/images/gladchemistry/gc-foam-bath-1-5l.1e393f2f.png',
+    image: '/images/gladchemistry/gc-foam-bath-1-5l.webp',
     badge: 'Organic',
     featured: true,
   },
@@ -62,7 +62,7 @@ export const PRODUCTS: Product[] = [
     size: '500g',
     description:
       'Pure bicarbonate of soda in a soft silver foil pouch, heat-sealed at the top with a thin red printed line and the words Bicarbonate of Soda running vertically down the face. For exfoliation, bath soaks, cleaning and deodorising.',
-    image: '/images/gladchemistry/gc-bicarbonate-soda-sachet.825f6375.png',
+    image: '/images/gladchemistry/gc-bicarbonate-soda-sachet.webp',
   },
   {
     id: 'gc-sanitizer',
@@ -76,7 +76,7 @@ export const PRODUCTS: Product[] = [
     size: '100ml',
     description:
       'Waterless hand sanitizer rub in a white 100ml mist bottle with a green leaf motif. 70% alcohol-based with soothing aloe vera, to protect without drying.',
-    image: '/images/gladchemistry/gc-hand-sanitizer-rub-100ml.409da0ec.png',
+    image: '/images/gladchemistry/gc-hand-sanitizer-rub-100ml.webp',
   },
 
   // Feliz be Glad — Fine Fragrances, Home Diffusers & Car Perfumes
@@ -92,7 +92,7 @@ export const PRODUCTS: Product[] = [
     size: '100ml + Black Reeds',
     description:
       'Hand-poured luxury home fragrance oil in a crystal-cut square flacon with matte black rattan reeds for 12+ weeks of continuous scent.',
-    image: '/images/feliz/feliz-reed-diffuser-100ml.3e58dde3.png',
+    image: '/images/feliz/feliz-reed-diffuser-100ml.webp',
     badge: 'Luxury Home',
     featured: true,
   },
@@ -108,7 +108,7 @@ export const PRODUCTS: Product[] = [
     size: '10ml (oil-based)',
     description:
       'Captivating honey, gardenia, and blood orange notes in a tall clear glass flacon with a matte black cap.',
-    image: '/images/feliz/feliz-scandal-ladies-50ml.3b11ff2c.png',
+    image: '/images/feliz/feliz-scandal-ladies-50ml.webp',
     badge: 'Top Pick',
     featured: true,
   },
@@ -124,7 +124,7 @@ export const PRODUCTS: Product[] = [
     size: '10ml (oil-based)',
     description:
       'Crisp green apple, aromatic sage, and cedarwood crafted for all-day confidence.',
-    image: '/images/feliz/feliz-hugo-men-50ml.bb116585.png',
+    image: '/images/feliz/feliz-hugo-men-50ml.webp',
   },
   {
     id: 'fbg-diesel-men',
@@ -138,7 +138,7 @@ export const PRODUCTS: Product[] = [
     size: '10ml (oil-based)',
     description:
       'Bold spicy-woody fragrance with grapefruit, lavender, and warm amber undertones.',
-    image: '/images/feliz/feliz-diesel-men-50ml.ed83e734.png',
+    image: '/images/feliz/feliz-diesel-men-50ml.webp',
   },
   {
     id: 'fbg-car-perfume',
@@ -152,7 +152,7 @@ export const PRODUCTS: Product[] = [
     size: '15ml',
     description:
       'Concentrated fine fragrance oil designed for effortless application and long-lasting cabin freshness.',
-    image: '/images/feliz/feliz-ted-lapidus-rollon-15ml.f9b8ffba.png',
+    image: '/images/feliz/feliz-ted-lapidus-rollon-15ml.webp',
     badge: 'Auto & Travel',
   },
 
@@ -169,7 +169,7 @@ export const PRODUCTS: Product[] = [
     size: '5L Jerry Can',
     description:
       'Blue 5-litre wash and wax for a quick, easy shine. Green cap, white moulded handle.',
-    image: '/images/bubbles/bubbles-car-wash-wax-5l.2447dc78.png',
+    image: '/images/bubbles/bubbles-car-wash-wax-5l.webp',
     badge: 'Auto Care',
     featured: true,
   },
@@ -185,7 +185,7 @@ export const PRODUCTS: Product[] = [
     size: '750ml',
     description:
       'Thickened bleach in a 750ml bottle with a green cap. Cleans, removes stains and disinfects.',
-    image: '/images/bubbles/bubbles-thick-bleach-750ml.f0cf99f9.png',
+    image: '/images/bubbles/bubbles-thick-bleach-750ml.webp',
   },
   {
     id: 'bd-dishwashing',
@@ -199,7 +199,7 @@ export const PRODUCTS: Product[] = [
     size: '750ml',
     description:
       'Blue Hygiene dishwashing liquid in a clear 750ml bottle with a red flip cap. Removes tough stains and grease, lemon fragrance.',
-    image: '/images/bubbles/bubbles-dishwashing-liquid-750ml.ce0567a5.png',
+    image: '/images/bubbles/bubbles-dishwashing-liquid-750ml.webp',
     featured: true,
   },
   {
@@ -214,7 +214,7 @@ export const PRODUCTS: Product[] = [
     size: '200g Tub',
     description:
       'Pine gel disinfectant in a 200g translucent green tub with a recessed green lid and a clear snap-on collar. Cleans, deodorises and leaves floors sparkling.',
-    image: '/images/bubbles/bubbles-pine-gel-tub-v3.87e3e742.png',
+    image: '/images/bubbles/bubbles-pine-gel-tub-v3.webp',
   },
   {
     id: 'bd-citrus-gel',
@@ -228,7 +228,7 @@ export const PRODUCTS: Product[] = [
     size: '200g Tub',
     description:
       'Citrus gel in a 200g translucent tub with a recessed green lid and a clear snap-on collar. Cuts through grease on kitchen and bathroom surfaces.',
-    image: '/images/bubbles/bubbles-citrus-gel-tub.c3671345.png',
+    image: '/images/bubbles/bubbles-citrus-gel-tub.webp',
   },
   {
     id: 'bd-all-purpose',
@@ -242,7 +242,7 @@ export const PRODUCTS: Product[] = [
     size: '750ml',
     description:
       'All-purpose cleaner with a fresh fragrance, in a white 750ml bottle with a green cap. Removes grease and grime.',
-    image: '/images/bubbles/bubbles-all-purpose-cleaner-750ml.40fb13b5.png',
+    image: '/images/bubbles/bubbles-all-purpose-cleaner-750ml.webp',
   },
   {
     id: 'bd-black-dip',
@@ -256,6 +256,6 @@ export const PRODUCTS: Product[] = [
     size: '1L',
     description:
       'Cleaning liquid in a black 1L bottle with a black ribbed screw cap. Removes stubborn stains, softens, cleans and polishes drains.',
-    image: '/images/bubbles/bubbles-black-dip-1l.9ff1f5be.png',
+    image: '/images/bubbles/bubbles-black-dip-1l.webp',
   },
 ];

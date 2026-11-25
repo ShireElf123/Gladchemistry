@@ -21,19 +21,19 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 const PLATES = [
   {
-    src: '/images/gallery/ed-hair-food-4x5.jpg',
+    src: '/images/gallery/ed-hair-food-4x5.webp',
     alt: 'Gladchemistry Hair Food jar, 100 g',
     caption: 'Hair Food',
     meta: '100 g',
   },
   {
-    src: '/images/gallery/ed-shea-butter-4x5.jpg',
+    src: '/images/gallery/ed-shea-butter-4x5.webp',
     alt: 'A white bowl of 100% Pure Raw Shea Butter, 100 g, with a dried leaf and two shea nuts',
     caption: '100% Pure Raw Shea Butter',
     meta: '100 g · Ghana',
   },
   {
-    src: '/images/gallery/ed-sheacoco-4x5.jpg',
+    src: '/images/gallery/ed-sheacoco-4x5.webp',
     alt: 'Gladchemistry SheaCoco Hair Care jar',
     caption: 'SheaCoco Hair Care',
     meta: 'Hair food',
@@ -199,9 +199,9 @@ export const EditorialOpening: React.FC = () => {
           style={{ background: 'var(--ink)' }}
         >
           <picture>
-            <source media="(max-width: 639px)" srcSet="/images/gallery/ed-fragrance-32.jpg" />
+            <source media="(max-width: 639px)" srcSet="/images/gallery/ed-fragrance-32.webp" />
             <img
-              src="/images/gallery/ed-fragrance-band.jpg"
+              src="/images/gallery/ed-fragrance-band.webp"
               alt="The Feliz be Glad fragrance collection: a full shelf of bottles under warm light"
               loading="lazy"
               decoding="async"
@@ -269,7 +269,7 @@ export const EditorialOpening: React.FC = () => {
                 phone this sets its own 16:9 so the label is not letterboxed. */}
             <div className="relative overflow-hidden lg:col-span-8 lg:aspect-[21/9]">
               <img
-                src="/images/gallery/ed-shea-zoom.jpg"
+                src="/images/gallery/ed-shea-zoom.webp"
                 alt="Close crop of the Gladchemistry 100% Pure Raw Shea Butter label, 100 g, Country of Origin: Ghana"
                 loading="lazy"
                 decoding="async"

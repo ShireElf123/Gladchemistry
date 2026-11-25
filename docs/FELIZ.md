@@ -1898,3 +1898,39 @@ and reads better at card size, so `bd-pine-gel` now points at the restored artwo
 
 Verified: zero failed image requests, nine captured cards visually match her PC screenshots, and six routes
 still measure 0px horizontal overflow and 0 crops at 390px and 1440px.
+
+## Turn 117 — page changes started at the bottom, and the pictures were slow
+
+Two complaints, two separate causes.
+
+### 1. Every page change kept the old scroll position
+`App.tsx` had no scroll handling at all, and a client-side route change does not scroll a browser. Open
+`/shop`, scroll 4000px, tap **Brands** — the new page rendered at 4000px, so she landed near the bottom of
+it, usually on the footer. A `ScrollToTop` effect keyed on `pathname` now resets to the top with
+`behavior: 'instant'`; smooth scrolling would have animated the whole way up through the outgoing page.
+Measured: was at 4000px, tapped Brands, now at 0.
+
+### 2. 22.7 MB of pictures to show 16 products
+The product renders were 928×1152 **PNGs of 1.3–1.7 MB each** — 24 MB for eighteen files — displayed at
+about 320px wide on a phone. Nothing about that was doing her any good over mobile data.
+
+Re-encoded to **WebP at 784px** wide (still 2× a 392px card):
+
+| | before | after |
+|---|---|---|
+| 18 product renders | 24.1 MB | **0.4 MB** |
+| 17 gallery photographs | 1.60 MB | **0.78 MB** |
+| **/shop on a phone** | **22.7 MB** | **1.2 MB** |
+| **/shop on a PC** | 23.4 MB | 1.4 MB |
+
+Visually indistinguishable: the bicarb at 14 KB and at 1348 KB produce the same picture side by side.
+
+Also: `ProductCard` now carries `width`/`height` alongside `loading="lazy"`, so the browser reserves each
+card's box before the file lands and the grid stops reflowing as pictures stream in. The two Google font
+families moved off the render-blocking path (`media="print"` + `onload`), so the hero paints without
+waiting on a third-party request.
+
+### Caught by the audit, not by me
+Switching to `.webp` left six `-4x5.jpg` references on the home page pointing at files I had just deleted —
+the opening's three plates and the photography cluster. The broken-image check found them; all six now
+point at the WebP files. **Every route at both widths: 0 missing files, 0 broken images, 0px overflow.**

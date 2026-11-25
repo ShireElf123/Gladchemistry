@@ -17,9 +17,21 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload the two faces the first screen actually paints, then load the
+         stylesheet without blocking the first render: `media="print"` makes the
+         browser fetch it off the critical path, and `onload` flips it to screen.
+         Two Google families over a slow mobile link were holding up the hero
+         behind a render-blocking request. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
   </head>
   <body class="bg-[#F8FAFC] text-slate-900 antialiased selection:bg-emerald-500/20 selection:text-emerald-900">

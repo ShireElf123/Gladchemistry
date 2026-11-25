@@ -38,7 +38,7 @@ export const About: React.FC = () => {
                 graphic. The label in the frame is the label on the shelf. */}
             <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
               <img
-                src="/images/gallery/skin-moist-close.jpg"
+                src="/images/gallery/skin-moist-close.webp"
                 alt="Gladchemistry Skin Moist jar"
                 className="w-full aspect-square object-cover"
               />
