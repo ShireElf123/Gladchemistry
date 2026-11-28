@@ -1934,3 +1934,44 @@ waiting on a third-party request.
 Switching to `.webp` left six `-4x5.jpg` references on the home page pointing at files I had just deleted —
 the opening's three plates and the photography cluster. The broken-image check found them; all six now
 point at the WebP files. **Every route at both widths: 0 missing files, 0 broken images, 0px overflow.**
+
+### Turn 121 — the WhatsApp links that were never sent
+
+She reported "the WhatsApp isn't working — it shows but mine works". That symptom (fine on her
+phone, broken for a customer) is the signature of a bug on our side, not of a WhatsApp Business
+setting. The number was never the problem: `wa.me/27737190821` is correctly formatted, with the
+country code and no leading zero, and it is the same `+27 73 719 0821` that works when she opens
+WhatsApp herself. Three separate defects sat behind the complaint.
+
+**Defect 1 — checkout used a scripted popup that browsers may refuse.** `CartDrawer.tsx` did
+`window.open('https://wa.me/…', '_blank', 'noopener,noreferrer')`. Playwright with
+`window.open` stubbed to return null — which is exactly what a popup blocker, an extension, or
+the in-app browser inside Instagram/Facebook/TikTok does — produced **no tab at all**, while the
+drawer still flipped to "Order sent on WhatsApp". The customer was told the order had gone and
+the shop never heard a word. Re-tested after the fix: the control is an `<a href>` carrying the
+whole order, so the browser performs an ordinary user-initiated navigation nothing may block.
+A "WhatsApp didn't open? Tap here" link and the number itself now also appear on that panel.
+
+**Defect 2 — the contact form sent nothing and claimed success.** `Contact.tsx` did
+`e.preventDefault(); setSubmitted(true)` and printed **"Message Received!"**. Measured: a filled
+form and a submit produced **zero network requests** of any kind. There is no server on this
+site. It now composes the enquiry and offers two handoffs that actually arrive — WhatsApp and a
+pre-filled `mailto:` — with "Your enquiry is ready to send" instead of a false confirmation, and
+an "Edit my message" route back.
+
+**Defect 3 — the number was unreachable by tapping, almost everywhere.** Across the whole site
+there was exactly **one** clickable contact link (`/price-list`), and no `tel:` link anywhere.
+The footer printed the number as plain text; the contact page showed email and address as plain
+text. All of them are now `tel:` / `mailto:` / `wa.me` links, and the footer gained a "WhatsApp
+us" button.
+
+Centre of gravity moved to `src/lib/whatsapp.ts`: one number, one `waLink()`, one `WA_TARGET`.
+`waLink()` `encodeURIComponent`s the body — an unencoded newline or `&` truncates a multi-line
+order at the first one, which is its own silent-failure mode.
+
+**Verified**: 35 assertions across 390 px and 1440 px, 0 failures — cart CTA is an `<a>`, the
+href decodes to the complete order including the subtotal, a click still reaches `wa.me` with
+scripted popups refused, contact links carry the form contents into both WhatsApp and `mailto:`,
+the footer and price list links exist. Then the regression sweep: 6 routes × 2 widths, **0 4xx,
+0 broken images, 0 px horizontal overflow**. Design unchanged — same buttons, same type, same
+rhythm; only the number and the honesty are new.

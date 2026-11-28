@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PriceBook, PriceConflictTable } from '../components/PriceBook';
+import { waLink, WA_TARGET, SHOP_WHATSAPP_DISPLAY } from '../lib/whatsapp';
+import { MessageCircle } from 'lucide-react';
 
 export const PriceList: React.FC = () => {
   return (
@@ -32,15 +34,27 @@ export const PriceList: React.FC = () => {
           <p className="text-[13px] leading-relaxed text-slate-500">
             To order, message{' '}
             <a
-              href="https://wa.me/27737190821"
+              href={waLink('Hi Gladchemistry, I would like to order from the price list:')}
+              target={WA_TARGET}
+              rel="noopener noreferrer"
               className="font-bold underline decoration-2 underline-offset-2"
               style={{ color: 'var(--fern)' }}
             >
-              +27 73 719 0821
+              {SHOP_WHATSAPP_DISPLAY}
             </a>{' '}
             with the lines you want.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
+            <a
+              href={waLink('Hi Gladchemistry, I would like to order from the price list:')}
+              target={WA_TARGET}
+              rel="noopener noreferrer"
+              className="btn text-white inline-flex items-center gap-2"
+              style={{ background: 'var(--fern)' }}
+            >
+              <MessageCircle className="h-4 w-4" />
+              Order on WhatsApp
+            </a>
             <Link to="/shop" className="btn btn-ink">
               Shop online
             </Link>

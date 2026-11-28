@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BRAND_LIST } from '../data/brands';
 import { BrandLogo } from './BrandLogo';
+import { SHOP_TEL, SHOP_WHATSAPP_DISPLAY, SHOP_EMAIL, SHOP_WHATSAPP, WA_TARGET } from '../lib/whatsapp';
 
 const LINKS = [
   { to: '/shop', label: 'Shop all' },
@@ -68,13 +69,32 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2.5 text-[14px] font-semibold text-white/75">
               <li>Shop 19, Palm Springs Mall, Springs, 1559</li>
-              <li>info@gladchemistry.com</li>
+              <li>
+                <a href={`tel:${SHOP_TEL}`} className="hover:text-[var(--lime)] transition-colors">
+                  {SHOP_WHATSAPP_DISPLAY}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${SHOP_EMAIL}`} className="hover:text-[var(--lime)] transition-colors">
+                  {SHOP_EMAIL}
+                </a>
+              </li>
               <li className="text-white/50">Mon – Fri · 08:00 – 17:00</li>
               <li className="text-white/50">Sat · 09:00 – 13:00</li>
             </ul>
-            <Link to="/contact" className="btn btn-sm btn-lime mt-4">
-              Wholesale enquiry
-            </Link>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href={`https://wa.me/${SHOP_WHATSAPP}`}
+                target={WA_TARGET}
+                rel="noopener noreferrer"
+                className="btn btn-sm btn-lime"
+              >
+                WhatsApp us
+              </a>
+              <Link to="/contact" className="btn btn-sm" style={{ color: '#fff', border: '2px solid rgba(255,255,255,.28)' }}>
+                Wholesale enquiry
+              </Link>
+            </div>
           </div>
         </div>
 

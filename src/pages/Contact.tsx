@@ -1,10 +1,38 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Clock, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, MapPin, Clock, Send, CheckCircle2, Phone, MessageCircle } from 'lucide-react';
+import {
+  SHOP_TEL,
+  SHOP_WHATSAPP_DISPLAY,
+  SHOP_EMAIL,
+  waLink,
+  WA_TARGET,
+  mailLink,
+} from '../lib/whatsapp';
 
 export const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [inquiryType, setInquiryType] = useState<'retail' | 'wholesale'>('retail');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [brand, setBrand] = useState('All 3 Brands');
+  const [body, setBody] = useState('');
+
+  /**
+   * This form used to set a boolean and print "Message Received!" while
+   * sending nothing anywhere — the same lie the cart told before it was
+   * fixed. There is no server on this site, so the honest version composes
+   * the enquiry and hands it to a channel that actually reaches her.
+   */
+  const message = [
+    `Hi Gladchemistry, I have a ${inquiryType === 'wholesale' ? 'wholesale' : 'general'} enquiry.`,
+    '',
+    `Name: ${name || '—'}`,
+    `Email: ${email || '—'}`,
+    `Brand: ${brand}`,
+    '',
+    body || '—',
+  ].join('\n');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +75,9 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <p className="font-display font-bold text-sm text-slate-900">Email</p>
-                  <p className="text-sm text-slate-500">info@gladchemistry.com</p>
+                  <a href={`mailto:${SHOP_EMAIL}`} className="text-sm text-slate-500 underline decoration-1 underline-offset-2">
+                    {SHOP_EMAIL}
+                  </a>
                 </div>
               </div>
 
@@ -60,6 +90,29 @@ export const Contact: React.FC = () => {
                   <p className="text-sm text-slate-500">Mon – Fri: 08:00 – 17:00 | Sat: 09:00 – 13:00</p>
                 </div>
               </div>
+
+              <div className="flex items-start gap-3.5">
+                <div className="h-10 w-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-display font-bold text-sm text-slate-900">Phone</p>
+                  <a href={`tel:${SHOP_TEL}`} className="text-sm font-bold text-emerald-700 underline decoration-2 underline-offset-2">
+                    {SHOP_WHATSAPP_DISPLAY}
+                  </a>
+                </div>
+              </div>
+
+              <a
+                href={waLink('Hi Gladchemistry, I would like to ask about your products.')}
+                target={WA_TARGET}
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full rounded-xl px-4 py-3 text-sm font-bold text-white transition-transform active:scale-[0.99]"
+                style={{ background: 'var(--fern)' }}
+              >
+                <MessageCircle className="h-4 w-4" />
+                Message us on WhatsApp
+              </a>
             </div>
           </div>
         </div>
@@ -77,16 +130,42 @@ export const Contact: React.FC = () => {
                   <CheckCircle2 className="h-9 w-9" />
                 </div>
                 <h2 className="font-display font-bold text-2xl text-slate-900">
-                  Message Received!
+                  Your enquiry is ready to send
                 </h2>
                 <p className="text-sm text-slate-500 max-w-md mx-auto">
-                  Thank you for contacting Gladchemistry Products. Our team will respond shortly.
+                  Choose how to reach us. WhatsApp is fastest — the message is already written out
+                  for you, and you can edit it before sending.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
+                  <a
+                    href={waLink(message)}
+                    target={WA_TARGET}
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white"
+                    style={{ background: 'var(--fern)' }}
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    Send on WhatsApp
+                  </a>
+                  <a
+                    href={mailLink(
+                      `${inquiryType === 'wholesale' ? 'Wholesale' : 'General'} enquiry — ${name || 'Gladchemistry'}`,
+                      message
+                    )}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-slate-900 border-2 border-slate-900"
+                  >
+                    <Mail className="h-4 w-4" />
+                    Send by email
+                  </a>
+                </div>
+                <p className="text-[11px] text-slate-400 pt-1">
+                  Or call {SHOP_WHATSAPP_DISPLAY} during shop hours.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold cursor-pointer"
+                  className="mt-2 text-xs font-bold text-slate-500 underline underline-offset-2 cursor-pointer"
                 >
-                  Send Another Message
+                  Edit my message
                 </button>
               </div>
             ) : (
@@ -124,6 +203,8 @@ export const Contact: React.FC = () => {
                     <input
                       required
                       type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       placeholder="Your name"
                       className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
                     />
@@ -135,6 +216,8 @@ export const Contact: React.FC = () => {
                     <input
                       required
                       type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@example.com"
                       className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
                     />
@@ -145,7 +228,11 @@ export const Contact: React.FC = () => {
                   <label className="block text-xs font-bold text-slate-700 mb-1.5">
                     Brand of Interest
                   </label>
-                  <select className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+                  <select
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                  >
                     <option>All 3 Brands</option>
                     <option>Gladchemistry (Organic Personal Care)</option>
                     <option>Feliz be Glad (Fine Fragrances &amp; Diffusers)</option>
@@ -160,6 +247,8 @@ export const Contact: React.FC = () => {
                   <textarea
                     required
                     rows={4}
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
                     placeholder="Tell us how we can help..."
                     className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
                   />
@@ -170,7 +259,7 @@ export const Contact: React.FC = () => {
                   className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 transition-all active:scale-95 cursor-pointer"
                 >
                   <Send className="h-4 w-4" />
-                  Send Message
+                  Continue
                 </button>
               </form>
             )}

@@ -3,9 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, Trash2, ShoppingBag, CheckCircle2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { BRANDS } from '../data/brands';
-
-// The shop's own number, as published on the contact page: +27 73 719 0821
-const SHOP_WHATSAPP = '27737190821';
+import { waLink, WA_TARGET, SHOP_WHATSAPP_DISPLAY } from '../lib/whatsapp';
 
 export const CartDrawer: React.FC = () => {
   const { items, isOpen, closeCart, updateQuantity, removeFromCart, clearCart, subtotal } =
@@ -15,34 +13,32 @@ export const CartDrawer: React.FC = () => {
   /**
    * Orders are handed to WhatsApp, not "confirmed" by the site.
    *
-   * Previously this flipped a flag, showed "Order Confirmed!" and emptied the
-   * cart -- while sending nothing anywhere. A customer could believe they had
-   * ordered and the shop would never hear about it. Until there is a payment
-   * and fulfilment backend, the honest behaviour is to build the order and
-   * open it in WhatsApp addressed to the shop, so the customer sees exactly
-   * what is being sent and to whom.
+   * Checkout used to call `window.open(...)`, a scripted popup. Popup
+   * blockers and the in-app browsers inside Instagram, Facebook and TikTok
+   * are entitled to refuse those — silently — and then nothing opened at all
+   * while the drawer still announced the order had gone. Her own phone worked
+   * because she opens WhatsApp directly; a customer tapping through from a
+   * social app got nothing.
+   *
+   * The control below is therefore a real `<a href>` carrying the whole
+   * message. A link is a user-initiated navigation, not a popup, so nothing
+   * is permitted to block it, and long-pressing it still offers "open in
+   * WhatsApp" as a second route.
    */
-  const handleCheckout = () => {
-    const lines = items.map(
-      ({ product, quantity }) => `• ${quantity} x ${product.name} (${product.size}) — R${(product.price * quantity).toFixed(2)}`
-    );
-    const message = [
-      'Hi Gladchemistry, I would like to order:',
-      '',
-      ...lines,
-      '',
-      `Subtotal: R${subtotal.toFixed(2)}`,
-      '',
-      'Please confirm availability and total.',
-    ].join('\n');
-
-    window.open(
-      `https://wa.me/${SHOP_WHATSAPP}?text=${encodeURIComponent(message)}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
-    setSent(true);
-  };
+  const lines = items.map(
+    ({ product, quantity }) =>
+      `• ${quantity} x ${product.name} (${product.size}) — R${(product.price * quantity).toFixed(2)}`
+  );
+  const message = [
+    'Hi Gladchemistry, I would like to order:',
+    '',
+    ...lines,
+    '',
+    `Subtotal: R${subtotal.toFixed(2)}`,
+    '',
+    'Please confirm availability and total.',
+  ].join('\n');
+  const href = waLink(message);
 
   return (
     <AnimatePresence>
@@ -87,9 +83,19 @@ export const CartDrawer: React.FC = () => {
                     Order sent on WhatsApp
                   </h3>
                   <p className="text-sm text-slate-500 max-w-xs">
-                    Your order has been opened in WhatsApp, addressed to Gladchemistry. Send that
-                    message and we will confirm availability and the total. Nothing is charged on
-                    this site.
+                    WhatsApp should have opened with your order written out. Send that message and
+                    we will confirm availability and the total — nothing is charged on this site.
+                  </p>
+                  <a
+                    href={href}
+                    target={WA_TARGET}
+                    rel="noopener noreferrer"
+                    className="mt-4 text-[12px] font-bold underline decoration-2 underline-offset-2 text-emerald-700"
+                  >
+                    WhatsApp didn't open? Tap here
+                  </a>
+                  <p className="mt-3 text-[11px] text-slate-400">
+                    Or message {SHOP_WHATSAPP_DISPLAY} directly.
                   </p>
                   <button
                     onClick={() => {
@@ -180,15 +186,19 @@ export const CartDrawer: React.FC = () => {
                     R{subtotal.toFixed(2)}
                   </span>
                 </div>
-                <button
-                  onClick={handleCheckout}
-                  className="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-lg shadow-slate-900/15 transition-all active:scale-[0.99] cursor-pointer"
+                <a
+                  href={href}
+                  target={WA_TARGET}
+                  rel="noopener noreferrer"
+                  onClick={() => setSent(true)}
+                  className="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm shadow-lg shadow-slate-900/15 transition-all active:scale-[0.99] cursor-pointer inline-flex items-center justify-center gap-2"
                 >
                   Send order on WhatsApp
-                </button>
+                </a>
                 <p className="text-[11px] text-slate-400 text-center leading-relaxed">
-                  Checkout opens WhatsApp with your order written out. Nothing is charged on this
-                  site — we confirm the total with you first.
+                  Opens WhatsApp with your order written out, addressed to{' '}
+                  {SHOP_WHATSAPP_DISPLAY}. Nothing is charged on this site — we confirm the total
+                  with you first.
                 </p>
               </div>
             )}
